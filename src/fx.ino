@@ -66,6 +66,7 @@ AudioControlSGTL5000     sgtl5000_1;     //xy=232,287
 
 void setup() {
   Serial.begin(9600);
+  //usbMIDI.setHandleControlChange(myControlChange);
 
   // Audio connections require memory to work.  For more
   // detailed information, see the MemoryAndCpuUsage example 
@@ -91,24 +92,24 @@ void setup() {
     }
   }
 */
-  mix_rev.gain(0, 1);    // left to rev
-  mix_rev.gain(1, 1);    // right to rev
+
+  // turn down input to reverb, over saturates
+  mix_rev.gain(0, 0.5);    // left to rev
+  mix_rev.gain(1, 0.5);    // right to rev
 
   mix_del_l.gain(0, 1);  // in
-  mix_del_l.gain(1, 0.6);  // fb
+  mix_del_l.gain(1, 0);  // fb
 
   mix_del_r.gain(0, 1);  // in
-  mix_del_r.gain(1, 0.6);  // fb
+  mix_del_r.gain(1, 0);  // fb
 
   mix_op_l.gain(0, 1.0); // wet
-  mix_op_l.gain(1, 0.3); // reverb
-  mix_op_l.gain(2, 1.0); // delay
+  mix_op_l.gain(1, 0.0); // reverb
+  mix_op_l.gain(2, 0.0); // delay
   
   mix_op_r.gain(0, 1.0); // wet
-  mix_op_r.gain(1, 0.3); // reverb
-  mix_op_r.gain(2, 1.0); // delay
-
-//      120 / 60 = 2bps
+  mix_op_r.gain(1, 0.0); // reverb
+  mix_op_r.gain(2, 0.0); // delay
 
   delay_l.delay(0, 500);
   delay_r.delay(0, 750);
@@ -117,16 +118,109 @@ void setup() {
   freeverbs1.damping(0.8);
 }
 
+enum Cmd {
+    REV_SIZE,
+    REV_DAMP,
+    MIX_DEL,
+    MIX_SIG,
+    MIX_REV,
+    DEL_L_TIME,
+    DEL_R_TIME,
+    DEL_FB,
+    DEL_FB_FILT_FREQ,
+    DEL_FB_FILT_RES,
+    MIX_REV_IN,
+    };
 void loop()
 {
+   if(Serial.available() == 2)
+   {
+       char cmd = Serial.read();
+       uint8_t val = Serial.read();
+       float val_0_to_1 = float(val) / 255;
+       switch(cmd) {
+          case REV_SIZE: 
+               freeverbs1.roomsize(val_0_to_1);
+               Serial.print("roomsize: "); Serial.println(val);
+              break;
+          case REV_DAMP:
+               freeverbs1.damping(val_0_to_1);
+               Serial.print("damping: "); Serial.println(val);
+              break;
+          case MIX_REV:
+              mix_op_l.gain(1, val_0_to_1); // reverb
+              mix_op_r.gain(1, val_0_to_1); // reverb
+              Serial.print("mix reverb: "); Serial.println(val);
+              break;
+          case MIX_DEL:
+              mix_op_l.gain(2, val_0_to_1); // reverb
+              mix_op_r.gain(2, val_0_to_1); // reverb
+              Serial.print("mix delay: "); Serial.println(val);
+              break;
+          case MIX_SIG:
+              mix_op_l.gain(0, val_0_to_1); // reverb
+              mix_op_r.gain(0, val_0_to_1); // reverb
+              Serial.print("mix wet: "); Serial.println(val);
+              break;
+          case DEL_L_TIME:
+          {
+              int dtime = map(val, 0, 255, 0, 2000); 
+              delay_l.delay(0, dtime);
+              Serial.print("del l: "); Serial.println(dtime);
+              break;
+          }
+          case DEL_R_TIME:
+          {
+              int dtime = map(val, 0, 255, 0, 2000); 
+              delay_r.delay(0, dtime);
+              Serial.print("del r: "); Serial.println(dtime);
+              break;
+          }
+          case DEL_FB:
+              mix_del_r.gain(1, val_0_to_1);  // fb
+              mix_del_l.gain(1, val_0_to_1);  // fb
+              Serial.print("del fb: "); Serial.println(val_0_to_1);
+              break;
+
+          case DEL_FB_FILT_FREQ:
+          {
+              float freq = map(val, 0, 255, 0, 10000); 
+              filter_del_l.frequency(freq);  // fb
+              filter_del_r.frequency(freq);  // fb
+              Serial.print("del fb freq: "); Serial.println(freq);
+              break;
+          }
+
+          case DEL_FB_FILT_RES:
+          {
+              float resonance = map(val, 0, 255, 0, 5); 
+              filter_del_l.resonance(resonance);  // fb
+              filter_del_r.frequency(resonance);  // fb
+              Serial.print("del fb res: "); Serial.println(resonance);
+              break;
+          }
+
+          case MIX_REV_IN:
+              mix_rev.gain(0, val_0_to_1);    // left to rev
+              mix_rev.gain(1, val_0_to_1);    // right to rev
+              Serial.print("rev mix in: "); Serial.println(val_0_to_1);
+              break;
+
+          default:
+               Serial.print("got cmd: "); Serial.print(cmd);
+               Serial.print("with val: "); Serial.println(val);
+               break;
+       }
+   }
       /*
       mixer2.gain(0, knob_A1);
       mixer2.gain(1, 1.0 - knob_A1);
       mixer3.gain(0, knob_A1);
       mixer3.gain(1, 1.0 - knob_A1);
       */
-
+// usbMIDI.read();
       
+/*
   Serial.print("all=");
   Serial.print(AudioProcessorUsage());
   Serial.print(",");
@@ -137,5 +231,18 @@ void loop()
   Serial.print(",");
   Serial.println(AudioMemoryUsageMax());
   delay(50);
+*/
+}
+void myControlChange(byte channel, byte control, byte value) {
+  float val_0_to_1 = value / 127;
+  switch (control) {
+    case 100:
+      freeverbs1.roomsize(val_0_to_1);
+      break;
+
+    case 101:
+      freeverbs1.damping(val_0_to_1);
+      break;
+  }
 }
 
