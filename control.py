@@ -22,7 +22,9 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def send_cmd(self, cmd, val):
         fmt = "BB"
-        logging.info("sending %s %d" % (cmd, val))
+        log_msg = "sending %s %d" % (cmd, val)
+        logging.info(log_msg)
+        self.statusBar.showMessage(log_msg)
 
         self.ser.write(struct.pack(fmt, cmd, int(val)))
         logging.info(self.ser.readline())
@@ -41,7 +43,10 @@ class MainWindow(QtWidgets.QMainWindow):
             { 'tip': 'delay time l',   'cmd': Cmd.DEL_L_TIME,   'min': 0, 'max':2000, 'widget': None },
             { 'tip': 'delay time r',   'cmd': Cmd.DEL_R_TIME,   'min': 0, 'max':2000, 'widget': None },
             { 'tip': 'delay mix',      'cmd': Cmd.MIX_DEL,      'min': 0, 'max':255,  'widget': None },
-            { 'tip': 'reverb mix',     'cmd': Cmd.MIX_REV,      'min': 0, 'max':255,  'widget': None },
+            { 'tip': 'signal mix',     'cmd': Cmd.MIX_SIG,      'min': 0, 'max':255,  'widget': None },
+            { 'tip': 'reverb mix',     'cmd': Cmd.MIX_REV_IN,   'min': 0, 'max':255,  'widget': None },
+            { 'tip': 'reverb size',    'cmd': Cmd.REV_SIZE,     'min': 0, 'max':255,  'widget': None },
+            { 'tip': 'reverb damp',    'cmd': Cmd.REV_DAMP,     'min': 0, 'max':255,  'widget': None },
             { 'tip': 'filt freq',      'cmd': Cmd.DEL_FB_FILT_FREQ,      'min': 0, 'max':255,  'widget': None },
             { 'tip': 'filt q',         'cmd': Cmd.DEL_FB_FILT_RES,      'min': 0, 'max':255,  'widget': None },
             { 'tip': 'delay feedback', 'cmd': Cmd.DEL_FB,       'min': 0, 'max':255,  'widget': None },
@@ -52,13 +57,16 @@ class MainWindow(QtWidgets.QMainWindow):
         self.widgets = []
 
         for w in self.knob_config:
-            w['widget'] = QtWidgets.QDial()
+            w['widget'] = QtWidgets.QSlider()
             w['widget'].setMinimum(w['min'])
             w['widget'].setMaximum(w['max'])
             w['widget'].setToolTip(w['tip'])
             logging.info("%s %s %d %d %s" % (w['tip'], w['cmd'], w['min'], w['max'], w['widget']))
             w['widget'].valueChanged.connect(lambda state, cmd=w['cmd'], w=w: self.map_cmd(w))
-            self.gridLayout.addWidget(w['widget'])
+            label = QtWidgets.QLabel()
+            label.setText(w['tip'])
+            self.layout.addWidget(label)
+            self.layout.addWidget(w['widget'])
 
         bpms = (60 / 120) * 1000
         delay_l = bpms * 0.15
@@ -76,7 +84,6 @@ class MainWindow(QtWidgets.QMainWindow):
         self.send_cmd(Cmd.DEL_FB_FILT_FREQ, 140)
         self.send_cmd(Cmd.DEL_FB_FILT_RES, 100)
 
-        self.statusBar.showMessage("ready")
 
 if __name__ == '__main__':
     """
