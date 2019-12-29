@@ -24,25 +24,28 @@ class Cmd(IntEnum):
 
 class MainWindow(QtWidgets.QMainWindow):
 
-    def send_cmd(self, cmd, val):
+    def send_cmd(self, cmd, val, verbose=False):
         fmt = "BB"
         self.ser.write(struct.pack(fmt, cmd, int(val)))
         result = self.ser.readline().decode("utf-8").strip()
         log_msg = "tx [%s %d] rx [%s]" % (cmd, val, result)
-        logging.debug(log_msg)
+        if verbose:
+            logging.info(log_msg)
+        else:
+            logging.debug(log_msg)
         self.statusBar.showMessage(log_msg)
 
     def pressed(self, widget):
-        logging.info("pressed %s %d" % (widget['cmd'], widget['widget'].value()))
+        logging.debug("pressed %s %d" % (widget['cmd'], widget['widget'].value()))
         widget['pressed'] = True
 
     def released(self, widget):
-        logging.info("released %s %d" % (widget['cmd'], widget['widget'].value()))
+        logging.debug("released %s %d" % (widget['cmd'], widget['widget'].value()))
         widget['pressed'] = False
 
     def slider_moved(self, widget):
         if not self.record:
-            logging.info("setting %s for all = %d" % (widget['tip'], widget['widget'].value()))
+            logging.debug("setting %s for all = %d" % (widget['tip'], widget['widget'].value()))
             widget['seq'] = [ widget['widget'].value() ] * MainWindow.SEQ_STEPS
         widget['disp'].setValue(widget['widget'].value())
 
@@ -65,13 +68,13 @@ class MainWindow(QtWidgets.QMainWindow):
         self.beat += 1
         if self.beat == MainWindow.SEQ_STEPS:
             self.beat = 0
-            self.send_cmd(Cmd.AUDIO_PROC,0)
+            self.send_cmd(Cmd.AUDIO_PROC,0, verbose=True)
         if self.beat == MainWindow.SEQ_STEPS / 2:
-            self.send_cmd(Cmd.AUDIO_MEM,0)
+            self.send_cmd(Cmd.AUDIO_MEM,0, verbose=True)
         if self.record:
             for w in self.widget_config:
                 if w['pressed']:
-                    logging.info("setting %s for beat %d = %d" % (w['tip'], self.beat, w['widget'].value()))
+                    logging.debug("setting %s for beat %d = %d" % (w['tip'], self.beat, w['widget'].value()))
                     w['seq'][self.beat] = w['widget'].value()
 
         if self.play:
