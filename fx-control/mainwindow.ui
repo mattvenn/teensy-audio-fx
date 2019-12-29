@@ -18,12 +18,42 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <widget class="QLineEdit" name="lineEdit_bpm"/>
+       <widget class="QLineEdit" name="lineEdit_bpm">
+        <property name="text">
+         <string>120</string>
+        </property>
+       </widget>
       </item>
       <item>
        <widget class="QPushButton" name="button_rec">
         <property name="text">
          <string>record</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="checked">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="button_seq_reset">
+        <property name="text">
+         <string>set to 1</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QProgressBar" name="progressBar_beats">
+        <property name="maximum">
+         <number>15</number>
+        </property>
+        <property name="value">
+         <number>0</number>
+        </property>
+        <property name="textVisible">
+         <bool>false</bool>
         </property>
        </widget>
       </item>
