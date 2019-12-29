@@ -12,9 +12,9 @@ https://github.com/PaulStoffregen/Audio/tree/master/examples
 #include <SD.h>
 #include <SerialFlash.h>
 
-
 // GUItool: begin automatically generated code
 AudioInputI2S            i2s2;           //xy=69,326
+AudioSynthNoisePink      pink1;          //xy=71,527
 AudioMixer4              mix_del_l;      //xy=312,424
 AudioMixer4              mix_del_r;      //xy=316,614
 AudioFilterStateVariable filter_del_r;   //xy=424,740
@@ -32,19 +32,21 @@ AudioConnection          patchCord3(i2s2, 0, mix_rev, 0);
 AudioConnection          patchCord4(i2s2, 1, mix_op_r, 0);
 AudioConnection          patchCord5(i2s2, 1, mix_rev, 1);
 AudioConnection          patchCord6(i2s2, 1, mix_del_r, 0);
-AudioConnection          patchCord7(mix_del_l, 0, filter_del_l, 0);
-AudioConnection          patchCord8(mix_del_r, 0, filter_del_r, 0);
-AudioConnection          patchCord9(filter_del_r, 2, delay_r, 0);
-AudioConnection          patchCord10(filter_del_l, 2, delay_l, 0);
-AudioConnection          patchCord11(mix_rev, freeverbs1);
-AudioConnection          patchCord12(delay_l, 0, mix_op_l, 2);
-AudioConnection          patchCord13(delay_l, 0, mix_del_l, 1);
-AudioConnection          patchCord14(delay_r, 0, mix_op_r, 2);
-AudioConnection          patchCord15(delay_r, 0, mix_del_r, 1);
-AudioConnection          patchCord16(freeverbs1, 0, mix_op_l, 1);
-AudioConnection          patchCord17(freeverbs1, 1, mix_op_r, 1);
-AudioConnection          patchCord18(mix_op_l, 0, i2s1, 0);
-AudioConnection          patchCord19(mix_op_r, 0, i2s1, 1);
+AudioConnection          patchCord7(pink1, 0, mix_del_r, 2);
+AudioConnection          patchCord8(pink1, 0, mix_del_l, 2);
+AudioConnection          patchCord9(mix_del_l, 0, filter_del_l, 0);
+AudioConnection          patchCord10(mix_del_r, 0, filter_del_r, 0);
+AudioConnection          patchCord11(filter_del_r, 2, delay_r, 0);
+AudioConnection          patchCord12(filter_del_l, 2, delay_l, 0);
+AudioConnection          patchCord13(mix_rev, freeverbs1);
+AudioConnection          patchCord14(delay_l, 0, mix_op_l, 2);
+AudioConnection          patchCord15(delay_l, 0, mix_del_l, 1);
+AudioConnection          patchCord16(delay_r, 0, mix_op_r, 2);
+AudioConnection          patchCord17(delay_r, 0, mix_del_r, 1);
+AudioConnection          patchCord18(freeverbs1, 0, mix_op_l, 1);
+AudioConnection          patchCord19(freeverbs1, 1, mix_op_r, 1);
+AudioConnection          patchCord20(mix_op_l, 0, i2s1, 0);
+AudioConnection          patchCord21(mix_op_r, 0, i2s1, 1);
 AudioControlSGTL5000     sgtl5000_1;     //xy=292,903
 // GUItool: end automatically generated code
 
@@ -94,6 +96,8 @@ void setup() {
   }
 */
 
+  pink1.amplitude(0.5);
+
   // turn down input to reverb, over saturates
   mix_rev.gain(0, 0.5);    // left to rev
   mix_rev.gain(1, 0.5);    // right to rev
@@ -131,6 +135,9 @@ enum Cmd {
     DEL_FB_FILT_FREQ,
     DEL_FB_FILT_RES,
     MIX_REV_IN,
+    MIX_NOISE,
+    AUDIO_PROC,
+    AUDIO_MEM,
     };
 void loop()
 {
@@ -157,6 +164,11 @@ void loop()
               mix_del_l.gain(0, val_0_to_1); // delay
               mix_del_r.gain(0, val_0_to_1); // delay
               Serial.print("mix delay: "); Serial.println(val);
+              break;
+          case MIX_NOISE:
+              mix_del_l.gain(2, val_0_to_1); // delay
+              mix_del_r.gain(2, val_0_to_1); // delay
+              Serial.print("mix noise: "); Serial.println(val);
               break;
           case MIX_SIG:
               mix_op_l.gain(0, val_0_to_1); // reverb
@@ -207,6 +219,14 @@ void loop()
               Serial.print("rev mix in: "); Serial.println(val_0_to_1);
               break;
 
+          case AUDIO_PROC:
+              Serial.print("audio cpu max: "); Serial.println(AudioProcessorUsageMax());
+              break;
+
+          case AUDIO_MEM:
+              Serial.print("audio mem max: "); Serial.println(AudioMemoryUsageMax());
+              break;
+
           default:
                Serial.print("got cmd: "); Serial.print(cmd);
                Serial.print("with val: "); Serial.println(val);
@@ -225,12 +245,10 @@ void loop()
   Serial.print("all=");
   Serial.print(AudioProcessorUsage());
   Serial.print(",");
-  Serial.print(AudioProcessorUsageMax());
   Serial.print("    ");
   Serial.print("Memory: ");
   Serial.print(AudioMemoryUsage());
   Serial.print(",");
-  Serial.println(AudioMemoryUsageMax());
   delay(50);
 */
 }

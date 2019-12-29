@@ -18,17 +18,19 @@ class Cmd(IntEnum):
     DEL_FB_FILT_FREQ = 8
     DEL_FB_FILT_RES = 9
     MIX_REV_IN = 10
+    MIX_NOISE = 11
+    AUDIO_PROC = 12
+    AUDIO_MEM = 13
 
 class MainWindow(QtWidgets.QMainWindow):
 
     def send_cmd(self, cmd, val):
         fmt = "BB"
-        log_msg = "sending %s %d" % (cmd, val)
+        self.ser.write(struct.pack(fmt, cmd, int(val)))
+        result = self.ser.readline().decode("utf-8").strip()
+        log_msg = "tx [%s %d] rx [%s]" % (cmd, val, result)
         logging.debug(log_msg)
         self.statusBar.showMessage(log_msg)
-
-        self.ser.write(struct.pack(fmt, cmd, int(val)))
-        logging.debug(self.ser.readline())
 
     def pressed(self, widget):
         logging.info("pressed %s %d" % (widget['cmd'], widget['widget'].value()))
@@ -63,7 +65,9 @@ class MainWindow(QtWidgets.QMainWindow):
         self.beat += 1
         if self.beat == MainWindow.SEQ_STEPS:
             self.beat = 0
-
+            self.send_cmd(Cmd.AUDIO_PROC,0)
+        if self.beat == MainWindow.SEQ_STEPS / 2:
+            self.send_cmd(Cmd.AUDIO_MEM,0)
         if self.record:
             for w in self.widget_config:
                 if w['pressed']:
@@ -106,6 +110,7 @@ class MainWindow(QtWidgets.QMainWindow):
             { 'tip': 'del mix',      'cmd': Cmd.MIX_DEL,      'min': 0, 'max':255},
             { 'tip': 'sig mix',      'cmd': Cmd.MIX_SIG,      'min': 0, 'max':255},
             { 'tip': 'rev mix',      'cmd': Cmd.MIX_REV_IN,   'min': 0, 'max':255},
+            { 'tip': 'noiz mix',     'cmd': Cmd.MIX_NOISE,    'min': 0, 'max':255 },
             { 'tip': 'rev size',     'cmd': Cmd.REV_SIZE,     'min': 0, 'max':255},
             { 'tip': 'rev damp',     'cmd': Cmd.REV_DAMP,     'min': 0, 'max':255},
             { 'tip': 'fil freq',     'cmd': Cmd.DEL_FB_FILT_FREQ,      'min': 0, 'max':255},
