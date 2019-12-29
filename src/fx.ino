@@ -12,39 +12,40 @@ https://github.com/PaulStoffregen/Audio/tree/master/examples
 #include <SD.h>
 #include <SerialFlash.h>
 
+
 // GUItool: begin automatically generated code
-AudioInputI2S            i2s2;           //xy=234,341
-AudioMixer4              mix_del_r;  //xy=292,649
-AudioMixer4              mix_del_l;         //xy=293,439
-AudioFilterStateVariable filter_del_r; //xy=406,735
-AudioFilterStateVariable filter_del_l;        //xy=411,529
-AudioMixer4              mix_rev;         //xy=512,286
-AudioEffectDelay         delay_l;         //xy=639,500
-AudioEffectDelay         delay_r; //xy=641,664
-AudioEffectFreeverbStereo freeverbs1;     //xy=683,271
-AudioMixer4              mix_op_l;         //xy=990,374
-AudioMixer4              mix_op_r;         //xy=993,467
-AudioOutputI2S           i2s1;           //xy=1174,420
+AudioInputI2S            i2s2;           //xy=69,326
+AudioMixer4              mix_del_l;      //xy=312,424
+AudioMixer4              mix_del_r;      //xy=316,614
+AudioFilterStateVariable filter_del_r;   //xy=424,740
+AudioFilterStateVariable filter_del_l;   //xy=433,514
+AudioMixer4              mix_rev;        //xy=471,294
+AudioEffectDelay         delay_l;        //xy=624,618
+AudioEffectDelay         delay_r;        //xy=626,762
+AudioEffectFreeverbStereo freeverbs1;     //xy=642,279
+AudioMixer4              mix_op_l;       //xy=949,382
+AudioMixer4              mix_op_r;       //xy=952,475
+AudioOutputI2S           i2s1;           //xy=1133,428
 AudioConnection          patchCord1(i2s2, 0, mix_del_l, 0);
 AudioConnection          patchCord2(i2s2, 0, mix_op_l, 0);
 AudioConnection          patchCord3(i2s2, 0, mix_rev, 0);
 AudioConnection          patchCord4(i2s2, 1, mix_op_r, 0);
 AudioConnection          patchCord5(i2s2, 1, mix_rev, 1);
 AudioConnection          patchCord6(i2s2, 1, mix_del_r, 0);
-AudioConnection          patchCord7(mix_del_r, delay_r);
-AudioConnection          patchCord8(mix_del_l, delay_l);
-AudioConnection          patchCord9(filter_del_r, 2, mix_del_l, 1);
-AudioConnection          patchCord10(filter_del_l, 2, mix_del_r, 1);
+AudioConnection          patchCord7(mix_del_l, 0, filter_del_l, 0);
+AudioConnection          patchCord8(mix_del_r, 0, filter_del_r, 0);
+AudioConnection          patchCord9(filter_del_r, 2, delay_r, 0);
+AudioConnection          patchCord10(filter_del_l, 2, delay_l, 0);
 AudioConnection          patchCord11(mix_rev, freeverbs1);
 AudioConnection          patchCord12(delay_l, 0, mix_op_l, 2);
-AudioConnection          patchCord13(delay_l, 0, filter_del_l, 0);
-AudioConnection          patchCord14(delay_r, 0, filter_del_r, 0);
-AudioConnection          patchCord15(delay_r, 0, mix_op_r, 2);
+AudioConnection          patchCord13(delay_l, 0, mix_del_l, 1);
+AudioConnection          patchCord14(delay_r, 0, mix_op_r, 2);
+AudioConnection          patchCord15(delay_r, 0, mix_del_r, 1);
 AudioConnection          patchCord16(freeverbs1, 0, mix_op_l, 1);
 AudioConnection          patchCord17(freeverbs1, 1, mix_op_r, 1);
 AudioConnection          patchCord18(mix_op_l, 0, i2s1, 0);
 AudioConnection          patchCord19(mix_op_r, 0, i2s1, 1);
-AudioControlSGTL5000     sgtl5000_1;     //xy=232,287
+AudioControlSGTL5000     sgtl5000_1;     //xy=292,903
 // GUItool: end automatically generated code
 
 // Use these with the Teensy Audio Shield
@@ -105,11 +106,11 @@ void setup() {
 
   mix_op_l.gain(0, 1.0); // wet
   mix_op_l.gain(1, 0.0); // reverb
-  mix_op_l.gain(2, 0.0); // delay
+  mix_op_l.gain(2, 1.0); // delay
   
   mix_op_r.gain(0, 1.0); // wet
   mix_op_r.gain(1, 0.0); // reverb
-  mix_op_r.gain(2, 0.0); // delay
+  mix_op_r.gain(2, 1.0); // delay
 
   delay_l.delay(0, 500);
   delay_r.delay(0, 750);
@@ -153,8 +154,8 @@ void loop()
               Serial.print("mix reverb: "); Serial.println(val);
               break;
           case MIX_DEL:
-              mix_op_l.gain(2, val_0_to_1); // reverb
-              mix_op_r.gain(2, val_0_to_1); // reverb
+              mix_del_l.gain(0, val_0_to_1); // delay
+              mix_del_r.gain(0, val_0_to_1); // delay
               Serial.print("mix delay: "); Serial.println(val);
               break;
           case MIX_SIG:

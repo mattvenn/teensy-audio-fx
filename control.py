@@ -40,20 +40,23 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ser = serial.Serial("/dev/ttyACM0", 9600, timeout = 2, write_timeout = 2)
 
         self.knob_config = [
-            { 'tip': 'delay time l',   'cmd': Cmd.DEL_L_TIME,   'min': 0, 'max':2000, 'widget': None },
-            { 'tip': 'delay time r',   'cmd': Cmd.DEL_R_TIME,   'min': 0, 'max':2000, 'widget': None },
-            { 'tip': 'delay mix',      'cmd': Cmd.MIX_DEL,      'min': 0, 'max':255,  'widget': None },
-            { 'tip': 'signal mix',     'cmd': Cmd.MIX_SIG,      'min': 0, 'max':255,  'widget': None },
-            { 'tip': 'reverb mix',     'cmd': Cmd.MIX_REV_IN,   'min': 0, 'max':255,  'widget': None },
-            { 'tip': 'reverb size',    'cmd': Cmd.REV_SIZE,     'min': 0, 'max':255,  'widget': None },
-            { 'tip': 'reverb damp',    'cmd': Cmd.REV_DAMP,     'min': 0, 'max':255,  'widget': None },
-            { 'tip': 'filt freq',      'cmd': Cmd.DEL_FB_FILT_FREQ,      'min': 0, 'max':255,  'widget': None },
-            { 'tip': 'filt q',         'cmd': Cmd.DEL_FB_FILT_RES,      'min': 0, 'max':255,  'widget': None },
-            { 'tip': 'delay feedback', 'cmd': Cmd.DEL_FB,       'min': 0, 'max':255,  'widget': None },
+            { 'tip': 'delay time l',   'cmd': Cmd.DEL_L_TIME,   'min': 0, 'max':2000, 'widget': None, 'mem_a': 0, 'mem_b': 0 },
+            { 'tip': 'delay time r',   'cmd': Cmd.DEL_R_TIME,   'min': 0, 'max':2000, 'widget': None, 'mem_a': 0, 'mem_b': 0 },
+            { 'tip': 'delay mix',      'cmd': Cmd.MIX_DEL,      'min': 0, 'max':255,  'widget': None, 'mem_a': 0, 'mem_b': 0 },
+            { 'tip': 'signal mix',     'cmd': Cmd.MIX_SIG,      'min': 0, 'max':255,  'widget': None, 'mem_a': 0, 'mem_b': 0 },
+            { 'tip': 'reverb mix',     'cmd': Cmd.MIX_REV_IN,   'min': 0, 'max':255,  'widget': None, 'mem_a': 0, 'mem_b': 0 },
+            { 'tip': 'reverb size',    'cmd': Cmd.REV_SIZE,     'min': 0, 'max':255,  'widget': None, 'mem_a': 0, 'mem_b': 0 },
+            { 'tip': 'reverb damp',    'cmd': Cmd.REV_DAMP,     'min': 0, 'max':255,  'widget': None, 'mem_a': 0, 'mem_b': 0 },
+            { 'tip': 'filt freq',      'cmd': Cmd.DEL_FB_FILT_FREQ,      'min': 0, 'max':255,  'widget': None, 'mem_a': 0, 'mem_b': 0 },
+            { 'tip': 'filt q',         'cmd': Cmd.DEL_FB_FILT_RES,      'min': 0, 'max':255,  'widget': None, 'mem_a': 0, 'mem_b': 0 },
+            { 'tip': 'delay feedback', 'cmd': Cmd.DEL_FB,       'min': 0, 'max':255,  'widget': None, 'mem_a': 0, 'mem_b': 0 },
             ]
 
         uic.loadUi('fx-control/mainwindow.ui', self)
         #self.dial_time_r.valueChanged.connect(lambda: self.send_cmd(Cmd.DEL_L_TIME, self.dial_time_r.value()))
+        self.button_mema.pressed.connect(lambda: self.store_mem('mem_a'))
+        self.button_memb.pressed.connect(lambda: self.store_mem('mem_b'))
+        self.slider_ab.valueChanged.connect(lambda: self.cross_fade_mem())
         self.widgets = []
 
         for w in self.knob_config:
@@ -83,6 +86,33 @@ class MainWindow(QtWidgets.QMainWindow):
         self.send_cmd(Cmd.DEL_FB, 140)
         self.send_cmd(Cmd.DEL_FB_FILT_FREQ, 140)
         self.send_cmd(Cmd.DEL_FB_FILT_RES, 100)
+
+    def store_mem(self, mem):
+        for w in self.knob_config:
+            w[mem] = w['widget'].value()
+
+    """
+    slider for fx
+    0  25  50  75 100
+       a
+                b
+
+    ab slider
+    0  25  50  75 100
+    25             75 
+
+    """
+    def cross_fade_mem(self):
+        logging.info("cross fade %d" % self.slider_ab.value())
+        for w in self.knob_config:
+            val_per_step = (w['mem_a'] - w['mem_b']) / 100 # will be positive if mem_a > mem_b
+            if val_per_step > 0:
+                new_val = w['mem_a'] - val_per_step * (self.slider_ab.value())
+                logging.info("no work")
+            else:
+                new_val = w['mem_b'] + val_per_step * (100-self.slider_ab.value())
+            logging.info("%s %d %d" % (w['tip'], val_per_step, new_val))
+            w['widget'].setValue(new_val)
 
 
 if __name__ == '__main__':
