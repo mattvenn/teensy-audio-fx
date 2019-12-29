@@ -55,7 +55,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def get_ms_from_bpm(self):
         bpm = int(self.lineEdit_bpm.text())
-        return (600*16)/bpm
+        return (60000*16/MainWindow.SEQ_STEPS)/bpm
 
     def update_bpm(self):
         self.timer.start(self.get_ms_from_bpm())
@@ -79,6 +79,10 @@ class MainWindow(QtWidgets.QMainWindow):
                 if not w['pressed']:
                     w['disp'].setValue(w['seq'][self.beat])
 
+    def reset_seq(self):
+        for w in self.widget_config:
+            w['seq'] = [w['widget'].value()] * MainWindow.SEQ_STEPS
+
     def reset_beat(self):
         self.beat = 0
         self.progressBar_beats.setValue(self.beat)
@@ -96,7 +100,7 @@ class MainWindow(QtWidgets.QMainWindow):
             self.button_rec.setChecked(False)
             logging.info('stop recording')
 
-    SEQ_STEPS = 100
+    SEQ_STEPS = 160
 
     def __init__(self):
         super(self.__class__, self).__init__()
@@ -118,14 +122,13 @@ class MainWindow(QtWidgets.QMainWindow):
             { 'tip': 'del fb',       'cmd': Cmd.DEL_FB,       'min': 0, 'max':255 },
             ]
 
-        for w in self.widget_config:
-            w['seq'] = [0]*MainWindow.SEQ_STEPS
 
         uic.loadUi('fx-control/mainwindow.ui', self)
         #self.dial_time_r.valueChanged.connect(lambda: self.send_cmd(Cmd.DEL_L_TIME, self.dial_time_r.value()))
         self.button_mema.pressed.connect(lambda: self.store_mem('mem_a'))
         self.button_mema.hide()
         self.button_memb.hide()
+        self.button_reset.pressed.connect(lambda: self.reset_seq())
         self.progressBar_beats.setMaximum(MainWindow.SEQ_STEPS)
         self.button_memb.pressed.connect(lambda: self.store_mem('mem_b'))
         self.button_seq_reset.pressed.connect(lambda: self.reset_beat())
@@ -163,6 +166,9 @@ class MainWindow(QtWidgets.QMainWindow):
             self.layout.addWidget(w['widget'])
             self.layout.addWidget(w['disp'])
 
+        self.reset_seq()
+
+        """
         bpms = (60 / 120) * 1000
         delay_l = bpms * 0.15
         delay_r = bpms * 0.16
@@ -178,6 +184,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.send_cmd(Cmd.DEL_FB, 140)
         self.send_cmd(Cmd.DEL_FB_FILT_FREQ, 140)
         self.send_cmd(Cmd.DEL_FB_FILT_RES, 100)
+        """
 
     def store_mem(self, mem):
         for w in self.widget_config:

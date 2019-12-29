@@ -38,6 +38,13 @@
        </widget>
       </item>
       <item>
+       <widget class="QPushButton" name="button_reset">
+        <property name="text">
+         <string>reset</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QPushButton" name="button_seq_reset">
         <property name="text">
          <string>set to 1</string>
