@@ -97,23 +97,24 @@ void setup() {
 */
 
   pink1.amplitude(0.5);
-
   // turn down input to reverb, over saturates
-  mix_rev.gain(0, 0.5);    // left to rev
-  mix_rev.gain(1, 0.5);    // right to rev
+  mix_rev.gain(0, 0.0);    // left to rev
+  mix_rev.gain(1, 0.0);    // right to rev
 
   mix_del_l.gain(0, 1);  // in
   mix_del_l.gain(1, 0);  // fb
+  mix_del_l.gain(2, 0);  // noise
 
   mix_del_r.gain(0, 1);  // in
   mix_del_r.gain(1, 0);  // fb
+  mix_del_r.gain(2, 0);  // noise
 
   mix_op_l.gain(0, 1.0); // wet
-  mix_op_l.gain(1, 0.0); // reverb
+  mix_op_l.gain(1, 1.0); // reverb
   mix_op_l.gain(2, 1.0); // delay
   
   mix_op_r.gain(0, 1.0); // wet
-  mix_op_r.gain(1, 0.0); // reverb
+  mix_op_r.gain(1, 1.0); // reverb
   mix_op_r.gain(2, 1.0); // delay
 
   delay_l.delay(0, 500);
@@ -214,9 +215,9 @@ void loop()
           }
 
           case MIX_REV_IN:
-              mix_rev.gain(0, val_0_to_1);    // left to rev
-              mix_rev.gain(1, val_0_to_1);    // right to rev
-              Serial.print("rev mix in: "); Serial.println(val_0_to_1);
+              mix_rev.gain(0, val_0_to_1/2);    // left to rev
+              mix_rev.gain(1, val_0_to_1/2);    // right to rev
+              Serial.print("rev mix in: "); Serial.println(val_0_to_1/2);
               break;
 
           case AUDIO_PROC:

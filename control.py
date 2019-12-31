@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from PyQt5 import QtWidgets, uic, QtCore, QtGui
 
+import pickle
 import logging, argparse, os, time, sys
 import serial, time
 import struct
@@ -110,7 +111,11 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ser = serial.Serial("/dev/ttyACM0", 9600, timeout = 2, write_timeout = 2)
         self.record = False
         self.play = True
-
+    
+#        try:
+#            with open("settings.pkl") as fh:
+#                self.widget_config = pickle.load(fh)
+#        except FileNotFoundError:
         self.widget_config = [
             { 'tip': 'del time l',   'cmd': Cmd.DEL_L_TIME,   'min': 0, 'max':2000 },
             { 'tip': 'del time r',   'cmd': Cmd.DEL_R_TIME,   'min': 0, 'max':2000 },
@@ -124,7 +129,6 @@ class MainWindow(QtWidgets.QMainWindow):
             { 'tip': 'fil q',        'cmd': Cmd.DEL_FB_FILT_RES,      'min': 0, 'max':255},
             { 'tip': 'del fb',       'cmd': Cmd.DEL_FB,       'min': 0, 'max':255 },
             ]
-
 
         uic.loadUi('fx-control/mainwindow.ui', self)
         #self.dial_time_r.valueChanged.connect(lambda: self.send_cmd(Cmd.DEL_L_TIME, self.dial_time_r.value()))
@@ -193,6 +197,10 @@ class MainWindow(QtWidgets.QMainWindow):
         for w in self.widget_config:
             w[mem] = w['widget'].value()
 
+    def closeEvent(self, event):
+        logging.info("save settings")
+        with open("settings.pkl", 'w') as fh:
+            pickle.dump(self.widget_config, fh)
     """
     slider for fx
     0  25  50  75 100
@@ -233,7 +241,7 @@ if __name__ == '__main__':
     # configure the client logging
     log = logging.getLogger('')
     # has to be set to debug as is the root logger
-    log.setLevel(logging.INFO)
+    log.setLevel(logging.DEBUG)
 
     # create console handler and set level to info
     ch = logging.StreamHandler()
