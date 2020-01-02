@@ -19,6 +19,7 @@ AudioMixer4              mix_del_r;      //xy=320,619
 AudioFilterStateVariable filter_del_r;   //xy=429,744
 AudioMixer4              mix_rev;        //xy=471,294
 AudioFilterStateVariable filter_del_l;   //xy=495,488
+AudioFilterStateVariable filter_rev;        //xy=555,183
 AudioEffectDelay         delay_r;        //xy=614,867
 AudioEffectDelay         delay_l;        //xy=630,571
 AudioEffectFreeverbStereo freeverbs1;     //xy=642,279
@@ -36,19 +37,20 @@ AudioConnection          patchCord6(i2s2, 1, mix_del_r, 0);
 AudioConnection          patchCord7(mix_del_l, 0, filter_del_l, 0);
 AudioConnection          patchCord8(mix_del_r, 0, filter_del_r, 0);
 AudioConnection          patchCord9(filter_del_r, 2, delay_r, 0);
-AudioConnection          patchCord10(mix_rev, freeverbs1);
+AudioConnection          patchCord10(mix_rev, 0, filter_rev, 0);
 AudioConnection          patchCord11(filter_del_l, 2, delay_l, 0);
-AudioConnection          patchCord12(delay_r, 0, mix_op_r, 2);
-AudioConnection          patchCord13(delay_r, 0, mix_del_l, 1);
-AudioConnection          patchCord14(delay_l, 0, mix_op_l, 2);
-AudioConnection          patchCord15(delay_l, 0, mix_del_r, 1);
-AudioConnection          patchCord16(freeverbs1, 0, mix_op_l, 1);
-AudioConnection          patchCord17(freeverbs1, 1, mix_op_r, 1);
-AudioConnection          patchCord18(pink1, 0, filter_noise, 0);
-AudioConnection          patchCord19(filter_noise, 1, mix_op_l, 3);
-AudioConnection          patchCord20(filter_noise, 2, mix_op_r, 3);
-AudioConnection          patchCord21(mix_op_l, 0, i2s1, 0);
-AudioConnection          patchCord22(mix_op_r, 0, i2s1, 1);
+AudioConnection          patchCord12(filter_rev, 2, freeverbs1, 0);
+AudioConnection          patchCord13(delay_r, 0, mix_op_r, 2);
+AudioConnection          patchCord14(delay_r, 0, mix_del_l, 1);
+AudioConnection          patchCord15(delay_l, 0, mix_op_l, 2);
+AudioConnection          patchCord16(delay_l, 0, mix_del_r, 1);
+AudioConnection          patchCord17(freeverbs1, 0, mix_op_l, 1);
+AudioConnection          patchCord18(freeverbs1, 1, mix_op_r, 1);
+AudioConnection          patchCord19(pink1, 0, filter_noise, 0);
+AudioConnection          patchCord20(filter_noise, 1, mix_op_l, 3);
+AudioConnection          patchCord21(filter_noise, 2, mix_op_r, 3);
+AudioConnection          patchCord22(mix_op_l, 0, i2s1, 0);
+AudioConnection          patchCord23(mix_op_r, 0, i2s1, 1);
 AudioControlSGTL5000     sgtl5000_1;     //xy=292,903
 // GUItool: end automatically generated code
 
@@ -99,7 +101,7 @@ void setup() {
 */
 
   pink1.amplitude(0.5);
-  // turn down input to reverb, over saturates
+  filter_rev.frequency(200);  // high pass for reverb in
   mix_rev.gain(0, 0.0);    // left to rev
   mix_rev.gain(1, 0.0);    // right to rev
 
@@ -206,7 +208,7 @@ void loop()
               filter_del_l.frequency(freq);  // fb
               filter_del_r.frequency(freq);  // fb
               filter_noise.frequency(freq);  // fb
-              Serial.print("del fb & noise filt freq: "); Serial.println(freq);
+              Serial.print("del fb, noise & rev filt freq: "); Serial.println(freq);
               break;
           }
 
@@ -216,7 +218,7 @@ void loop()
               filter_del_l.resonance(resonance);  // fb
               filter_del_r.resonance(resonance);  // fb
               filter_noise.resonance(resonance);  // fb
-              Serial.print("del fb & noise res: "); Serial.println(resonance);
+              Serial.print("del fb, noise & rev res: "); Serial.println(resonance);
               break;
           }
 
