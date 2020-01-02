@@ -25,6 +25,8 @@ class Cmd(IntEnum):
 
 class MainWindow(QtWidgets.QMainWindow):
 
+    SEQ_STEPS = 160
+
     def send_cmd(self, cmd, val, verbose=False):
         fmt = "BB"
         self.ser.write(struct.pack(fmt, cmd, int(val)))
@@ -50,7 +52,6 @@ class MainWindow(QtWidgets.QMainWindow):
             widget['seq'] = [ widget['widget'].value() ] * MainWindow.SEQ_STEPS
         widget['disp'].setValue(widget['widget'].value())
 
-
     def map_cmd(self, widget):
         logging.debug("%s %d" % (widget['cmd'], widget['disp'].value()))
         # map the number
@@ -69,9 +70,11 @@ class MainWindow(QtWidgets.QMainWindow):
         self.beat += 1
         if self.beat == MainWindow.SEQ_STEPS:
             self.beat = 0
-            self.send_cmd(Cmd.AUDIO_PROC,0, verbose=True)
+            if args.perf_stats:
+                self.send_cmd(Cmd.AUDIO_PROC,0, verbose=True)
         if self.beat == MainWindow.SEQ_STEPS / 2:
-            self.send_cmd(Cmd.AUDIO_MEM,0, verbose=True)
+            if args.perf_stats:
+                self.send_cmd(Cmd.AUDIO_MEM,0, verbose=True)
         if self.record:
             for w in self.widget_config:
                 if w['pressed']:
@@ -104,18 +107,12 @@ class MainWindow(QtWidgets.QMainWindow):
             self.button_rec.setChecked(False)
             logging.info('stop recording')
 
-    SEQ_STEPS = 160
-
     def __init__(self):
         super(self.__class__, self).__init__()
         self.ser = serial.Serial("/dev/ttyACM0", 9600, timeout = 2, write_timeout = 2)
         self.record = False
         self.play = True
     
-#        try:
-#            with open("settings.pkl") as fh:
-#                self.widget_config = pickle.load(fh)
-#        except FileNotFoundError:
         self.widget_config = [
             { 'tip': 'del time l',   'cmd': Cmd.DEL_L_TIME,   'min': 0, 'max':2000 },
             { 'tip': 'del time r',   'cmd': Cmd.DEL_R_TIME,   'min': 0, 'max':2000 },
@@ -150,7 +147,13 @@ class MainWindow(QtWidgets.QMainWindow):
         self.setWindowTitle("Teensy FX controller")
         self.widgets = []
 
-        for w in self.widget_config:
+        try:
+            with open("settings.pkl", 'rb') as fh:
+                last_values = pickle.load(fh)
+        except FileNotFoundError:
+            last_values = None
+
+        for index, w in enumerate(self.widget_config):
             w['pressed'] = False
             w['widget'] = QtWidgets.QSlider()
             w['disp'] = QtWidgets.QProgressBar()
@@ -173,7 +176,13 @@ class MainWindow(QtWidgets.QMainWindow):
             self.layout.addWidget(w['widget'])
             self.layout.addWidget(w['disp'])
 
-        self.reset_seq()
+            if last_values is not None:
+                w['widget'].setValue(last_values[index]['value'])
+                w['seq'] = last_values[index]['seq']
+            else:
+                w['seq'] = [w['widget'].value()] * MainWindow.SEQ_STEPS
+
+        #self.reset_seq()
 
         """
         bpms = (60 / 120) * 1000
@@ -199,8 +208,12 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def closeEvent(self, event):
         logging.info("save settings")
-        with open("settings.pkl", 'w') as fh:
-            pickle.dump(self.widget_config, fh)
+        last_settings = []
+        for w in self.widget_config:
+            last_settings.append({'value': w['widget'].value(), 'seq': w['seq']})
+
+        with open("settings.pkl", 'wb') as fh:
+            pickle.dump(last_settings, fh)
     """
     slider for fx
     0  25  50  75 100
@@ -225,23 +238,25 @@ class MainWindow(QtWidgets.QMainWindow):
 
 
 if __name__ == '__main__':
-    """
-    parser = argparse.ArgumentParser(description="View Events")
-    parser.add_argument('--listing', help="load a listing", action='store')
-    parser.add_argument('--channels', help="comma separated list of 4 channels: R1,R2,L1,L2", action='store')
-    parser.add_argument('--widths', help="comma separated list left and right width: RW,LW", action='store')
-    parser.add_argument('--calibrate', help="run calibrate at start", action="store_const", const=True)
-    parser.add_argument('--locate', help="run locate at start", action="store_const", const=True)
-    parser.add_argument('--tab', help="switch to this tab after startup", action="store")
+    parser = argparse.ArgumentParser(description="control fx")
+#    parser.add_argument('--listing', help="load a listing", action='store')
+#    parser.add_argument('--channels', help="comma separated list of 4 channels: R1,R2,L1,L2", action='store')
+#    parser.add_argument('--widths', help="comma separated list left and right width: RW,LW", action='store')
+#    parser.add_argument('--calibrate', help="run calibrate at start", action="store_const", const=True)
+#    parser.add_argument('--locate', help="run locate at start", action="store_const", const=True)
+    parser.add_argument('--perf-stats', help="log performance stats", action="store_const", const=True)
+    parser.add_argument('--debug', help="debug logging", action="store_const", const=True)
     args = parser.parse_args()
-    """
 
     # setup log
     log_format = logging.Formatter('%(asctime)s - %(module)-15s - %(levelname)-8s - %(message)s')
     # configure the client logging
     log = logging.getLogger('')
     # has to be set to debug as is the root logger
-    log.setLevel(logging.DEBUG)
+    if args.debug:
+        log.setLevel(logging.DEBUG)
+    else:
+        log.setLevel(logging.INFO)
 
     # create console handler and set level to info
     ch = logging.StreamHandler()

@@ -14,15 +14,16 @@ https://github.com/PaulStoffregen/Audio/tree/master/examples
 
 // GUItool: begin automatically generated code
 AudioInputI2S            i2s2;           //xy=69,326
-AudioSynthNoisePink      pink1;          //xy=71,527
 AudioMixer4              mix_del_l;      //xy=312,424
-AudioMixer4              mix_del_r;      //xy=316,614
-AudioFilterStateVariable filter_del_r;   //xy=424,740
-AudioFilterStateVariable filter_del_l;   //xy=433,514
+AudioMixer4              mix_del_r;      //xy=320,619
+AudioFilterStateVariable filter_del_r;   //xy=429,744
 AudioMixer4              mix_rev;        //xy=471,294
-AudioEffectDelay         delay_l;        //xy=624,618
-AudioEffectDelay         delay_r;        //xy=626,762
+AudioFilterStateVariable filter_del_l;   //xy=495,488
+AudioEffectDelay         delay_r;        //xy=614,867
+AudioEffectDelay         delay_l;        //xy=630,571
 AudioEffectFreeverbStereo freeverbs1;     //xy=642,279
+AudioSynthNoisePink      pink1;          //xy=839,783
+AudioFilterStateVariable filter_noise;        //xy=840,673
 AudioMixer4              mix_op_l;       //xy=949,382
 AudioMixer4              mix_op_r;       //xy=952,475
 AudioOutputI2S           i2s1;           //xy=1133,428
@@ -32,21 +33,22 @@ AudioConnection          patchCord3(i2s2, 0, mix_rev, 0);
 AudioConnection          patchCord4(i2s2, 1, mix_op_r, 0);
 AudioConnection          patchCord5(i2s2, 1, mix_rev, 1);
 AudioConnection          patchCord6(i2s2, 1, mix_del_r, 0);
-AudioConnection          patchCord7(pink1, 0, mix_del_r, 2);
-AudioConnection          patchCord8(pink1, 0, mix_del_l, 2);
-AudioConnection          patchCord9(mix_del_l, 0, filter_del_l, 0);
-AudioConnection          patchCord10(mix_del_r, 0, filter_del_r, 0);
-AudioConnection          patchCord11(filter_del_r, 2, delay_r, 0);
-AudioConnection          patchCord12(filter_del_l, 2, delay_l, 0);
-AudioConnection          patchCord13(mix_rev, freeverbs1);
+AudioConnection          patchCord7(mix_del_l, 0, filter_del_l, 0);
+AudioConnection          patchCord8(mix_del_r, 0, filter_del_r, 0);
+AudioConnection          patchCord9(filter_del_r, 2, delay_r, 0);
+AudioConnection          patchCord10(mix_rev, freeverbs1);
+AudioConnection          patchCord11(filter_del_l, 2, delay_l, 0);
+AudioConnection          patchCord12(delay_r, 0, mix_op_r, 2);
+AudioConnection          patchCord13(delay_r, 0, mix_del_l, 1);
 AudioConnection          patchCord14(delay_l, 0, mix_op_l, 2);
-AudioConnection          patchCord15(delay_l, 0, mix_del_l, 1);
-AudioConnection          patchCord16(delay_r, 0, mix_op_r, 2);
-AudioConnection          patchCord17(delay_r, 0, mix_del_r, 1);
-AudioConnection          patchCord18(freeverbs1, 0, mix_op_l, 1);
-AudioConnection          patchCord19(freeverbs1, 1, mix_op_r, 1);
-AudioConnection          patchCord20(mix_op_l, 0, i2s1, 0);
-AudioConnection          patchCord21(mix_op_r, 0, i2s1, 1);
+AudioConnection          patchCord15(delay_l, 0, mix_del_r, 1);
+AudioConnection          patchCord16(freeverbs1, 0, mix_op_l, 1);
+AudioConnection          patchCord17(freeverbs1, 1, mix_op_r, 1);
+AudioConnection          patchCord18(pink1, 0, filter_noise, 0);
+AudioConnection          patchCord19(filter_noise, 1, mix_op_l, 3);
+AudioConnection          patchCord20(filter_noise, 2, mix_op_r, 3);
+AudioConnection          patchCord21(mix_op_l, 0, i2s1, 0);
+AudioConnection          patchCord22(mix_op_r, 0, i2s1, 1);
 AudioControlSGTL5000     sgtl5000_1;     //xy=292,903
 // GUItool: end automatically generated code
 
@@ -112,10 +114,12 @@ void setup() {
   mix_op_l.gain(0, 1.0); // wet
   mix_op_l.gain(1, 1.0); // reverb
   mix_op_l.gain(2, 1.0); // delay
+  mix_op_l.gain(3, 0.0); // noise
   
   mix_op_r.gain(0, 1.0); // wet
   mix_op_r.gain(1, 1.0); // reverb
   mix_op_r.gain(2, 1.0); // delay
+  mix_op_r.gain(3, 0.0); // noise
 
   delay_l.delay(0, 500);
   delay_r.delay(0, 750);
@@ -167,8 +171,8 @@ void loop()
               Serial.print("mix delay: "); Serial.println(val);
               break;
           case MIX_NOISE:
-              mix_del_l.gain(2, val_0_to_1); // delay
-              mix_del_r.gain(2, val_0_to_1); // delay
+              mix_op_l.gain(3, val_0_to_1); // noise
+              mix_op_r.gain(3, val_0_to_1); // noise
               Serial.print("mix noise: "); Serial.println(val);
               break;
           case MIX_SIG:
@@ -198,19 +202,21 @@ void loop()
 
           case DEL_FB_FILT_FREQ:
           {
-              float freq = map(val, 0, 255, 0, 10000); 
+              float freq = map(val, 0, 255, 0, 5000); 
               filter_del_l.frequency(freq);  // fb
               filter_del_r.frequency(freq);  // fb
-              Serial.print("del fb freq: "); Serial.println(freq);
+              filter_noise.frequency(freq);  // fb
+              Serial.print("del fb & noise filt freq: "); Serial.println(freq);
               break;
           }
 
           case DEL_FB_FILT_RES:
           {
-              float resonance = map(val, 0, 255, 0, 5); 
+              float resonance = map(val, 0, 255, 0, 500) / 100.0; 
               filter_del_l.resonance(resonance);  // fb
-              filter_del_r.frequency(resonance);  // fb
-              Serial.print("del fb res: "); Serial.println(resonance);
+              filter_del_r.resonance(resonance);  // fb
+              filter_noise.resonance(resonance);  // fb
+              Serial.print("del fb & noise res: "); Serial.println(resonance);
               break;
           }
 
