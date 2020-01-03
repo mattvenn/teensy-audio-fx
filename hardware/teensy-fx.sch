@@ -4,17 +4,17 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 3
-Title ""
-Date ""
-Rev ""
-Comp ""
+Title "Teensy FX"
+Date "2020-01-03"
+Rev "0.1"
+Comp "Matt Venn"
 Comment1 ""
 Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
 $Sheet
-S 8850 4300 1900 750 
+S 8850 4250 1900 750 
 U 5E0E3867
 F0 "SGTL audio" 50
 F1 "SGTL5000.sch" 50
@@ -47,14 +47,14 @@ AR Path="/5E11F64F" Ref="#PWR0102"  Part="1"
 AR Path="/5BAC34FB/5E11F64F" Ref="#PWR?"  Part="1" 
 AR Path="/5E0E3867/5E11F64F" Ref="#PWR?"  Part="1" 
 F 0 "#PWR0102" H 7200 4300 50  0001 C CNN
-F 1 "+3V3" H 7215 4623 50  0000 C CNN
+F 1 "+3V3" V 7200 4650 50  0000 C CNN
 F 2 "" H 7200 4450 50  0001 C CNN
 F 3 "" H 7200 4450 50  0001 C CNN
 	1    7200 4450
 	0    1    1    0   
 $EndComp
 $Bitmap
-Pos 2200 4150
+Pos 2150 4200
 Scale 1.000000
 Data
 89 50 4E 47 0D 0A 1A 0A 00 00 00 0D 49 48 44 52 00 00 02 C6 00 00 01 F8 08 02 00 00 00 C6 92 BC 
@@ -7775,7 +7775,7 @@ F4 1F 04 43 0A 08 EA 36 BF 00 7F E1 5D 1C 16 A7 A9 A5 69 69 65 65 60 20 6B 26 7C
 EndData
 $EndBitmap
 $Bitmap
-Pos 2500 2050
+Pos 2100 1900
 Scale 1.000000
 Data
 89 50 4E 47 0D 0A 1A 0A 00 00 00 0D 49 48 44 52 00 00 02 67 00 00 02 4C 08 02 00 00 00 30 BB 96 
@@ -8882,8 +8882,6 @@ EndData
 $EndBitmap
 Wire Wire Line
 	7200 4550 7300 4550
-Wire Wire Line
-	7600 4550 7650 4550
 $Comp
 L power:GND #PWR0103
 U 1 1 5E175773
@@ -8892,7 +8890,7 @@ AR Path="/5E175773" Ref="#PWR0103"  Part="1"
 AR Path="/5BAC34FB/5E175773" Ref="#PWR?"  Part="1" 
 AR Path="/5E0E3867/5E175773" Ref="#PWR?"  Part="1" 
 F 0 "#PWR0103" H 7200 4100 50  0001 C CNN
-F 1 "GND" H 7205 4177 50  0000 C CNN
+F 1 "GND" V 7200 4150 50  0000 C CNN
 F 2 "" H 7200 4350 50  0001 C CNN
 F 3 "" H 7200 4350 50  0001 C CNN
 	1    7200 4350
@@ -8926,55 +8924,11 @@ pot_b3
 Text GLabel 5000 2950 0    50   Input ~ 0
 led_oe
 Text GLabel 5000 3850 0    50   Input ~ 0
-led_clk
+SCLK
 Text GLabel 5000 3150 0    50   Input ~ 0
-led_data
-Text GLabel 5000 3050 0    50   Input ~ 0
+MOSI
+Text GLabel 5000 4150 0    50   Input ~ 0
 led_latch
-$Comp
-L Mechanical:MountingHole H1
-U 1 1 5E23DE60
-P 8900 1700
-F 0 "H1" H 9000 1746 50  0000 L CNN
-F 1 "MountingHole" H 9000 1655 50  0000 L CNN
-F 2 "MountingHole:MountingHole_3.2mm_M3" H 8900 1700 50  0001 C CNN
-F 3 "~" H 8900 1700 50  0001 C CNN
-	1    8900 1700
-	1    0    0    -1  
-$EndComp
-$Comp
-L Mechanical:MountingHole H2
-U 1 1 5E23E8DF
-P 8900 1900
-F 0 "H2" H 9000 1946 50  0000 L CNN
-F 1 "MountingHole" H 9000 1855 50  0000 L CNN
-F 2 "MountingHole:MountingHole_3.2mm_M3" H 8900 1900 50  0001 C CNN
-F 3 "~" H 8900 1900 50  0001 C CNN
-	1    8900 1900
-	1    0    0    -1  
-$EndComp
-$Comp
-L Mechanical:MountingHole H3
-U 1 1 5E23EB5C
-P 8900 2100
-F 0 "H3" H 9000 2146 50  0000 L CNN
-F 1 "MountingHole" H 9000 2055 50  0000 L CNN
-F 2 "MountingHole:MountingHole_3.2mm_M3" H 8900 2100 50  0001 C CNN
-F 3 "~" H 8900 2100 50  0001 C CNN
-	1    8900 2100
-	1    0    0    -1  
-$EndComp
-$Comp
-L Mechanical:MountingHole H4
-U 1 1 5E23ED36
-P 8900 2300
-F 0 "H4" H 9000 2346 50  0000 L CNN
-F 1 "MountingHole" H 9000 2255 50  0000 L CNN
-F 2 "MountingHole:MountingHole_3.2mm_M3" H 8900 2300 50  0001 C CNN
-F 3 "~" H 8900 2300 50  0001 C CNN
-	1    8900 2300
-	1    0    0    -1  
-$EndComp
 Text GLabel 5000 2050 0    50   Input ~ 0
 sw_1
 Text GLabel 5000 2150 0    50   Input ~ 0
@@ -8982,7 +8936,6 @@ sw_2
 Text Notes 8550 1050 0    50   ~ 0
 todo\n- try writing code to exercise the chosen peripherals\n- check fp of smt headers teensy\n
 NoConn ~ 7200 4150
-NoConn ~ 7200 4650
 NoConn ~ 7200 1950
 NoConn ~ 7200 2050
 NoConn ~ 7200 2150
@@ -9058,7 +9011,7 @@ F 3 "~" H 9250 3450 50  0001 C CNN
 $EndComp
 Text Notes 4350 4050 0    50   ~ 0
 audio vol knob
-Text GLabel 5000 3250 0    50   Input ~ 0
+Text GLabel 7200 4650 2    50   Input ~ 0
 sw_4
 Text GLabel 5000 3950 0    50   Input ~ 0
 pot_multiplex
@@ -9066,7 +9019,7 @@ Text GLabel 5000 4550 0    50   Input ~ 0
 LRCLK
 Text GLabel 5000 4650 0    50   Input ~ 0
 BCLK
-Text Notes 5700 900  0    118  Italic 24
+Text Notes 4350 900  0    118  Italic 24
 Teensy 4
 Text GLabel 5000 4350 0    50   Input ~ 0
 SDA
@@ -9074,6 +9027,8 @@ Text GLabel 5000 4450 0    50   Input ~ 0
 SCL
 Text GLabel 5000 4250 0    50   Input ~ 0
 sw_3
+Text Notes 4300 3050 0    50   ~ 0
+cs for sd card
 $Comp
 L teensy:Teensy4.0 U1
 U 1 1 5E117CA6
@@ -9085,8 +9040,225 @@ F 3 "" H 5700 3500 50  0001 C CNN
 	1    6100 3300
 	1    0    0    -1  
 $EndComp
-NoConn ~ 5000 4150
-NoConn ~ 5000 2650
-Text Notes 4250 2650 0    50   ~ 0
-cs for audio mem
+$Comp
+L Memory_Flash:W25Q128JVS U6
+U 1 1 5E10F552
+P 2500 6850
+F 0 "U6" H 2500 7550 50  0000 C CNN
+F 1 "W25Q128JVS" H 2500 7650 50  0000 C CNN
+F 2 "Package_SO:SOIC-8_5.23x5.23mm_P1.27mm" H 2500 6850 50  0001 C CNN
+F 3 "http://www.winbond.com/resource-files/w25q128jv_dtr%20revc%2003272018%20plus.pdf" H 2500 6850 50  0001 C CNN
+	1    2500 6850
+	1    0    0    -1  
+$EndComp
+Text Label 2000 6750 2    50   ~ 0
+mem_cs
+$Comp
+L power:+3V3 #PWR0162
+U 1 1 5E1117CC
+P 2500 6450
+AR Path="/5E1117CC" Ref="#PWR0162"  Part="1" 
+AR Path="/5BAC34FB/5E1117CC" Ref="#PWR?"  Part="1" 
+AR Path="/5E0E3867/5E1117CC" Ref="#PWR?"  Part="1" 
+F 0 "#PWR0162" H 2500 6300 50  0001 C CNN
+F 1 "+3V3" H 2500 6650 50  0000 C CNN
+F 2 "" H 2500 6450 50  0001 C CNN
+F 3 "" H 2500 6450 50  0001 C CNN
+	1    2500 6450
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3V3 #PWR0163
+U 1 1 5E11244A
+P 3300 6950
+AR Path="/5E11244A" Ref="#PWR0163"  Part="1" 
+AR Path="/5BAC34FB/5E11244A" Ref="#PWR?"  Part="1" 
+AR Path="/5E0E3867/5E11244A" Ref="#PWR?"  Part="1" 
+F 0 "#PWR0163" H 3300 6800 50  0001 C CNN
+F 1 "+3V3" V 3250 7150 50  0000 C CNN
+F 2 "" H 3300 6950 50  0001 C CNN
+F 3 "" H 3300 6950 50  0001 C CNN
+	1    3300 6950
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	3000 6950 3000 7050
+Connection ~ 3000 6950
+$Comp
+L power:GND #PWR0164
+U 1 1 5E112F82
+P 2500 7250
+AR Path="/5E112F82" Ref="#PWR0164"  Part="1" 
+AR Path="/5BAC34FB/5E112F82" Ref="#PWR?"  Part="1" 
+AR Path="/5E0E3867/5E112F82" Ref="#PWR?"  Part="1" 
+F 0 "#PWR0164" H 2500 7000 50  0001 C CNN
+F 1 "GND" V 2500 7050 50  0000 C CNN
+F 2 "" H 2500 7250 50  0001 C CNN
+F 3 "" H 2500 7250 50  0001 C CNN
+	1    2500 7250
+	1    0    0    -1  
+$EndComp
+Text Label 5000 2650 2    50   ~ 0
+mem_cs
+Text GLabel 5000 3250 0    50   Input ~ 0
+MISO
+NoConn ~ 5000 3050
+Text GLabel 2000 6950 0    50   Input ~ 0
+SCLK
+Text GLabel 3000 6650 2    50   Input ~ 0
+MOSI
+Text GLabel 3000 6750 2    50   Input ~ 0
+MISO
+Text GLabel 9200 2050 2    50   Input ~ 0
+MOSI
+Text GLabel 9200 2400 2    50   Input ~ 0
+MISO
+Text GLabel 9200 1700 2    50   Input ~ 0
+SCLK
+$Comp
+L Connector:TestPoint TP1
+U 1 1 5E133820
+P 9200 1700
+F 0 "TP1" V 9395 1772 50  0000 C CNN
+F 1 "TestPoint" V 9304 1772 50  0000 C CNN
+F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 9400 1700 50  0001 C CNN
+F 3 "~" H 9400 1700 50  0001 C CNN
+	1    9200 1700
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Connector:TestPoint TP3
+U 1 1 5E133E45
+P 9200 2050
+F 0 "TP3" V 9395 2122 50  0000 C CNN
+F 1 "TestPoint" V 9304 2122 50  0000 C CNN
+F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 9400 2050 50  0001 C CNN
+F 3 "~" H 9400 2050 50  0001 C CNN
+	1    9200 2050
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Connector:TestPoint TP5
+U 1 1 5E134045
+P 9200 2400
+F 0 "TP5" V 9395 2472 50  0000 C CNN
+F 1 "TestPoint" V 9304 2472 50  0000 C CNN
+F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 9400 2400 50  0001 C CNN
+F 3 "~" H 9400 2400 50  0001 C CNN
+	1    9200 2400
+	0    -1   -1   0   
+$EndComp
+$Comp
+L power:+3V3 #PWR0165
+U 1 1 5E13C242
+P 9200 2800
+AR Path="/5E13C242" Ref="#PWR0165"  Part="1" 
+AR Path="/5BAC34FB/5E13C242" Ref="#PWR?"  Part="1" 
+AR Path="/5E0E3867/5E13C242" Ref="#PWR?"  Part="1" 
+F 0 "#PWR0165" H 9200 2650 50  0001 C CNN
+F 1 "+3V3" V 9250 3000 50  0000 C CNN
+F 2 "" H 9200 2800 50  0001 C CNN
+F 3 "" H 9200 2800 50  0001 C CNN
+	1    9200 2800
+	0    1    1    0   
+$EndComp
+$Comp
+L Connector:TestPoint TP6
+U 1 1 5E13CAAD
+P 9200 2800
+F 0 "TP6" V 9395 2872 50  0000 C CNN
+F 1 "TestPoint" V 9304 2872 50  0000 C CNN
+F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 9400 2800 50  0001 C CNN
+F 3 "~" H 9400 2800 50  0001 C CNN
+	1    9200 2800
+	0    -1   -1   0   
+$EndComp
+Text GLabel 10350 1700 2    50   Input ~ 0
+led_oe
+Text GLabel 10350 2050 2    50   Input ~ 0
+led_latch
+$Comp
+L Connector:TestPoint TP4
+U 1 1 5E144C37
+P 10350 2050
+F 0 "TP4" V 10545 2122 50  0000 C CNN
+F 1 "TestPoint" V 10454 2122 50  0000 C CNN
+F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 10550 2050 50  0001 C CNN
+F 3 "~" H 10550 2050 50  0001 C CNN
+	1    10350 2050
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Connector:TestPoint TP2
+U 1 1 5E144E3B
+P 10350 1700
+F 0 "TP2" V 10545 1772 50  0000 C CNN
+F 1 "TestPoint" V 10454 1772 50  0000 C CNN
+F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 10550 1700 50  0001 C CNN
+F 3 "~" H 10550 1700 50  0001 C CNN
+	1    10350 1700
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 5E150545
+P 1250 6450
+AR Path="/5E177B2B/5E150545" Ref="R?"  Part="1" 
+AR Path="/5E150545" Ref="R6"  Part="1" 
+F 0 "R6" V 1150 6450 50  0000 C CNN
+F 1 "10k" V 1250 6450 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 1180 6450 50  0001 C CNN
+F 3 "~" H 1250 6450 50  0001 C CNN
+	1    1250 6450
+	0    1    1    0   
+$EndComp
+Text Label 1100 6450 2    50   ~ 0
+mem_cs
+$Comp
+L power:+3V3 #PWR0166
+U 1 1 5E153486
+P 1400 6450
+AR Path="/5E153486" Ref="#PWR0166"  Part="1" 
+AR Path="/5BAC34FB/5E153486" Ref="#PWR?"  Part="1" 
+AR Path="/5E0E3867/5E153486" Ref="#PWR?"  Part="1" 
+F 0 "#PWR0166" H 1400 6300 50  0001 C CNN
+F 1 "+3V3" V 1400 6650 50  0000 C CNN
+F 2 "" H 1400 6450 50  0001 C CNN
+F 3 "" H 1400 6450 50  0001 C CNN
+	1    1400 6450
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 5E153EA1
+P 3150 6950
+AR Path="/5E177B2B/5E153EA1" Ref="R?"  Part="1" 
+AR Path="/5E153EA1" Ref="R7"  Part="1" 
+F 0 "R7" V 3250 6950 50  0000 C CNN
+F 1 "10k" V 3150 6950 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 3080 6950 50  0001 C CNN
+F 3 "~" H 3150 6950 50  0001 C CNN
+	1    3150 6950
+	0    1    1    0   
+$EndComp
+Text Notes 1000 5550 0    118  Italic 24
+FLASH
+Wire Notes Line
+	750  5250 4050 5250
+Wire Notes Line
+	4050 5250 4050 7600
+Wire Notes Line
+	4050 5200 4050 600 
+Wire Notes Line
+	4050 600  4150 600 
+Wire Notes Line
+	7950 800  7950 6300
+Wire Notes Line
+	7950 3950 11050 3950
+Wire Notes Line
+	11050 3950 11050 4000
+Text Notes 9250 4500 0    118  Italic 24
+Audio
+Text Notes 9200 5600 0    118  Italic 24
+Pots & LEDs
 $EndSCHEMATC

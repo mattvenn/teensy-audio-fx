@@ -505,7 +505,7 @@ L power:+3.3V #PWR0148
 U 1 1 5E194A9C
 P 3950 2100
 F 0 "#PWR0148" H 3950 1950 50  0001 C CNN
-F 1 "+3.3V" H 3965 2273 50  0000 C CNN
+F 1 "+3.3V" H 3950 2300 50  0000 C CNN
 F 2 "" H 3950 2100 50  0001 C CNN
 F 3 "" H 3950 2100 50  0001 C CNN
 	1    3950 2100
@@ -515,8 +515,8 @@ $Comp
 L teensy_beats-cache:4067 U4
 U 1 1 5E1AC48F
 P 3950 2900
-F 0 "U4" H 3950 3916 50  0000 C CNN
-F 1 "4067" H 3950 3825 50  0000 C CNN
+F 0 "U4" H 4250 3900 50  0000 C CNN
+F 1 "4067" H 4250 3800 50  0000 C CNN
 F 2 "Package_SO:SSOP-24_5.3x8.2mm_P0.65mm" H 3950 2900 50  0001 C CNN
 F 3 "https://www.ti.com/lit/ds/symlink/cd74hc4067.pdf" H 3950 2900 50  0001 C CNN
 	1    3950 2900
@@ -558,9 +558,9 @@ $EndComp
 Text GLabel 6250 3400 0    50   Input ~ 0
 led_oe
 Text GLabel 6250 3600 0    50   Input ~ 0
-led_clk
+SCLK
 Text GLabel 6250 3700 0    50   Input ~ 0
-led_data
+MOSI
 Text GLabel 6250 3500 0    50   Input ~ 0
 led_latch
 $Comp
