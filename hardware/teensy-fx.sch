@@ -19,49 +19,38 @@ U 5E0E3867
 F0 "SGTL audio" 50
 F1 "SGTL5000.sch" 50
 $EndSheet
-Text GLabel 7400 6000 2    50   Input ~ 0
+Text GLabel 7300 4550 2    50   Input ~ 0
 MCLK
-Text GLabel 5100 4300 0    50   Input ~ 0
+Text GLabel 5000 2850 0    50   Input ~ 0
 TX
-Text GLabel 5100 4200 0    50   Input ~ 0
+Text GLabel 5000 2750 0    50   Input ~ 0
 RX
-$Comp
-L teensy:Teensy4.0 U1
-U 1 1 5E117CA6
-P 6200 4750
-F 0 "U1" H 6200 6365 50  0000 C CNN
-F 1 "Teensy4.0" H 6200 6274 50  0000 C CNN
-F 2 "teensy:Teensy40" H 5800 4950 50  0001 C CNN
-F 3 "" H 5800 4950 50  0001 C CNN
-	1    6200 4750
-	1    0    0    -1  
-$EndComp
 $Comp
 L power:GND #PWR0101
 U 1 1 5E11F642
-P 5100 3400
+P 5000 1950
 AR Path="/5E11F642" Ref="#PWR0101"  Part="1" 
 AR Path="/5BAC34FB/5E11F642" Ref="#PWR?"  Part="1" 
 AR Path="/5E0E3867/5E11F642" Ref="#PWR?"  Part="1" 
-F 0 "#PWR0101" H 5100 3150 50  0001 C CNN
-F 1 "GND" H 5105 3227 50  0000 C CNN
-F 2 "" H 5100 3400 50  0001 C CNN
-F 3 "" H 5100 3400 50  0001 C CNN
-	1    5100 3400
+F 0 "#PWR0101" H 5000 1700 50  0001 C CNN
+F 1 "GND" H 5005 1777 50  0000 C CNN
+F 2 "" H 5000 1950 50  0001 C CNN
+F 3 "" H 5000 1950 50  0001 C CNN
+	1    5000 1950
 	0    1    1    0   
 $EndComp
 $Comp
 L power:+3V3 #PWR0102
 U 1 1 5E11F64F
-P 7300 5900
+P 7200 4450
 AR Path="/5E11F64F" Ref="#PWR0102"  Part="1" 
 AR Path="/5BAC34FB/5E11F64F" Ref="#PWR?"  Part="1" 
 AR Path="/5E0E3867/5E11F64F" Ref="#PWR?"  Part="1" 
-F 0 "#PWR0102" H 7300 5750 50  0001 C CNN
-F 1 "+3V3" H 7315 6073 50  0000 C CNN
-F 2 "" H 7300 5900 50  0001 C CNN
-F 3 "" H 7300 5900 50  0001 C CNN
-	1    7300 5900
+F 0 "#PWR0102" H 7200 4300 50  0001 C CNN
+F 1 "+3V3" H 7215 4623 50  0000 C CNN
+F 2 "" H 7200 4450 50  0001 C CNN
+F 3 "" H 7200 4450 50  0001 C CNN
+	1    7200 4450
 	0    1    1    0   
 $EndComp
 $Bitmap
@@ -8892,32 +8881,32 @@ EF 88 10 32 B8 0E 71 1B C2 BB AD 89 B2 B0 B0 E0 F6 59 8A BF 23 42 C8 E0 70 CC 13
 EndData
 $EndBitmap
 Wire Wire Line
-	7300 6000 7400 6000
+	7200 4550 7300 4550
 Wire Wire Line
-	7700 6000 7750 6000
+	7600 4550 7650 4550
 $Comp
 L power:GND #PWR0103
 U 1 1 5E175773
-P 7300 5800
+P 7200 4350
 AR Path="/5E175773" Ref="#PWR0103"  Part="1" 
 AR Path="/5BAC34FB/5E175773" Ref="#PWR?"  Part="1" 
 AR Path="/5E0E3867/5E175773" Ref="#PWR?"  Part="1" 
-F 0 "#PWR0103" H 7300 5550 50  0001 C CNN
-F 1 "GND" H 7305 5627 50  0000 C CNN
-F 2 "" H 7300 5800 50  0001 C CNN
-F 3 "" H 7300 5800 50  0001 C CNN
-	1    7300 5800
+F 0 "#PWR0103" H 7200 4100 50  0001 C CNN
+F 1 "GND" H 7205 4177 50  0000 C CNN
+F 2 "" H 7200 4350 50  0001 C CNN
+F 3 "" H 7200 4350 50  0001 C CNN
+	1    7200 4350
 	0    -1   -1   0   
 $EndComp
 $Comp
 L power:+5V #PWR0104
 U 1 1 5E176B5F
-P 7300 5700
-F 0 "#PWR0104" H 7300 5550 50  0001 C CNN
-F 1 "+5V" V 7315 5828 50  0000 L CNN
-F 2 "" H 7300 5700 50  0001 C CNN
-F 3 "" H 7300 5700 50  0001 C CNN
-	1    7300 5700
+P 7200 4250
+F 0 "#PWR0104" H 7200 4100 50  0001 C CNN
+F 1 "+5V" V 7215 4378 50  0000 L CNN
+F 2 "" H 7200 4250 50  0001 C CNN
+F 3 "" H 7200 4250 50  0001 C CNN
+	1    7200 4250
 	0    1    1    0   
 $EndComp
 $Sheet
@@ -8926,21 +8915,21 @@ U 5E177B2B
 F0 "pots buttons & LEDs" 50
 F1 "pots.sch" 50
 $EndSheet
-Text GLabel 5100 3700 0    50   Input ~ 0
+Text GLabel 5000 2250 0    50   Input ~ 0
 pot_b0
-Text GLabel 5100 3800 0    50   Input ~ 0
+Text GLabel 5000 2350 0    50   Input ~ 0
 pot_b1
-Text GLabel 5100 3900 0    50   Input ~ 0
+Text GLabel 5000 2450 0    50   Input ~ 0
 pot_b2
-Text GLabel 5100 4000 0    50   Input ~ 0
+Text GLabel 5000 2550 0    50   Input ~ 0
 pot_b3
-Text GLabel 5100 4700 0    50   Input ~ 0
+Text GLabel 5000 2950 0    50   Input ~ 0
 led_oe
-Text GLabel 5100 4500 0    50   Input ~ 0
+Text GLabel 5000 3850 0    50   Input ~ 0
 led_clk
-Text GLabel 5100 4400 0    50   Input ~ 0
+Text GLabel 5000 3150 0    50   Input ~ 0
 led_data
-Text GLabel 5100 4600 0    50   Input ~ 0
+Text GLabel 5000 3050 0    50   Input ~ 0
 led_latch
 $Comp
 L Mechanical:MountingHole H1
@@ -8986,44 +8975,40 @@ F 3 "~" H 8900 2300 50  0001 C CNN
 	1    8900 2300
 	1    0    0    -1  
 $EndComp
-Text GLabel 5100 3500 0    50   Input ~ 0
+Text GLabel 5000 2050 0    50   Input ~ 0
 sw_1
-Text GLabel 5100 3600 0    50   Input ~ 0
+Text GLabel 5000 2150 0    50   Input ~ 0
 sw_2
-Text GLabel 5100 4100 0    50   Input ~ 0
-sw_3
 Text Notes 8550 1050 0    50   ~ 0
 todo\n- try writing code to exercise the chosen peripherals\n- check fp of smt headers teensy\n
-NoConn ~ 7300 5600
-NoConn ~ 7300 6100
-NoConn ~ 7300 3400
-NoConn ~ 7300 3500
-NoConn ~ 7300 3600
-NoConn ~ 7300 3700
-NoConn ~ 7300 3800
-NoConn ~ 7300 3900
-NoConn ~ 7300 4000
-NoConn ~ 7300 4100
-NoConn ~ 7300 4200
-NoConn ~ 7300 4300
-NoConn ~ 7300 4400
-NoConn ~ 7300 4500
-NoConn ~ 7300 4600
-NoConn ~ 7300 4700
-NoConn ~ 7300 4800
-NoConn ~ 7300 4900
-NoConn ~ 7300 5000
-NoConn ~ 7300 5100
-NoConn ~ 7300 5200
-NoConn ~ 7300 5300
-NoConn ~ 5100 4800
-NoConn ~ 5100 4900
-NoConn ~ 5100 5000
-NoConn ~ 5100 5100
-NoConn ~ 5100 5200
-NoConn ~ 5100 5500
-NoConn ~ 5100 5800
-NoConn ~ 5100 5900
+NoConn ~ 7200 4150
+NoConn ~ 7200 4650
+NoConn ~ 7200 1950
+NoConn ~ 7200 2050
+NoConn ~ 7200 2150
+NoConn ~ 7200 2250
+NoConn ~ 7200 2350
+NoConn ~ 7200 2450
+NoConn ~ 7200 2550
+NoConn ~ 7200 2650
+NoConn ~ 7200 2750
+NoConn ~ 7200 2850
+NoConn ~ 7200 2950
+NoConn ~ 7200 3050
+NoConn ~ 7200 3150
+NoConn ~ 7200 3250
+NoConn ~ 7200 3350
+NoConn ~ 7200 3450
+NoConn ~ 7200 3550
+NoConn ~ 7200 3650
+NoConn ~ 7200 3750
+NoConn ~ 7200 3850
+NoConn ~ 5000 3350
+NoConn ~ 5000 3450
+NoConn ~ 5000 3550
+NoConn ~ 5000 3650
+NoConn ~ 5000 3750
+NoConn ~ 5000 4050
 $Comp
 L power:+5V #PWR0173
 U 1 1 5E2763F1
@@ -9071,143 +9056,37 @@ F 3 "~" H 9250 3450 50  0001 C CNN
 	1    9250 3450
 	1    0    0    -1  
 $EndComp
-$Comp
-L Connector_Generic:Conn_01x14 J3
-U 1 1 5E1CF1A0
-P 5650 2100
-F 0 "J3" H 5730 2092 50  0000 L CNN
-F 1 "Conn_01x14" H 5730 2001 50  0000 L CNN
-F 2 "Connector_PinSocket_2.54mm:PinSocket_1x14_P2.54mm_Vertical_SMD_Pin1Left" H 5650 2100 50  0001 C CNN
-F 3 "~" H 5650 2100 50  0001 C CNN
-	1    5650 2100
-	1    0    0    -1  
-$EndComp
-$Comp
-L Connector_Generic:Conn_01x14 J4
-U 1 1 5E1D05EA
-P 6450 2100
-F 0 "J4" H 6368 2917 50  0000 C CNN
-F 1 "Conn_01x14" H 6368 2826 50  0000 C CNN
-F 2 "Connector_PinSocket_2.54mm:PinSocket_1x14_P2.54mm_Vertical_SMD_Pin1Left" H 6450 2100 50  0001 C CNN
-F 3 "~" H 6450 2100 50  0001 C CNN
-	1    6450 2100
-	-1   0    0    -1  
-$EndComp
-Text GLabel 5450 2400 0    50   Input ~ 0
-TX
-Text GLabel 5450 2300 0    50   Input ~ 0
-RX
-$Comp
-L power:GND #PWR0162
-U 1 1 5E1D34FC
-P 5450 1500
-AR Path="/5E1D34FC" Ref="#PWR0162"  Part="1" 
-AR Path="/5BAC34FB/5E1D34FC" Ref="#PWR?"  Part="1" 
-AR Path="/5E0E3867/5E1D34FC" Ref="#PWR?"  Part="1" 
-F 0 "#PWR0162" H 5450 1250 50  0001 C CNN
-F 1 "GND" V 5455 1327 50  0000 C CNN
-F 2 "" H 5450 1500 50  0001 C CNN
-F 3 "" H 5450 1500 50  0001 C CNN
-	1    5450 1500
-	0    1    1    0   
-$EndComp
-Text GLabel 5450 1800 0    50   Input ~ 0
-pot_b0
-Text GLabel 5450 1900 0    50   Input ~ 0
-pot_b1
-Text GLabel 5450 2000 0    50   Input ~ 0
-pot_b2
-Text GLabel 5450 2100 0    50   Input ~ 0
-pot_b3
-Text GLabel 5450 2800 0    50   Input ~ 0
-led_oe
-Text GLabel 5450 2600 0    50   Input ~ 0
-led_clk
-Text GLabel 5450 2500 0    50   Input ~ 0
-led_data
-Text GLabel 5450 2700 0    50   Input ~ 0
-led_latch
-Text GLabel 5450 1600 0    50   Input ~ 0
-sw_1
-Text GLabel 5450 1700 0    50   Input ~ 0
-sw_2
-Text GLabel 5450 2200 0    50   Input ~ 0
-sw_3
-Text Notes 4450 5500 0    50   ~ 0
+Text Notes 4350 4050 0    50   ~ 0
 audio vol knob
-Text GLabel 5100 5300 0    50   Input ~ 0
+Text GLabel 5000 3250 0    50   Input ~ 0
 sw_4
-Text GLabel 5100 5400 0    50   Input ~ 0
+Text GLabel 5000 3950 0    50   Input ~ 0
 pot_multiplex
-Text GLabel 5100 6000 0    50   Input ~ 0
+Text GLabel 5000 4550 0    50   Input ~ 0
 LRCLK
-Text GLabel 5100 6100 0    50   Input ~ 0
+Text GLabel 5000 4650 0    50   Input ~ 0
 BCLK
-Text GLabel 5100 5600 0    50   Input ~ 0
-SCL
-Text GLabel 5100 5700 0    50   Input ~ 0
-SDA
-Text Notes 7300 2650 2    50   ~ 0
-audio vol knob
-Text GLabel 6650 2800 2    50   Input ~ 0
-sw_4
-Text GLabel 6650 2700 2    50   Input ~ 0
-pot_multiplex
-Text GLabel 6650 2100 2    50   Input ~ 0
-LRCLK
-Text GLabel 6650 2000 2    50   Input ~ 0
-BCLK
-Text GLabel 6650 2500 2    50   Input ~ 0
-SCL
-Text GLabel 6650 2400 2    50   Input ~ 0
-SDA
-Text GLabel 7050 1800 2    50   Input ~ 0
-MCLK
-$Comp
-L power:+3V3 #PWR0163
-U 1 1 5E1F128B
-P 6650 1700
-AR Path="/5E1F128B" Ref="#PWR0163"  Part="1" 
-AR Path="/5BAC34FB/5E1F128B" Ref="#PWR?"  Part="1" 
-AR Path="/5E0E3867/5E1F128B" Ref="#PWR?"  Part="1" 
-F 0 "#PWR0163" H 6650 1550 50  0001 C CNN
-F 1 "+3V3" V 6650 1900 50  0000 C CNN
-F 2 "" H 6650 1700 50  0001 C CNN
-F 3 "" H 6650 1700 50  0001 C CNN
-	1    6650 1700
-	0    1    1    0   
-$EndComp
-$Comp
-L power:GND #PWR0164
-U 1 1 5E1F12A1
-P 6650 1600
-AR Path="/5E1F12A1" Ref="#PWR0164"  Part="1" 
-AR Path="/5BAC34FB/5E1F12A1" Ref="#PWR?"  Part="1" 
-AR Path="/5E0E3867/5E1F12A1" Ref="#PWR?"  Part="1" 
-F 0 "#PWR0164" H 6650 1350 50  0001 C CNN
-F 1 "GND" V 6650 1400 50  0000 C CNN
-F 2 "" H 6650 1600 50  0001 C CNN
-F 3 "" H 6650 1600 50  0001 C CNN
-	1    6650 1600
-	0    -1   -1   0   
-$EndComp
-$Comp
-L power:+5V #PWR0165
-U 1 1 5E1F12AB
-P 6650 1500
-F 0 "#PWR0165" H 6650 1350 50  0001 C CNN
-F 1 "+5V" V 6665 1628 50  0000 L CNN
-F 2 "" H 6650 1500 50  0001 C CNN
-F 3 "" H 6650 1500 50  0001 C CNN
-	1    6650 1500
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	6650 1800 7050 1800
-NoConn ~ 6650 1900
-NoConn ~ 6650 2200
-NoConn ~ 6650 2300
-NoConn ~ 6650 2600
 Text Notes 5700 900  0    118  Italic 24
 Teensy 4
+Text GLabel 5000 4350 0    50   Input ~ 0
+SDA
+Text GLabel 5000 4450 0    50   Input ~ 0
+SCL
+Text GLabel 5000 4250 0    50   Input ~ 0
+sw_3
+$Comp
+L teensy:Teensy4.0 U1
+U 1 1 5E117CA6
+P 6100 3300
+F 0 "U1" H 6100 4915 50  0000 C CNN
+F 1 "Teensy4.0" H 6100 4824 50  0000 C CNN
+F 2 "audio-fx:teensy4smt" H 5700 3500 50  0001 C CNN
+F 3 "" H 5700 3500 50  0001 C CNN
+	1    6100 3300
+	1    0    0    -1  
+$EndComp
+NoConn ~ 5000 4150
+NoConn ~ 5000 2650
+Text Notes 4250 2650 0    50   ~ 0
+cs for audio mem
 $EndSCHEMATC
