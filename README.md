@@ -10,7 +10,7 @@
 [control.py](control.py) is a PyQT program that was developed in order to make an MVP
 interface that could later be translated to hardware in the form of a PCB.
 
-[!gui](gui.png)
+![gui](gui.png)
 
 # Hardware
 
