@@ -5,6 +5,13 @@
 * Playing with settings with [control.py](control.py) as I work on the hardware
 * Each knob can be automated (a bit like punch in effects on the Pocket Operators)
 
+# Software
+
+[control.py](control.py) is a PyQT program that was developed in order to make an MVP
+interface that could later be translated to hardware in the form of a PCB.
+
+[!gui](gui.png)
+
 # Hardware
 
 ![board](hardware/board.png)
