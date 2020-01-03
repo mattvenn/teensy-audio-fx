@@ -632,4 +632,6 @@ F 3 "~" H 3900 3450 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	4050 3450 4950 3450
+Text Notes 4700 1350 0    118  Italic 24
+SGTL5000 audio driver
 $EndSCHEMATC
