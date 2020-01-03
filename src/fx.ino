@@ -48,7 +48,7 @@ AudioConnection          patchCord17(freeverbs1, 0, mix_op_l, 1);
 AudioConnection          patchCord18(freeverbs1, 1, mix_op_r, 1);
 AudioConnection          patchCord19(pink1, 0, filter_noise, 0);
 AudioConnection          patchCord20(filter_noise, 1, mix_op_l, 3);
-AudioConnection          patchCord21(filter_noise, 2, mix_op_r, 3);
+AudioConnection          patchCord21(filter_noise, 1, mix_op_r, 3);
 AudioConnection          patchCord22(mix_op_l, 0, i2s1, 0);
 AudioConnection          patchCord23(mix_op_r, 0, i2s1, 1);
 AudioControlSGTL5000     sgtl5000_1;     //xy=292,903
