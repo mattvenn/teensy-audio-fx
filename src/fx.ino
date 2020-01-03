@@ -59,7 +59,7 @@ AudioControlSGTL5000     sgtl5000_1;     //xy=292,903
 
 #define NUM_KNOBS 12
 #define NUM_BUTTONS 4
-#define NUM_LEDS 16
+#define NUM_LEDS 20
 
 // pin defs
 #define POT_MUX_PINS 4
@@ -74,8 +74,9 @@ int pot_mux_p = 14;
 SPISettings settings_LED(2000000, MSBFIRST, SPI_MODE1);
 
 // global data
-int knobs [NUM_KNOBS] = {0};
+unsigned int knobs [NUM_KNOBS] = {0};
 bool buttons [NUM_BUTTONS] = {0};
+unsigned int leds[NUM_LEDS] = {0};
 
 enum Cmd {
     REV_SIZE,
@@ -195,8 +196,8 @@ void check_board()
     for(int i = 0; i < NUM_LEDS; i ++)
     {
         digitalWrite(led_latch_p, false);
-        SPI.transfer(0xAA);
-        SPI.transfer(0xAA);
+        SPI.transfer(leds[i] & 0xFF);
+        SPI.transfer(leds[i] >> 8);
         digitalWrite(led_latch_p, true);
     }
     digitalWrite(led_oe_p, true);
