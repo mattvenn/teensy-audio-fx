@@ -7,6 +7,7 @@ import serial, time
 import struct
 from enum import IntEnum
 
+# make sure these match the enum in src/fx.ino
 class Cmd(IntEnum):
     REV_SIZE = 0
     REV_DAMP = 1
@@ -26,6 +27,88 @@ class Cmd(IntEnum):
 class MainWindow(QtWidgets.QMainWindow):
 
     SEQ_STEPS = 160
+
+    def __init__(self):
+        super(self.__class__, self).__init__()
+        if args.mock_serial:
+            self.ser = Mock()
+            self.ser.readline = Mock(return_value="mock".encode('utf-8'))
+            self.ser.write = Mock(return_value=0)
+        else:
+            self.ser = serial.Serial("/dev/ttyACM0", 9600, timeout = 2, write_timeout = 2)
+        self.record = False
+        self.play = True
+    
+        # configuration for all the sliders
+        self.widget_config = [
+            { 'tip': 'del time l',   'cmd': Cmd.DEL_L_TIME,   'min': 0, 'max':2000 },
+            { 'tip': 'del time r',   'cmd': Cmd.DEL_R_TIME,   'min': 0, 'max':2000 },
+            { 'tip': 'del mix',      'cmd': Cmd.MIX_DEL,      'min': 0, 'max':255},
+            { 'tip': 'sig mix',      'cmd': Cmd.MIX_SIG,      'min': 0, 'max':255},
+            { 'tip': 'rev mix',      'cmd': Cmd.MIX_REV_IN,   'min': 0, 'max':255},
+            { 'tip': 'noiz mix',     'cmd': Cmd.MIX_NOISE,    'min': 0, 'max':255 },
+            { 'tip': 'rev size',     'cmd': Cmd.REV_SIZE,     'min': 0, 'max':255},
+            { 'tip': 'rev damp',     'cmd': Cmd.REV_DAMP,     'min': 0, 'max':255},
+            { 'tip': 'fil freq',     'cmd': Cmd.DEL_FB_FILT_FREQ,      'min': 0, 'max':255},
+            { 'tip': 'fil q',        'cmd': Cmd.DEL_FB_FILT_RES,      'min': 0, 'max':255},
+            { 'tip': 'del fb',       'cmd': Cmd.DEL_FB,       'min': 0, 'max':255 },
+            ]
+
+        # setup UI
+        uic.loadUi('fx-control/mainwindow.ui', self)
+        self.button_reset.pressed.connect(lambda: self.reset_seq())
+        self.progressBar_beats.setMaximum(MainWindow.SEQ_STEPS)
+        self.button_seq_reset.pressed.connect(lambda: self.reset_beat())
+        self.lineEdit_bpm.textChanged.connect(lambda: self.update_bpm())
+        self.timer = QtCore.QTimer(self)
+        self.timer.timeout.connect(self.update_beat)
+        self.timer.start(self.get_ms_from_bpm())
+        self.beat = 0
+
+        self.setWindowTitle("Teensy FX controller")
+        self.widgets = []
+
+        try:
+            with open("settings.pkl", 'rb') as fh:
+                last_values = pickle.load(fh)
+        except FileNotFoundError:
+            last_values = None
+
+        # create all the widgets
+        for index, w in enumerate(self.widget_config):
+            w['pressed'] = False
+            w['widget'] = QtWidgets.QSlider()
+            w['disp'] = QtWidgets.QProgressBar()
+            w['disp'].setOrientation(QtCore.Qt.Vertical)
+            w['mem_a'] = 0
+            w['mem_b'] = 0
+            w['widget'].setMinimum(w['min'])
+            w['widget'].setMaximum(w['max'])
+            w['disp'].setMinimum(w['min'])
+            w['disp'].setMaximum(w['max'])
+            w['widget'].setToolTip(w['tip'])
+            logging.info("creating widget: [%-12s] cmd [%-22s] min/max [%4d/%4d]" % (w['tip'], w['cmd'], w['min'], w['max']))
+            w['disp'].valueChanged.connect(lambda state, w=w: self.map_cmd(w))
+            w['widget'].sliderMoved.connect(lambda state, w=w: self.slider_moved(w))
+            w['widget'].sliderPressed.connect(lambda w=w: self.pressed(w))
+            w['widget'].sliderReleased.connect(lambda w=w: self.released(w))
+            label = QtWidgets.QLabel()
+            label.setText(w['tip'])
+            self.layout.addWidget(label)
+            self.layout.addWidget(w['widget'])
+            self.layout.addWidget(w['disp'])
+
+            if last_values is not None:
+                w['widget'].setValue(last_values[index]['value'])
+                w['seq'] = last_values[index]['seq']
+            else:
+                w['seq'] = [w['widget'].value()] * MainWindow.SEQ_STEPS
+
+    def map_cmd(self, widget):
+        logging.debug("%s %d" % (widget['cmd'], widget['disp'].value()))
+        # map the number
+        mult = 255 / widget['max'] 
+        self.send_cmd(widget['cmd'], widget['disp'].value() * mult)
 
     def send_cmd(self, cmd, val, verbose=False):
         fmt = "BB"
@@ -51,12 +134,6 @@ class MainWindow(QtWidgets.QMainWindow):
             logging.debug("setting %s for all = %d" % (widget['tip'], widget['widget'].value()))
             widget['seq'] = [ widget['widget'].value() ] * MainWindow.SEQ_STEPS
         widget['disp'].setValue(widget['widget'].value())
-
-    def map_cmd(self, widget):
-        logging.debug("%s %d" % (widget['cmd'], widget['disp'].value()))
-        # map the number
-        mult = 255 / widget['max'] 
-        self.send_cmd(widget['cmd'], widget['disp'].value() * mult)
 
     def get_ms_from_bpm(self):
         bpm = int(self.lineEdit_bpm.text())
@@ -107,110 +184,6 @@ class MainWindow(QtWidgets.QMainWindow):
             self.button_rec.setChecked(False)
             logging.info('stop recording')
 
-    def __init__(self):
-        super(self.__class__, self).__init__()
-        if args.mock_serial:
-            self.ser = Mock()
-            self.ser.readline = Mock(return_value="mock".encode('utf-8'))
-            self.ser.write = Mock(return_value=0)
-        else:
-            self.ser = serial.Serial("/dev/ttyACM0", 9600, timeout = 2, write_timeout = 2)
-        self.record = False
-        self.play = True
-    
-        self.widget_config = [
-            { 'tip': 'del time l',   'cmd': Cmd.DEL_L_TIME,   'min': 0, 'max':2000 },
-            { 'tip': 'del time r',   'cmd': Cmd.DEL_R_TIME,   'min': 0, 'max':2000 },
-            { 'tip': 'del mix',      'cmd': Cmd.MIX_DEL,      'min': 0, 'max':255},
-            { 'tip': 'sig mix',      'cmd': Cmd.MIX_SIG,      'min': 0, 'max':255},
-            { 'tip': 'rev mix',      'cmd': Cmd.MIX_REV_IN,   'min': 0, 'max':255},
-            { 'tip': 'noiz mix',     'cmd': Cmd.MIX_NOISE,    'min': 0, 'max':255 },
-            { 'tip': 'rev size',     'cmd': Cmd.REV_SIZE,     'min': 0, 'max':255},
-            { 'tip': 'rev damp',     'cmd': Cmd.REV_DAMP,     'min': 0, 'max':255},
-            { 'tip': 'fil freq',     'cmd': Cmd.DEL_FB_FILT_FREQ,      'min': 0, 'max':255},
-            { 'tip': 'fil q',        'cmd': Cmd.DEL_FB_FILT_RES,      'min': 0, 'max':255},
-            { 'tip': 'del fb',       'cmd': Cmd.DEL_FB,       'min': 0, 'max':255 },
-            ]
-
-        uic.loadUi('fx-control/mainwindow.ui', self)
-        #self.dial_time_r.valueChanged.connect(lambda: self.send_cmd(Cmd.DEL_L_TIME, self.dial_time_r.value()))
-        self.button_mema.pressed.connect(lambda: self.store_mem('mem_a'))
-        self.button_mema.hide()
-        self.button_memb.hide()
-        self.button_reset.pressed.connect(lambda: self.reset_seq())
-        self.progressBar_beats.setMaximum(MainWindow.SEQ_STEPS)
-        self.button_memb.pressed.connect(lambda: self.store_mem('mem_b'))
-        self.button_seq_reset.pressed.connect(lambda: self.reset_beat())
-        self.slider_ab.valueChanged.connect(lambda: self.cross_fade_mem())
-        self.slider_ab.hide()
-        self.lineEdit_bpm.textChanged.connect(lambda: self.update_bpm())
-        self.timer = QtCore.QTimer(self)
-        self.timer.timeout.connect(self.update_beat)
-        self.timer.start(self.get_ms_from_bpm())
-        self.beat = 0
-
-        self.setWindowTitle("Teensy FX controller")
-        self.widgets = []
-
-        try:
-            with open("settings.pkl", 'rb') as fh:
-                last_values = pickle.load(fh)
-        except FileNotFoundError:
-            last_values = None
-
-        for index, w in enumerate(self.widget_config):
-            w['pressed'] = False
-            w['widget'] = QtWidgets.QSlider()
-            w['disp'] = QtWidgets.QProgressBar()
-            w['disp'].setOrientation(QtCore.Qt.Vertical)
-            w['mem_a'] = 0
-            w['mem_b'] = 0
-            w['widget'].setMinimum(w['min'])
-            w['widget'].setMaximum(w['max'])
-            w['disp'].setMinimum(w['min'])
-            w['disp'].setMaximum(w['max'])
-            w['widget'].setToolTip(w['tip'])
-            logging.info("creating widget: [%-12s] cmd [%-22s] min/max [%4d/%4d]" % (w['tip'], w['cmd'], w['min'], w['max']))
-            w['disp'].valueChanged.connect(lambda state, w=w: self.map_cmd(w))
-            w['widget'].sliderMoved.connect(lambda state, w=w: self.slider_moved(w))
-            w['widget'].sliderPressed.connect(lambda w=w: self.pressed(w))
-            w['widget'].sliderReleased.connect(lambda w=w: self.released(w))
-            label = QtWidgets.QLabel()
-            label.setText(w['tip'])
-            self.layout.addWidget(label)
-            self.layout.addWidget(w['widget'])
-            self.layout.addWidget(w['disp'])
-
-            if last_values is not None:
-                w['widget'].setValue(last_values[index]['value'])
-                w['seq'] = last_values[index]['seq']
-            else:
-                w['seq'] = [w['widget'].value()] * MainWindow.SEQ_STEPS
-
-        #self.reset_seq()
-
-        """
-        bpms = (60 / 120) * 1000
-        delay_l = bpms * 0.15
-        delay_r = bpms * 0.16
-
-        self.send_cmd(Cmd.MIX_SIG, 200)
-        self.send_cmd(Cmd.MIX_DEL, 100)
-        self.send_cmd(Cmd.MIX_REV, 250)
-        self.send_cmd(Cmd.MIX_REV_IN, 30)
-        self.send_cmd(Cmd.REV_DAMP, 100)
-        self.send_cmd(Cmd.REV_SIZE, 200)
-        self.send_cmd(Cmd.DEL_L_TIME, int(delay_l/4))
-        self.send_cmd(Cmd.DEL_R_TIME, int(delay_r/4))
-        self.send_cmd(Cmd.DEL_FB, 140)
-        self.send_cmd(Cmd.DEL_FB_FILT_FREQ, 140)
-        self.send_cmd(Cmd.DEL_FB_FILT_RES, 100)
-        """
-
-    def store_mem(self, mem):
-        for w in self.widget_config:
-            w[mem] = w['widget'].value()
-
     def closeEvent(self, event):
         logging.info("save settings")
         last_settings = []
@@ -219,36 +192,9 @@ class MainWindow(QtWidgets.QMainWindow):
 
         with open("settings.pkl", 'wb') as fh:
             pickle.dump(last_settings, fh)
-    """
-    slider for fx
-    0  25  50  75 100
-       a
-                b
-
-    ab slider
-    0  25  50  75 100
-    25             75 
-
-    """
-    def cross_fade_mem(self):
-        logging.info("cross fade %d" % self.slider_ab.value())
-        for w in self.widget_config:
-            val_per_step = (w['mem_a'] - w['mem_b']) / 100 # will be positive if mem_a > mem_b
-            if val_per_step > 0:
-                new_val = w['mem_a'] - val_per_step * (self.slider_ab.value())
-            else:
-                new_val = w['mem_b'] + val_per_step * (100-self.slider_ab.value())
-            logging.debug("%s %d %d" % (w['tip'], val_per_step, new_val))
-            w['widget'].setValue(new_val)
-
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="control fx")
-#    parser.add_argument('--listing', help="load a listing", action='store')
-#    parser.add_argument('--channels', help="comma separated list of 4 channels: R1,R2,L1,L2", action='store')
-#    parser.add_argument('--widths', help="comma separated list left and right width: RW,LW", action='store')
-#    parser.add_argument('--calibrate', help="run calibrate at start", action="store_const", const=True)
-#    parser.add_argument('--locate', help="run locate at start", action="store_const", const=True)
     parser.add_argument('--perf-stats', help="log performance stats", action="store_const", const=True)
     parser.add_argument('--debug', help="debug logging", action="store_const", const=True)
     parser.add_argument('--mock-serial', help="show gui even if don't have teensy connected", action="store_const", const=True)
