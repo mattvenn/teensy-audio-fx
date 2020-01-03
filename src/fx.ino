@@ -54,26 +54,69 @@ AudioConnection          patchCord23(mix_op_r, 0, i2s1, 1);
 AudioControlSGTL5000     sgtl5000_1;     //xy=292,903
 // GUItool: end automatically generated code
 
-// Use these with the Teensy Audio Shield
-/*
-#define SDCARD_CS_PIN    10
-#define SDCARD_MOSI_PIN  7
-#define SDCARD_SCK_PIN   14
-*/
+#define SERIAL_CONTROL
+#define BOARD_CONTROL
 
-// Use these with the Teensy 3.5 & 3.6 SD card
-//#define SDCARD_CS_PIN    BUILTIN_SDCARD
-//#define SDCARD_MOSI_PIN  11  // not actually used
-//#define SDCARD_SCK_PIN   13  // not actually used
+#define NUM_KNOBS 12
+#define NUM_BUTTONS 4
+#define NUM_LEDS 16
 
-// Use these for the SD+Wiz820 or other adaptors
-//#define SDCARD_CS_PIN    4
-//#define SDCARD_MOSI_PIN  11
-//#define SDCARD_SCK_PIN   13
+// pin defs
+#define POT_MUX_PINS 4
+#define BUTTON_PINS 4
+int pot_mux_addr_p[POT_MUX_PINS] = { 2, 3, 4, 5 };
+int buttons_p[BUTTON_PINS] = { 0, 1, 6, 17 };
+int led_data_p = 11;  // MOSI
+int led_clk_p  = 13;  // SCK
+int led_latch_p = 10; // CS
+int led_oe_p = 9;
+int pot_mux_p = 14;
+SPISettings settings_LED(2000000, MSBFIRST, SPI_MODE1);
+
+// global data
+int knobs [NUM_KNOBS] = {0};
+bool buttons [NUM_BUTTONS] = {0};
+
+enum Cmd {
+    REV_SIZE,
+    REV_DAMP,
+    MIX_DEL,
+    MIX_SIG,
+    MIX_REV,
+    DEL_L_TIME,
+    DEL_R_TIME,
+    DEL_FB,
+    DEL_FB_FILT_FREQ,
+    DEL_FB_FILT_RES,
+    MIX_REV_IN,
+    MIX_NOISE,
+    AUDIO_PROC,
+    AUDIO_MEM,
+    };
 
 void setup() {
-  Serial.begin(9600);
-  //usbMIDI.setHandleControlChange(myControlChange);
+    #ifdef SERIAL_CONTROL
+    Serial.begin(9600);
+    #endif
+
+    #ifdef BOARD_CONTROL
+    // setup SPI for LED control
+    pinMode(led_latch_p, OUTPUT);
+    pinMode(led_oe_p, OUTPUT);
+    SPI.begin();
+
+    // buttons
+    for( uint8_t i = 0; i < BUTTON_PINS; i++)
+    {
+        pinMode(buttons_p[i], INPUT);
+        digitalWrite(buttons_p[i], HIGH);
+    }
+    // pot mux addr pins
+    for( uint8_t i = 0; i < POT_MUX_PINS; i++)
+    {
+        pinMode(pot_mux_addr_p[i], INPUT);
+    }
+    #endif
 
   // Audio connections require memory to work.  For more
   // detailed information, see the MemoryAndCpuUsage example 
@@ -87,18 +130,6 @@ void setup() {
   sgtl5000_1.volume(0.5);
 
   sgtl5000_1.inputSelect(AUDIO_INPUT_LINEIN);
-
-/*
-  SPI.setMOSI(SDCARD_MOSI_PIN);
-  SPI.setSCK(SDCARD_SCK_PIN);
-  if (!(SD.begin(SDCARD_CS_PIN))) {
-    // stop here, but print a message repetitively
-    while (1) {
-      Serial.println("Unable to access the SD card");
-      delay(500);
-    }
-  }
-*/
 
   pink1.amplitude(0.5);
   filter_rev.frequency(200);  // high pass for reverb in
@@ -130,23 +161,50 @@ void setup() {
   freeverbs1.damping(0.8);
 }
 
-enum Cmd {
-    REV_SIZE,
-    REV_DAMP,
-    MIX_DEL,
-    MIX_SIG,
-    MIX_REV,
-    DEL_L_TIME,
-    DEL_R_TIME,
-    DEL_FB,
-    DEL_FB_FILT_FREQ,
-    DEL_FB_FILT_RES,
-    MIX_REV_IN,
-    MIX_NOISE,
-    AUDIO_PROC,
-    AUDIO_MEM,
-    };
+
 void loop()
+{
+   #ifdef SERIAL_CONTROL
+   check_serial();
+   #endif
+
+   #ifdef BOARD_CONTROL
+   check_board();
+   #endif
+}
+
+void check_board()
+{
+    // read pots
+    for(int i = 0; i < 4; i ++ ) //NUM_KNOBS; i ++) // TODO 
+    {
+        digitalWrite(pot_mux_addr_p[i], true);
+        knobs[i] = analogRead(pot_mux_p);
+        digitalWrite(pot_mux_addr_p[i], false);
+    }
+
+    // read buttons
+    for(int i = 0; i < NUM_BUTTONS; i ++) // TODO 
+    {
+        buttons[i] = digitalRead(buttons_p[i]);
+    }
+
+    // update LEDs // TODO
+    SPI.beginTransaction(settings_LED);
+    digitalWrite(led_oe_p, false);
+    for(int i = 0; i < NUM_LEDS; i ++)
+    {
+        digitalWrite(led_latch_p, false);
+        SPI.transfer(0xAA);
+        SPI.transfer(0xAA);
+        digitalWrite(led_latch_p, true);
+    }
+    digitalWrite(led_oe_p, true);
+    SPI.endTransaction();
+
+}
+
+void check_serial()
 {
    if(Serial.available() == 2)
    {
@@ -242,35 +300,4 @@ void loop()
                break;
        }
    }
-      /*
-      mixer2.gain(0, knob_A1);
-      mixer2.gain(1, 1.0 - knob_A1);
-      mixer3.gain(0, knob_A1);
-      mixer3.gain(1, 1.0 - knob_A1);
-      */
-// usbMIDI.read();
-      
-/*
-  Serial.print("all=");
-  Serial.print(AudioProcessorUsage());
-  Serial.print(",");
-  Serial.print("    ");
-  Serial.print("Memory: ");
-  Serial.print(AudioMemoryUsage());
-  Serial.print(",");
-  delay(50);
-*/
 }
-void myControlChange(byte channel, byte control, byte value) {
-  float val_0_to_1 = value / 127;
-  switch (control) {
-    case 100:
-      freeverbs1.roomsize(val_0_to_1);
-      break;
-
-    case 101:
-      freeverbs1.damping(val_0_to_1);
-      break;
-  }
-}
-
