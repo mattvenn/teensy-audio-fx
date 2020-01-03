@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 from PyQt5 import QtWidgets, uic, QtCore, QtGui
-
 import pickle
+from unittest.mock import Mock
 import logging, argparse, os, time, sys
 import serial, time
 import struct
@@ -109,7 +109,12 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def __init__(self):
         super(self.__class__, self).__init__()
-        self.ser = serial.Serial("/dev/ttyACM0", 9600, timeout = 2, write_timeout = 2)
+        if args.mock_serial:
+            self.ser = Mock()
+            self.ser.readline = Mock(return_value="mock".encode('utf-8'))
+            self.ser.write = Mock(return_value=0)
+        else:
+            self.ser = serial.Serial("/dev/ttyACM0", 9600, timeout = 2, write_timeout = 2)
         self.record = False
         self.play = True
     
@@ -246,6 +251,7 @@ if __name__ == '__main__':
 #    parser.add_argument('--locate', help="run locate at start", action="store_const", const=True)
     parser.add_argument('--perf-stats', help="log performance stats", action="store_const", const=True)
     parser.add_argument('--debug', help="debug logging", action="store_const", const=True)
+    parser.add_argument('--mock-serial', help="show gui even if don't have teensy connected", action="store_const", const=True)
     args = parser.parse_args()
 
     # setup log
