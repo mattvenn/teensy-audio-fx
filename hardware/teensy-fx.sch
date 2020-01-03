@@ -19,16 +19,8 @@ U 5E0E3867
 F0 "SGTL" 50
 F1 "SGTL5000.sch" 50
 $EndSheet
-Text GLabel 5100 4700 0    50   Input ~ 0
-SDA
-Text GLabel 5100 4600 0    50   Input ~ 0
-SCL
-Text GLabel 7750 5000 2    50   Input ~ 0
+Text GLabel 7400 5000 2    50   Input ~ 0
 MCLK
-Text GLabel 5100 5100 0    50   Input ~ 0
-BCLK
-Text GLabel 5100 5000 0    50   Input ~ 0
-LRCLK
 Text GLabel 5100 3300 0    50   Input ~ 0
 TX
 Text GLabel 5100 3200 0    50   Input ~ 0
@@ -8899,17 +8891,6 @@ EF 88 10 32 B8 0E 71 1B C2 BB AD 89 B2 B0 B0 E0 F6 59 8A BF 23 42 C8 E0 70 CC 13
 88 2F CC 9A 08 21 84 10 5F FF 0B F5 0D 26 B4 2E A3 2D 5F 00 00 00 00 49 45 4E 44 AE 42 60 82 
 EndData
 $EndBitmap
-$Comp
-L Device:R R3
-U 1 1 5E165E4D
-P 7550 5000
-F 0 "R3" V 7343 5000 50  0000 C CNN
-F 1 "100R" V 7434 5000 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric" V 7480 5000 50  0001 C CNN
-F 3 "~" H 7550 5000 50  0001 C CNN
-	1    7550 5000
-	0    1    1    0   
-$EndComp
 Wire Wire Line
 	7300 5000 7400 5000
 Wire Wire Line
@@ -8945,8 +8926,6 @@ U 5E177B2B
 F0 "pots" 50
 F1 "pots.sch" 50
 $EndSheet
-Text GLabel 5100 4400 0    50   Input ~ 0
-pot_multiplex
 Text GLabel 5100 2700 0    50   Input ~ 0
 pot_b0
 Text GLabel 5100 2800 0    50   Input ~ 0
@@ -9013,10 +8992,8 @@ Text GLabel 5100 2600 0    50   Input ~ 0
 sw_2
 Text GLabel 5100 3100 0    50   Input ~ 0
 sw_3
-Text GLabel 5100 4300 0    50   Input ~ 0
-sw_4
 Text Notes 8550 1050 0    50   ~ 0
-todo\n- battery?
+todo\n- try writing code to exercise the chosen peripherals\n
 NoConn ~ 7300 4600
 NoConn ~ 7300 5100
 NoConn ~ 7300 2400
@@ -9094,4 +9071,141 @@ F 3 "~" H 9250 3450 50  0001 C CNN
 	1    9250 3450
 	1    0    0    -1  
 $EndComp
+$Comp
+L Connector_Generic:Conn_01x14 J3
+U 1 1 5E1CF1A0
+P 5100 1250
+F 0 "J3" H 5180 1242 50  0000 L CNN
+F 1 "Conn_01x14" H 5180 1151 50  0000 L CNN
+F 2 "Connector_PinSocket_2.54mm:PinSocket_1x14_P2.54mm_Vertical_SMD_Pin1Left" H 5100 1250 50  0001 C CNN
+F 3 "~" H 5100 1250 50  0001 C CNN
+	1    5100 1250
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector_Generic:Conn_01x14 J4
+U 1 1 5E1D05EA
+P 5900 1250
+F 0 "J4" H 5818 2067 50  0000 C CNN
+F 1 "Conn_01x14" H 5818 1976 50  0000 C CNN
+F 2 "Connector_PinSocket_2.54mm:PinSocket_1x14_P2.54mm_Vertical_SMD_Pin1Left" H 5900 1250 50  0001 C CNN
+F 3 "~" H 5900 1250 50  0001 C CNN
+	1    5900 1250
+	-1   0    0    -1  
+$EndComp
+Text GLabel 4900 1550 0    50   Input ~ 0
+TX
+Text GLabel 4900 1450 0    50   Input ~ 0
+RX
+$Comp
+L power:GND #PWR0162
+U 1 1 5E1D34FC
+P 4900 650
+AR Path="/5E1D34FC" Ref="#PWR0162"  Part="1" 
+AR Path="/5BAC34FB/5E1D34FC" Ref="#PWR?"  Part="1" 
+AR Path="/5E0E3867/5E1D34FC" Ref="#PWR?"  Part="1" 
+F 0 "#PWR0162" H 4900 400 50  0001 C CNN
+F 1 "GND" V 4905 477 50  0000 C CNN
+F 2 "" H 4900 650 50  0001 C CNN
+F 3 "" H 4900 650 50  0001 C CNN
+	1    4900 650 
+	0    1    1    0   
+$EndComp
+Text GLabel 4900 950  0    50   Input ~ 0
+pot_b0
+Text GLabel 4900 1050 0    50   Input ~ 0
+pot_b1
+Text GLabel 4900 1150 0    50   Input ~ 0
+pot_b2
+Text GLabel 4900 1250 0    50   Input ~ 0
+pot_b3
+Text GLabel 4900 1950 0    50   Input ~ 0
+led_oe
+Text GLabel 4900 1750 0    50   Input ~ 0
+led_clk
+Text GLabel 4900 1650 0    50   Input ~ 0
+led_data
+Text GLabel 4900 1850 0    50   Input ~ 0
+led_latch
+Text GLabel 4900 750  0    50   Input ~ 0
+sw_1
+Text GLabel 4900 850  0    50   Input ~ 0
+sw_2
+Text GLabel 4900 1350 0    50   Input ~ 0
+sw_3
+Text Notes 4450 4500 0    50   ~ 0
+audio vol knob
+Text GLabel 5100 4300 0    50   Input ~ 0
+sw_4
+Text GLabel 5100 4400 0    50   Input ~ 0
+pot_multiplex
+Text GLabel 5100 5000 0    50   Input ~ 0
+LRCLK
+Text GLabel 5100 5100 0    50   Input ~ 0
+BCLK
+Text GLabel 5100 4600 0    50   Input ~ 0
+SCL
+Text GLabel 5100 4700 0    50   Input ~ 0
+SDA
+Text Notes 6750 1800 2    50   ~ 0
+audio vol knob
+Text GLabel 6100 1950 2    50   Input ~ 0
+sw_4
+Text GLabel 6100 1850 2    50   Input ~ 0
+pot_multiplex
+Text GLabel 6100 1250 2    50   Input ~ 0
+LRCLK
+Text GLabel 6100 1150 2    50   Input ~ 0
+BCLK
+Text GLabel 6100 1650 2    50   Input ~ 0
+SCL
+Text GLabel 6100 1550 2    50   Input ~ 0
+SDA
+Text GLabel 6500 950  2    50   Input ~ 0
+MCLK
+$Comp
+L power:+3V3 #PWR0163
+U 1 1 5E1F128B
+P 6100 850
+AR Path="/5E1F128B" Ref="#PWR0163"  Part="1" 
+AR Path="/5BAC34FB/5E1F128B" Ref="#PWR?"  Part="1" 
+AR Path="/5E0E3867/5E1F128B" Ref="#PWR?"  Part="1" 
+F 0 "#PWR0163" H 6100 700 50  0001 C CNN
+F 1 "+3V3" V 6100 1050 50  0000 C CNN
+F 2 "" H 6100 850 50  0001 C CNN
+F 3 "" H 6100 850 50  0001 C CNN
+	1    6100 850 
+	0    1    1    0   
+$EndComp
+$Comp
+L power:GND #PWR0164
+U 1 1 5E1F12A1
+P 6100 750
+AR Path="/5E1F12A1" Ref="#PWR0164"  Part="1" 
+AR Path="/5BAC34FB/5E1F12A1" Ref="#PWR?"  Part="1" 
+AR Path="/5E0E3867/5E1F12A1" Ref="#PWR?"  Part="1" 
+F 0 "#PWR0164" H 6100 500 50  0001 C CNN
+F 1 "GND" V 6100 550 50  0000 C CNN
+F 2 "" H 6100 750 50  0001 C CNN
+F 3 "" H 6100 750 50  0001 C CNN
+	1    6100 750 
+	0    -1   -1   0   
+$EndComp
+$Comp
+L power:+5V #PWR0165
+U 1 1 5E1F12AB
+P 6100 650
+F 0 "#PWR0165" H 6100 500 50  0001 C CNN
+F 1 "+5V" V 6115 778 50  0000 L CNN
+F 2 "" H 6100 650 50  0001 C CNN
+F 3 "" H 6100 650 50  0001 C CNN
+	1    6100 650 
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	6100 950  6500 950 
+NoConn ~ 6100 1050
+NoConn ~ 6100 1350
+NoConn ~ 6100 1450
+NoConn ~ 6100 1750
 $EndSCHEMATC

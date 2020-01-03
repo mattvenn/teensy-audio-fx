@@ -43,7 +43,7 @@ AR Path="/5E0E3867/5BAC3E4F" Ref="J1"  Part="1"
 F 0 "J1" H 6967 2979 50  0000 R CNN
 F 1 "AudioJack3_Ground" H 6967 3070 50  0000 R CNN
 F 2 "Connector_Audio:Jack_3.5mm_CUI_SJ-3523-SMT_Horizontal" H 7150 3050 50  0001 C CNN
-F 3 "~" H 7150 3050 50  0001 C CNN
+F 3 "https://uk.farnell.com/switchcraft-conxall/35rasmt2bhntrx/connector-smt-3-5mm-ph-jk-tap/dp/2915138" H 7150 3050 50  0001 C CNN
 	1    7150 3050
 	-1   0    0    1   
 $EndComp
@@ -480,7 +480,7 @@ Text GLabel 4350 3150 0    50   Input ~ 0
 SDA
 Text GLabel 4350 3250 0    50   Input ~ 0
 SCL
-Text GLabel 4950 3450 0    50   Input ~ 0
+Text GLabel 3750 3450 0    50   Input ~ 0
 MCLK
 Text GLabel 4950 3550 0    50   Input ~ 0
 BCLK
@@ -615,4 +615,21 @@ Wire Wire Line
 	6350 3150 6350 2950
 Wire Wire Line
 	6350 2950 6500 2950
+Text Notes 7050 2750 0    50   ~ 0
+farnell 2915138
+$Comp
+L Device:R R?
+U 1 1 5E21D79E
+P 3900 3450
+AR Path="/5E21D79E" Ref="R?"  Part="1" 
+AR Path="/5E0E3867/5E21D79E" Ref="R3"  Part="1" 
+F 0 "R3" V 3693 3450 50  0000 C CNN
+F 1 "100R" V 3784 3450 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 3830 3450 50  0001 C CNN
+F 3 "~" H 3900 3450 50  0001 C CNN
+	1    3900 3450
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	4050 3450 4950 3450
 $EndSCHEMATC
