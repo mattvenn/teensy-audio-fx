@@ -17,6 +17,8 @@ Based off the teensy 4 audio board and the [teensy beats shield](https://hackada
 
 * teensy 4 audio board schematic https://www.pjrc.com/store/schematic_audio4.png
 * [SGTL5000 datasheet](https://static6.arrow.com/aropdfconversion/d5e3ddfdb01ac7d0ee29dd23626c23e0eb18a14a/1931605559406471sgtl5000.pdf)
+* TLC5947 24 channel PWM LED driver
+* 4067 multiplexer for the knobs
 
 ## Hardware todo
 
@@ -31,7 +33,7 @@ Try to fulfil what the [control.py](control.py) program can do.
 
 ## Top Level
 
-* each knob controls one of the parameters (see config in [control.py])
+* each knob controls one of the parameters (see config in control.py)
 * each knob has a number of steps of recordable automation (160 in control.py)
 * knob's leds brightness shows current value of parameter
 * record time is based on bpm tap tempo and number of steps (4 bars in control.py)
