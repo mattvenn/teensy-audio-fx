@@ -334,20 +334,6 @@ Wire Wire Line
 	1750 2100 1750 1900
 Connection ~ 1750 2100
 $Comp
-L power:+3V3 #PWR?
-U 1 1 5BAC54FB
-P 2750 1900
-AR Path="/5BAC54FB" Ref="#PWR?"  Part="1" 
-AR Path="/5BAC34FB/5BAC54FB" Ref="#PWR0124"  Part="1" 
-AR Path="/5E0E3867/5BAC54FB" Ref="#PWR0118"  Part="1" 
-F 0 "#PWR0118" H 2750 1750 50  0001 C CNN
-F 1 "+3V3" H 2765 2073 50  0000 C CNN
-F 2 "" H 2750 1900 50  0001 C CNN
-F 3 "" H 2750 1900 50  0001 C CNN
-	1    2750 1900
-	1    0    0    -1  
-$EndComp
-$Comp
 L power:+1V8 #PWR?
 U 1 1 5BAC5501
 P 1750 1900
@@ -683,4 +669,18 @@ Text Label 4850 2000 0    50   ~ 0
 audio_3v3
 Text Label 6350 2000 0    50   ~ 0
 filter_audio_3v3
+$Comp
+L power:+3V3 #PWR?
+U 1 1 5BAC54FB
+P 2750 1900
+AR Path="/5BAC54FB" Ref="#PWR?"  Part="1" 
+AR Path="/5BAC34FB/5BAC54FB" Ref="#PWR0124"  Part="1" 
+AR Path="/5E0E3867/5BAC54FB" Ref="#PWR0118"  Part="1" 
+F 0 "#PWR0118" H 2750 1750 50  0001 C CNN
+F 1 "+3V3" H 2765 2073 50  0000 C CNN
+F 2 "" H 2750 1900 50  0001 C CNN
+F 3 "" H 2750 1900 50  0001 C CNN
+	1    2750 1900
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
