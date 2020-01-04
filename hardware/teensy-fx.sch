@@ -21,10 +21,10 @@ F1 "SGTL5000.sch" 50
 $EndSheet
 Text GLabel 7300 4550 2    50   Input ~ 0
 MCLK
-Text GLabel 5000 2850 0    50   Input ~ 0
-TX
 Text GLabel 5000 2750 0    50   Input ~ 0
-RX
+I2S_OUT
+Text GLabel 5000 2850 0    50   Input ~ 0
+I2S_IN
 $Comp
 L power:GND #PWR0101
 U 1 1 5E11F642

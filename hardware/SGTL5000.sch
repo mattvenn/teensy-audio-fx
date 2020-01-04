@@ -71,15 +71,15 @@ Wire Wire Line
 $Comp
 L power:+3V3 #PWR?
 U 1 1 5BAC3E68
-P 4250 2000
+P 3950 2000
 AR Path="/5BAC3E68" Ref="#PWR?"  Part="1" 
 AR Path="/5BAC34FB/5BAC3E68" Ref="#PWR0125"  Part="1" 
 AR Path="/5E0E3867/5BAC3E68" Ref="#PWR0107"  Part="1" 
-F 0 "#PWR0107" H 4250 1850 50  0001 C CNN
-F 1 "+3V3" H 4265 2173 50  0000 C CNN
-F 2 "" H 4250 2000 50  0001 C CNN
-F 3 "" H 4250 2000 50  0001 C CNN
-	1    4250 2000
+F 0 "#PWR0107" H 3950 1850 50  0001 C CNN
+F 1 "+3V3" H 3965 2173 50  0000 C CNN
+F 2 "" H 3950 2000 50  0001 C CNN
+F 3 "" H 3950 2000 50  0001 C CNN
+	1    3950 2000
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -487,9 +487,9 @@ BCLK
 Text GLabel 4950 3650 0    50   Input ~ 0
 LRCLK
 Text GLabel 4950 3750 0    50   Input ~ 0
-TX
+I2S_IN
 Text GLabel 4950 3850 0    50   Input ~ 0
-RX
+I2S_OUT
 Wire Wire Line
 	6800 3250 6800 3050
 Wire Wire Line
@@ -555,7 +555,6 @@ F 3 "" H 4450 4300 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 NoConn ~ 4950 4200
-NoConn ~ 6350 4150
 NoConn ~ 6350 4300
 NoConn ~ 6350 3350
 NoConn ~ 6350 3450
@@ -569,7 +568,7 @@ AR Path="/5E0E3867/5BAC3E38" Ref="U3"  Part="1"
 F 0 "U3" H 5650 5000 60  0000 C CNN
 F 1 "SGTL5000" H 5650 4894 60  0000 C CNN
 F 2 "Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.6x3.6mm" H 5650 3800 60  0001 C CNN
-F 3 "" H 5650 3800 60  0000 C CNN
+F 3 "https://www.nxp.com/docs/en/data-sheet/SGTL5000.pdf" H 5600 2100 60  0000 C CNN
 	1    5650 3750
 	1    0    0    -1  
 $EndComp
@@ -634,4 +633,50 @@ Wire Wire Line
 	4050 3450 4950 3450
 Text Notes 4700 1350 0    118  Italic 24
 SGTL5000 audio driver
+Text Notes 3000 3850 0    50   ~ 0
+these were mislabelled in the symbol\n
+$Comp
+L Device:C_Small C?
+U 1 1 5E112693
+P 6650 4250
+AR Path="/5E112693" Ref="C?"  Part="1" 
+AR Path="/5BAC34FB/5E112693" Ref="C?"  Part="1" 
+AR Path="/5E0E3867/5E112693" Ref="C13"  Part="1" 
+F 0 "C13" H 6742 4296 50  0000 L CNN
+F 1 "0.1uF" H 6742 4205 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 6650 4250 50  0001 C CNN
+F 3 "~" H 6650 4250 50  0001 C CNN
+	1    6650 4250
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6350 4150 6650 4150
+$Comp
+L power:GND #PWR?
+U 1 1 5E113ED8
+P 6650 4350
+AR Path="/5E113ED8" Ref="#PWR?"  Part="1" 
+AR Path="/5BAC34FB/5E113ED8" Ref="#PWR?"  Part="1" 
+AR Path="/5E0E3867/5E113ED8" Ref="#PWR01"  Part="1" 
+F 0 "#PWR01" H 6650 4100 50  0001 C CNN
+F 1 "GND" H 6655 4177 50  0000 C CNN
+F 2 "" H 6650 4350 50  0001 C CNN
+F 3 "" H 6650 4350 50  0001 C CNN
+	1    6650 4350
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 5E11741C
+P 4100 2000
+AR Path="/5E11741C" Ref="R?"  Part="1" 
+AR Path="/5BAC34FB/5E11741C" Ref="R?"  Part="1" 
+AR Path="/5E0E3867/5E11741C" Ref="R8"  Part="1" 
+F 0 "R8" V 4000 2000 50  0000 L CNN
+F 1 "1k" V 4100 1950 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 4030 2000 50  0001 C CNN
+F 3 "~" H 4100 2000 50  0001 C CNN
+	1    4100 2000
+	0    1    1    0   
+$EndComp
 $EndSCHEMATC
