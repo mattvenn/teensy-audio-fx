@@ -8913,13 +8913,13 @@ U 5E177B2B
 F0 "pots buttons & LEDs" 50
 F1 "pots.sch" 50
 $EndSheet
-Text GLabel 5000 2250 0    50   Input ~ 0
-pot_b0
-Text GLabel 5000 2350 0    50   Input ~ 0
-pot_b1
-Text GLabel 5000 2450 0    50   Input ~ 0
-pot_b2
 Text GLabel 5000 2550 0    50   Input ~ 0
+pot_b0
+Text GLabel 5000 2450 0    50   Input ~ 0
+pot_b1
+Text GLabel 5000 2250 0    50   Input ~ 0
+pot_b2
+Text GLabel 5000 2350 0    50   Input ~ 0
 pot_b3
 Text GLabel 5000 2950 0    50   Input ~ 0
 led_oe
@@ -9261,4 +9261,54 @@ Text Notes 9250 4500 0    118  Italic 24
 Audio
 Text Notes 9200 5600 0    118  Italic 24
 Pots & LEDs
+$Comp
+L Connector:TestPoint TP7
+U 1 1 5E14A287
+P 10300 2800
+F 0 "TP7" V 10495 2872 50  0000 C CNN
+F 1 "TestPoint" V 10404 2872 50  0000 C CNN
+F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 10500 2800 50  0001 C CNN
+F 3 "~" H 10500 2800 50  0001 C CNN
+	1    10300 2800
+	0    -1   -1   0   
+$EndComp
+$Comp
+L power:+1V8 #PWR02
+U 1 1 5E14D959
+P 10300 2800
+AR Path="/5E14D959" Ref="#PWR02"  Part="1" 
+AR Path="/5BAC34FB/5E14D959" Ref="#PWR?"  Part="1" 
+AR Path="/5E0E3867/5E14D959" Ref="#PWR?"  Part="1" 
+F 0 "#PWR02" H 10300 2650 50  0001 C CNN
+F 1 "+1V8" H 10315 2973 50  0000 C CNN
+F 2 "" H 10300 2800 50  0001 C CNN
+F 3 "" H 10300 2800 50  0001 C CNN
+	1    10300 2800
+	0    1    1    0   
+$EndComp
+$Comp
+L Connector:TestPoint TP8
+U 1 1 5E14E060
+P 10300 2400
+F 0 "TP8" V 10495 2472 50  0000 C CNN
+F 1 "TestPoint" V 10404 2472 50  0000 C CNN
+F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 10500 2400 50  0001 C CNN
+F 3 "~" H 10500 2400 50  0001 C CNN
+	1    10300 2400
+	0    -1   -1   0   
+$EndComp
+$Comp
+L power:GND #PWR0167
+U 1 1 5E14E677
+P 10300 2400
+AR Path="/5E14E677" Ref="#PWR0167"  Part="1" 
+AR Path="/5BAC34FB/5E14E677" Ref="#PWR?"  Part="1" 
+AR Path="/5E0E3867/5E14E677" Ref="#PWR?"  Part="1" 
+F 0 "#PWR0167" H 10300 2150 50  0001 C CNN
+F 1 "GND" H 10305 2227 50  0000 C CNN
+F 2 "" H 10300 2400 50  0001 C CNN
+F 3 "" H 10300 2400 50  0001 C CNN
+	1    10300 2400
+	0    -1   -1   0   
+$EndComp
 $EndSCHEMATC

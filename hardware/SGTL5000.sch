@@ -96,20 +96,6 @@ F 3 "~" H 4550 2250 50  0001 C CNN
 	1    4550 2250
 	1    0    0    -1  
 $EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5BAC3E75
-P 4550 2350
-AR Path="/5BAC3E75" Ref="#PWR?"  Part="1" 
-AR Path="/5BAC34FB/5BAC3E75" Ref="#PWR0128"  Part="1" 
-AR Path="/5E0E3867/5BAC3E75" Ref="#PWR0108"  Part="1" 
-F 0 "#PWR0108" H 4550 2100 50  0001 C CNN
-F 1 "GND" H 4555 2177 50  0000 C CNN
-F 2 "" H 4550 2350 50  0001 C CNN
-F 3 "" H 4550 2350 50  0001 C CNN
-	1    4550 2350
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	4550 2000 4550 2150
 $Comp
@@ -124,20 +110,6 @@ F 1 "0.1uF" H 4942 2205 50  0000 L CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric" H 4850 2250 50  0001 C CNN
 F 3 "~" H 4850 2250 50  0001 C CNN
 	1    4850 2250
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5BAC3E83
-P 4850 2350
-AR Path="/5BAC3E83" Ref="#PWR?"  Part="1" 
-AR Path="/5BAC34FB/5BAC3E83" Ref="#PWR0129"  Part="1" 
-AR Path="/5E0E3867/5BAC3E83" Ref="#PWR0109"  Part="1" 
-F 0 "#PWR0109" H 4850 2100 50  0001 C CNN
-F 1 "GND" H 4855 2177 50  0000 C CNN
-F 2 "" H 4850 2350 50  0001 C CNN
-F 3 "" H 4850 2350 50  0001 C CNN
-	1    4850 2350
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
@@ -156,20 +128,6 @@ F 3 "~" H 5150 2250 50  0001 C CNN
 	1    5150 2250
 	1    0    0    -1  
 $EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5BAC3E91
-P 5150 2350
-AR Path="/5BAC3E91" Ref="#PWR?"  Part="1" 
-AR Path="/5BAC34FB/5BAC3E91" Ref="#PWR0130"  Part="1" 
-AR Path="/5E0E3867/5BAC3E91" Ref="#PWR0110"  Part="1" 
-F 0 "#PWR0110" H 5150 2100 50  0001 C CNN
-F 1 "GND" H 5155 2177 50  0000 C CNN
-F 2 "" H 5150 2350 50  0001 C CNN
-F 3 "" H 5150 2350 50  0001 C CNN
-	1    5150 2350
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	5150 2000 5150 2150
 $Comp
@@ -186,20 +144,6 @@ F 3 "~" H 6350 2250 50  0001 C CNN
 	1    6350 2250
 	1    0    0    -1  
 $EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5BAC3E9F
-P 6350 2350
-AR Path="/5BAC3E9F" Ref="#PWR?"  Part="1" 
-AR Path="/5BAC34FB/5BAC3E9F" Ref="#PWR0131"  Part="1" 
-AR Path="/5E0E3867/5BAC3E9F" Ref="#PWR0111"  Part="1" 
-F 0 "#PWR0111" H 6350 2100 50  0001 C CNN
-F 1 "GND" H 6355 2177 50  0000 C CNN
-F 2 "" H 6350 2350 50  0001 C CNN
-F 3 "" H 6350 2350 50  0001 C CNN
-	1    6350 2350
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	6350 2000 6350 2150
 $Comp
@@ -214,20 +158,6 @@ F 1 "0.1uF" H 6742 2205 50  0000 L CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric" H 6650 2250 50  0001 C CNN
 F 3 "~" H 6650 2250 50  0001 C CNN
 	1    6650 2250
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5BAC3EAD
-P 6650 2350
-AR Path="/5BAC3EAD" Ref="#PWR?"  Part="1" 
-AR Path="/5BAC34FB/5BAC3EAD" Ref="#PWR0132"  Part="1" 
-AR Path="/5E0E3867/5BAC3EAD" Ref="#PWR0112"  Part="1" 
-F 0 "#PWR0112" H 6650 2100 50  0001 C CNN
-F 1 "GND" H 6655 2177 50  0000 C CNN
-F 2 "" H 6650 2350 50  0001 C CNN
-F 3 "" H 6650 2350 50  0001 C CNN
-	1    6650 2350
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
@@ -349,20 +279,6 @@ Wire Wire Line
 	6050 2000 6350 2000
 Connection ~ 6050 2000
 $Comp
-L power:GND #PWR?
-U 1 1 5BAC457F
-P 5450 5000
-AR Path="/5BAC457F" Ref="#PWR?"  Part="1" 
-AR Path="/5BAC34FB/5BAC457F" Ref="#PWR0141"  Part="1" 
-AR Path="/5E0E3867/5BAC457F" Ref="#PWR0115"  Part="1" 
-F 0 "#PWR0115" H 5450 4750 50  0001 C CNN
-F 1 "GND" H 5455 4827 50  0000 C CNN
-F 2 "" H 5450 5000 50  0001 C CNN
-F 3 "" H 5450 5000 50  0001 C CNN
-	1    5450 5000
-	1    0    0    -1  
-$EndComp
-$Comp
 L teensy_beats-cache:teensy_beats_parts_AP7313R-1.8V U?
 U 1 1 5BAC54DA
 P 2250 2100
@@ -402,20 +318,6 @@ F 1 "GND" H 1755 2277 50  0000 C CNN
 F 2 "" H 1750 2450 50  0001 C CNN
 F 3 "" H 1750 2450 50  0001 C CNN
 	1    1750 2450
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5BAC54EE
-P 2250 2450
-AR Path="/5BAC54EE" Ref="#PWR?"  Part="1" 
-AR Path="/5BAC34FB/5BAC54EE" Ref="#PWR0134"  Part="1" 
-AR Path="/5E0E3867/5BAC54EE" Ref="#PWR0117"  Part="1" 
-F 0 "#PWR0117" H 2250 2200 50  0001 C CNN
-F 1 "GND" H 2255 2277 50  0000 C CNN
-F 2 "" H 2250 2450 50  0001 C CNN
-F 3 "" H 2250 2450 50  0001 C CNN
-	1    2250 2450
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
@@ -511,20 +413,6 @@ F 3 "~" H 7100 3850 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L power:GND #PWR?
-U 1 1 5E0FD89C
-P 6950 3150
-AR Path="/5E0FD89C" Ref="#PWR?"  Part="1" 
-AR Path="/5BAC34FB/5E0FD89C" Ref="#PWR?"  Part="1" 
-AR Path="/5E0E3867/5E0FD89C" Ref="#PWR0120"  Part="1" 
-F 0 "#PWR0120" H 6950 2900 50  0001 C CNN
-F 1 "GND" H 6955 2977 50  0000 C CNN
-F 2 "" H 6950 3150 50  0001 C CNN
-F 3 "" H 6950 3150 50  0001 C CNN
-	1    6950 3150
-	1    0    0    -1  
-$EndComp
-$Comp
 L Device:C_Small C?
 U 1 1 5E0FEC6F
 P 4450 4200
@@ -540,20 +428,6 @@ F 3 "~" H 4450 4200 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	4950 4100 4450 4100
-$Comp
-L power:GND #PWR?
-U 1 1 5E1010DB
-P 4450 4300
-AR Path="/5E1010DB" Ref="#PWR?"  Part="1" 
-AR Path="/5BAC34FB/5E1010DB" Ref="#PWR?"  Part="1" 
-AR Path="/5E0E3867/5E1010DB" Ref="#PWR0122"  Part="1" 
-F 0 "#PWR0122" H 4450 4050 50  0001 C CNN
-F 1 "GND" H 4455 4127 50  0000 C CNN
-F 2 "" H 4450 4300 50  0001 C CNN
-F 3 "" H 4450 4300 50  0001 C CNN
-	1    4450 4300
-	1    0    0    -1  
-$EndComp
 NoConn ~ 4950 4200
 NoConn ~ 6350 4300
 NoConn ~ 6350 3350
@@ -666,6 +540,132 @@ F 3 "" H 6650 4350 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
+L power:GND #PWR?
+U 1 1 5BAC54EE
+P 2250 2450
+AR Path="/5BAC54EE" Ref="#PWR?"  Part="1" 
+AR Path="/5BAC34FB/5BAC54EE" Ref="#PWR0134"  Part="1" 
+AR Path="/5E0E3867/5BAC54EE" Ref="#PWR0117"  Part="1" 
+F 0 "#PWR0117" H 2250 2200 50  0001 C CNN
+F 1 "GND" H 2255 2277 50  0000 C CNN
+F 2 "" H 2250 2450 50  0001 C CNN
+F 3 "" H 2250 2450 50  0001 C CNN
+	1    2250 2450
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5BAC3EAD
+P 6650 2350
+AR Path="/5BAC3EAD" Ref="#PWR?"  Part="1" 
+AR Path="/5BAC34FB/5BAC3EAD" Ref="#PWR0132"  Part="1" 
+AR Path="/5E0E3867/5BAC3EAD" Ref="#PWR0112"  Part="1" 
+F 0 "#PWR0112" H 6650 2100 50  0001 C CNN
+F 1 "GND" H 6655 2177 50  0000 C CNN
+F 2 "" H 6650 2350 50  0001 C CNN
+F 3 "" H 6650 2350 50  0001 C CNN
+	1    6650 2350
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5BAC3E9F
+P 6350 2350
+AR Path="/5BAC3E9F" Ref="#PWR?"  Part="1" 
+AR Path="/5BAC34FB/5BAC3E9F" Ref="#PWR0131"  Part="1" 
+AR Path="/5E0E3867/5BAC3E9F" Ref="#PWR0111"  Part="1" 
+F 0 "#PWR0111" H 6350 2100 50  0001 C CNN
+F 1 "GND" H 6355 2177 50  0000 C CNN
+F 2 "" H 6350 2350 50  0001 C CNN
+F 3 "" H 6350 2350 50  0001 C CNN
+	1    6350 2350
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5BAC3E91
+P 5150 2350
+AR Path="/5BAC3E91" Ref="#PWR?"  Part="1" 
+AR Path="/5BAC34FB/5BAC3E91" Ref="#PWR0130"  Part="1" 
+AR Path="/5E0E3867/5BAC3E91" Ref="#PWR0110"  Part="1" 
+F 0 "#PWR0110" H 5150 2100 50  0001 C CNN
+F 1 "GND" H 5155 2177 50  0000 C CNN
+F 2 "" H 5150 2350 50  0001 C CNN
+F 3 "" H 5150 2350 50  0001 C CNN
+	1    5150 2350
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5BAC3E83
+P 4850 2350
+AR Path="/5BAC3E83" Ref="#PWR?"  Part="1" 
+AR Path="/5BAC34FB/5BAC3E83" Ref="#PWR0129"  Part="1" 
+AR Path="/5E0E3867/5BAC3E83" Ref="#PWR0109"  Part="1" 
+F 0 "#PWR0109" H 4850 2100 50  0001 C CNN
+F 1 "GND" H 4855 2177 50  0000 C CNN
+F 2 "" H 4850 2350 50  0001 C CNN
+F 3 "" H 4850 2350 50  0001 C CNN
+	1    4850 2350
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5BAC3E75
+P 4550 2350
+AR Path="/5BAC3E75" Ref="#PWR?"  Part="1" 
+AR Path="/5BAC34FB/5BAC3E75" Ref="#PWR0128"  Part="1" 
+AR Path="/5E0E3867/5BAC3E75" Ref="#PWR0108"  Part="1" 
+F 0 "#PWR0108" H 4550 2100 50  0001 C CNN
+F 1 "GND" H 4555 2177 50  0000 C CNN
+F 2 "" H 4550 2350 50  0001 C CNN
+F 3 "" H 4550 2350 50  0001 C CNN
+	1    4550 2350
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5E1010DB
+P 4450 4300
+AR Path="/5E1010DB" Ref="#PWR?"  Part="1" 
+AR Path="/5BAC34FB/5E1010DB" Ref="#PWR?"  Part="1" 
+AR Path="/5E0E3867/5E1010DB" Ref="#PWR0122"  Part="1" 
+F 0 "#PWR0122" H 4450 4050 50  0001 C CNN
+F 1 "GND" H 4455 4127 50  0000 C CNN
+F 2 "" H 4450 4300 50  0001 C CNN
+F 3 "" H 4450 4300 50  0001 C CNN
+	1    4450 4300
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5BAC457F
+P 5450 5000
+AR Path="/5BAC457F" Ref="#PWR?"  Part="1" 
+AR Path="/5BAC34FB/5BAC457F" Ref="#PWR0141"  Part="1" 
+AR Path="/5E0E3867/5BAC457F" Ref="#PWR0115"  Part="1" 
+F 0 "#PWR0115" H 5450 4750 50  0001 C CNN
+F 1 "GND" H 5455 4827 50  0000 C CNN
+F 2 "" H 5450 5000 50  0001 C CNN
+F 3 "" H 5450 5000 50  0001 C CNN
+	1    5450 5000
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5E0FD89C
+P 6950 3150
+AR Path="/5E0FD89C" Ref="#PWR?"  Part="1" 
+AR Path="/5BAC34FB/5E0FD89C" Ref="#PWR?"  Part="1" 
+AR Path="/5E0E3867/5E0FD89C" Ref="#PWR0120"  Part="1" 
+F 0 "#PWR0120" H 6950 2900 50  0001 C CNN
+F 1 "GND" H 6955 2977 50  0000 C CNN
+F 2 "" H 6950 3150 50  0001 C CNN
+F 3 "" H 6950 3150 50  0001 C CNN
+	1    6950 3150
+	1    0    0    -1  
+$EndComp
+$Comp
 L Device:R R?
 U 1 1 5E11741C
 P 4100 2000
@@ -679,4 +679,8 @@ F 3 "~" H 4100 2000 50  0001 C CNN
 	1    4100 2000
 	0    1    1    0   
 $EndComp
+Text Label 4850 2000 0    50   ~ 0
+audio_3v3
+Text Label 6350 2000 0    50   ~ 0
+filter_audio_3v3
 $EndSCHEMATC
