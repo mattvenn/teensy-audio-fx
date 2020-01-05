@@ -382,15 +382,15 @@ Text GLabel 4350 3150 0    50   Input ~ 0
 SDA
 Text GLabel 4350 3250 0    50   Input ~ 0
 SCL
-Text GLabel 3750 3450 0    50   Input ~ 0
+Text GLabel 4350 3450 0    50   Input ~ 0
 MCLK
-Text GLabel 4950 3550 0    50   Input ~ 0
+Text GLabel 4350 3650 0    50   Input ~ 0
 BCLK
-Text GLabel 4950 3650 0    50   Input ~ 0
+Text GLabel 4350 3550 0    50   Input ~ 0
 LRCLK
-Text GLabel 4950 3750 0    50   Input ~ 0
+Text GLabel 4350 3750 0    50   Input ~ 0
 I2S_IN
-Text GLabel 4950 3850 0    50   Input ~ 0
+Text GLabel 4350 3850 0    50   Input ~ 0
 I2S_OUT
 Wire Wire Line
 	7150 3250 7150 3050
@@ -477,21 +477,19 @@ farnell 2915138
 $Comp
 L Device:R R?
 U 1 1 5E21D79E
-P 3900 3450
+P 4500 3450
 AR Path="/5E21D79E" Ref="R?"  Part="1" 
 AR Path="/5E0E3867/5E21D79E" Ref="R3"  Part="1" 
-F 0 "R3" V 3693 3450 50  0000 C CNN
-F 1 "100R" V 3784 3450 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric" V 3830 3450 50  0001 C CNN
-F 3 "~" H 3900 3450 50  0001 C CNN
-	1    3900 3450
+F 0 "R3" V 4400 3400 50  0000 C CNN
+F 1 "100R" V 4500 3500 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 4430 3450 50  0001 C CNN
+F 3 "~" H 4500 3450 50  0001 C CNN
+	1    4500 3450
 	0    1    1    0   
 $EndComp
-Wire Wire Line
-	4050 3450 4950 3450
 Text Notes 4700 1350 0    118  Italic 24
 SGTL5000 audio driver
-Text Notes 3000 3850 0    50   ~ 0
+Text Notes 2500 3800 0    50   ~ 0
 these were mislabelled in the symbol\n
 $Comp
 L Device:C_Small C?
@@ -821,4 +819,33 @@ Wire Wire Line
 	6650 3950 6650 4300
 Wire Wire Line
 	6650 4300 7700 4300
+$Comp
+L Device:R_Pack04 RN1
+U 1 1 5E1364CA
+P 4550 3750
+F 0 "RN1" V 4800 3550 50  0000 C CNN
+F 1 "R_Pack04" V 4800 3950 50  0000 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x0603" V 4825 3750 50  0001 C CNN
+F 3 "~" H 4550 3750 50  0001 C CNN
+	1    4550 3750
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	4650 3450 4950 3450
+Wire Wire Line
+	4750 3750 4950 3750
+Wire Wire Line
+	4750 3850 4950 3850
+Wire Wire Line
+	4850 3650 4850 3550
+Wire Wire Line
+	4850 3550 4950 3550
+Wire Wire Line
+	4750 3650 4850 3650
+Wire Wire Line
+	4750 3550 4750 3600
+Wire Wire Line
+	4750 3600 4950 3600
+Wire Wire Line
+	4950 3600 4950 3650
 $EndSCHEMATC
