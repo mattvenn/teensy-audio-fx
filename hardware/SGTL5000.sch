@@ -279,7 +279,7 @@ Wire Wire Line
 	6050 2000 6350 2000
 Connection ~ 6050 2000
 $Comp
-L teensy_beats-cache:teensy_beats_parts_AP7313R-1.8V U?
+L teensy-fx-rescue:teensy_beats_parts_AP7313R-1.8V-teensy_beats-cache U?
 U 1 1 5BAC54DA
 P 2250 2100
 AR Path="/5BAC54DA" Ref="U?"  Part="1" 
@@ -429,7 +429,7 @@ Wire Wire Line
 NoConn ~ 4950 4200
 NoConn ~ 6350 4300
 $Comp
-L teensy_beats-cache:SparkFun-IC-Analog_SGTL5000 U?
+L teensy-fx-rescue:SparkFun-IC-Analog_SGTL5000-teensy_beats-cache U?
 U 1 1 5BAC3E38
 P 5650 3750
 AR Path="/5BAC3E38" Ref="U?"  Part="1" 
@@ -819,33 +819,14 @@ Wire Wire Line
 	6650 3950 6650 4300
 Wire Wire Line
 	6650 4300 7700 4300
-$Comp
-L Device:R_Pack04 RN1
-U 1 1 5E1364CA
-P 4550 3750
-F 0 "RN1" V 4800 3550 50  0000 C CNN
-F 1 "R_Pack04" V 4800 3950 50  0000 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" V 4825 3750 50  0001 C CNN
-F 3 "~" H 4550 3750 50  0001 C CNN
-	1    4550 3750
-	0    1    1    0   
-$EndComp
 Wire Wire Line
 	4650 3450 4950 3450
 Wire Wire Line
-	4750 3750 4950 3750
+	4350 3550 4950 3550
 Wire Wire Line
-	4750 3850 4950 3850
+	4350 3650 4950 3650
 Wire Wire Line
-	4850 3650 4850 3550
+	4350 3750 4950 3750
 Wire Wire Line
-	4850 3550 4950 3550
-Wire Wire Line
-	4750 3650 4850 3650
-Wire Wire Line
-	4750 3550 4750 3600
-Wire Wire Line
-	4750 3600 4950 3600
-Wire Wire Line
-	4950 3600 4950 3650
+	4350 3850 4950 3850
 $EndSCHEMATC

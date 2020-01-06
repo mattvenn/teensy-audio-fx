@@ -27,34 +27,34 @@ $EndComp
 $Comp
 L Device:R R4
 U 1 1 5E17A27D
-P 3200 2350
-F 0 "R4" V 2993 2350 50  0000 C CNN
-F 1 "10k" V 3084 2350 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric" V 3130 2350 50  0001 C CNN
-F 3 "~" H 3200 2350 50  0001 C CNN
-	1    3200 2350
+P 3450 2300
+F 0 "R4" V 3243 2300 50  0000 C CNN
+F 1 "10k" V 3334 2300 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 3380 2300 50  0001 C CNN
+F 3 "~" H 3450 2300 50  0001 C CNN
+	1    3450 2300
 	0    1    1    0   
 $EndComp
 $Comp
 L power:GND #PWR0121
 U 1 1 5E17AA89
-P 3050 2350
-F 0 "#PWR0121" H 3050 2100 50  0001 C CNN
-F 1 "GND" H 3055 2177 50  0000 C CNN
-F 2 "" H 3050 2350 50  0001 C CNN
-F 3 "" H 3050 2350 50  0001 C CNN
-	1    3050 2350
+P 3300 2300
+F 0 "#PWR0121" H 3300 2050 50  0001 C CNN
+F 1 "GND" H 3305 2127 50  0000 C CNN
+F 2 "" H 3300 2300 50  0001 C CNN
+F 3 "" H 3300 2300 50  0001 C CNN
+	1    3300 2300
 	1    0    0    -1  
 $EndComp
-Text GLabel 3350 3450 0    50   Input ~ 0
+Text GLabel 3250 3400 0    50   Input ~ 0
 pot_multiplex
-Text GLabel 3350 2750 0    50   Input ~ 0
+Text GLabel 3600 2700 0    50   Input ~ 0
 pot_b0
-Text GLabel 3350 2850 0    50   Input ~ 0
+Text GLabel 3600 2800 0    50   Input ~ 0
 pot_b1
-Text GLabel 3350 2950 0    50   Input ~ 0
+Text GLabel 3600 2900 0    50   Input ~ 0
 pot_b2
-Text GLabel 3350 3050 0    50   Input ~ 0
+Text GLabel 3600 3000 0    50   Input ~ 0
 pot_b3
 $Comp
 L power:GND #PWR0123
@@ -80,29 +80,29 @@ F 3 "" H 1650 4750 50  0001 C CNN
 $EndComp
 Text Label 1800 4900 0    50   ~ 0
 a0
-Text Label 4550 2150 0    50   ~ 0
+Text Label 4800 2100 0    50   ~ 0
 a0
-Text Label 4550 2250 0    50   ~ 0
+Text Label 4800 2200 0    50   ~ 0
 a1
-Text Label 4550 2350 0    50   ~ 0
+Text Label 4800 2300 0    50   ~ 0
 a2
-Text Label 4550 2450 0    50   ~ 0
+Text Label 4800 2400 0    50   ~ 0
 a3
-Text Label 4550 2550 0    50   ~ 0
+Text Label 4800 2500 0    50   ~ 0
 a4
-Text Label 4550 2650 0    50   ~ 0
+Text Label 4800 2600 0    50   ~ 0
 a5
-Text Label 4550 2750 0    50   ~ 0
+Text Label 4800 2700 0    50   ~ 0
 a6
-Text Label 4550 2850 0    50   ~ 0
+Text Label 4800 2800 0    50   ~ 0
 a7
-Text Label 4550 2950 0    50   ~ 0
+Text Label 4800 2900 0    50   ~ 0
 a8
-Text Label 4550 3050 0    50   ~ 0
+Text Label 4800 3000 0    50   ~ 0
 a9
-Text Label 4550 3150 0    50   ~ 0
+Text Label 4800 3100 0    50   ~ 0
 a10
-Text Label 4550 3250 0    50   ~ 0
+Text Label 4800 3200 0    50   ~ 0
 a11
 $Comp
 L Device:R_POT RV4
@@ -492,67 +492,69 @@ a11
 $Comp
 L power:GND #PWR0147
 U 1 1 5E1946A6
-P 3950 3700
-F 0 "#PWR0147" H 3950 3450 50  0001 C CNN
-F 1 "GND" H 3955 3527 50  0000 C CNN
-F 2 "" H 3950 3700 50  0001 C CNN
-F 3 "" H 3950 3700 50  0001 C CNN
-	1    3950 3700
+P 4200 3650
+F 0 "#PWR0147" H 4200 3400 50  0001 C CNN
+F 1 "GND" H 4205 3477 50  0000 C CNN
+F 2 "" H 4200 3650 50  0001 C CNN
+F 3 "" H 4200 3650 50  0001 C CNN
+	1    4200 3650
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:+3.3V #PWR0148
 U 1 1 5E194A9C
-P 3950 2100
-F 0 "#PWR0148" H 3950 1950 50  0001 C CNN
-F 1 "+3.3V" H 3950 2300 50  0000 C CNN
-F 2 "" H 3950 2100 50  0001 C CNN
-F 3 "" H 3950 2100 50  0001 C CNN
-	1    3950 2100
+P 4200 2050
+F 0 "#PWR0148" H 4200 1900 50  0001 C CNN
+F 1 "+3.3V" H 4200 2250 50  0000 C CNN
+F 2 "" H 4200 2050 50  0001 C CNN
+F 3 "" H 4200 2050 50  0001 C CNN
+	1    4200 2050
 	1    0    0    -1  
 $EndComp
 $Comp
-L teensy_beats-cache:4067 U4
+L teensy-fx-rescue:4067-teensy_beats-cache U4
 U 1 1 5E1AC48F
-P 3950 2900
-F 0 "U4" H 4250 3900 50  0000 C CNN
-F 1 "4067" H 4250 3800 50  0000 C CNN
-F 2 "Package_SO:SSOP-24_5.3x8.2mm_P0.65mm" H 3950 2900 50  0001 C CNN
-F 3 "https://www.ti.com/lit/ds/symlink/cd74hc4067.pdf" H 3950 2900 50  0001 C CNN
-	1    3950 2900
+P 4200 2850
+AR Path="/5E1AC48F" Ref="U4"  Part="1" 
+AR Path="/5E177B2B/5E1AC48F" Ref="U4"  Part="1" 
+F 0 "U4" H 4500 3850 50  0000 C CNN
+F 1 "4067" H 4500 3750 50  0000 C CNN
+F 2 "Package_SO:SSOP-24_5.3x8.2mm_P0.65mm" H 4200 2850 50  0001 C CNN
+F 3 "https://www.ti.com/lit/ds/symlink/cd74hc4067.pdf" H 4200 2850 50  0001 C CNN
+	1    4200 2850
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:C C10
 U 1 1 5E1AEABA
-P 3350 1750
-F 0 "C10" H 3465 1796 50  0000 L CNN
-F 1 "2.2uF" H 3465 1705 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 3388 1600 50  0001 C CNN
-F 3 "~" H 3350 1750 50  0001 C CNN
-	1    3350 1750
+P 3600 1700
+F 0 "C10" H 3715 1746 50  0000 L CNN
+F 1 "2.2uF" H 3715 1655 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 3638 1550 50  0001 C CNN
+F 3 "~" H 3600 1700 50  0001 C CNN
+	1    3600 1700
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:+3.3V #PWR0149
 U 1 1 5E1AF1C5
-P 3350 1600
-F 0 "#PWR0149" H 3350 1450 50  0001 C CNN
-F 1 "+3.3V" H 3365 1773 50  0000 C CNN
-F 2 "" H 3350 1600 50  0001 C CNN
-F 3 "" H 3350 1600 50  0001 C CNN
-	1    3350 1600
+P 3600 1550
+F 0 "#PWR0149" H 3600 1400 50  0001 C CNN
+F 1 "+3.3V" H 3615 1723 50  0000 C CNN
+F 2 "" H 3600 1550 50  0001 C CNN
+F 3 "" H 3600 1550 50  0001 C CNN
+	1    3600 1550
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR0150
 U 1 1 5E1AF422
-P 3350 1900
-F 0 "#PWR0150" H 3350 1650 50  0001 C CNN
-F 1 "GND" H 3355 1727 50  0000 C CNN
-F 2 "" H 3350 1900 50  0001 C CNN
-F 3 "" H 3350 1900 50  0001 C CNN
-	1    3350 1900
+P 3600 1850
+F 0 "#PWR0150" H 3600 1600 50  0001 C CNN
+F 1 "GND" H 3605 1677 50  0000 C CNN
+F 2 "" H 3600 1850 50  0001 C CNN
+F 3 "" H 3600 1850 50  0001 C CNN
+	1    3600 1850
 	1    0    0    -1  
 $EndComp
 Text GLabel 6250 3400 0    50   Input ~ 0
@@ -575,9 +577,11 @@ F 3 "" H 7150 2100 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L teensy_beats-cache:Switch_SW_Push SW1
+L teensy-fx-rescue:Switch_SW_Push-teensy_beats-cache SW1
 U 1 1 5E252246
 P 1600 2150
+AR Path="/5E252246" Ref="SW1"  Part="1" 
+AR Path="/5E177B2B/5E252246" Ref="SW1"  Part="1" 
 F 0 "SW1" H 1600 2435 50  0000 C CNN
 F 1 "Switch_SW_Push" H 1600 2344 50  0000 C CNN
 F 2 "Button_Switch_THT:SW_PUSH_6mm" H 1600 2350 50  0001 C CNN
@@ -586,9 +590,11 @@ F 3 "" H 1600 2350 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L teensy_beats-cache:Switch_SW_Push SW2
+L teensy-fx-rescue:Switch_SW_Push-teensy_beats-cache SW2
 U 1 1 5E252D7C
 P 1600 2600
+AR Path="/5E252D7C" Ref="SW2"  Part="1" 
+AR Path="/5E177B2B/5E252D7C" Ref="SW2"  Part="1" 
 F 0 "SW2" H 1600 2885 50  0000 C CNN
 F 1 "Switch_SW_Push" H 1600 2794 50  0000 C CNN
 F 2 "Button_Switch_THT:SW_PUSH_6mm" H 1600 2800 50  0001 C CNN
@@ -597,9 +603,11 @@ F 3 "" H 1600 2800 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L teensy_beats-cache:Switch_SW_Push SW3
+L teensy-fx-rescue:Switch_SW_Push-teensy_beats-cache SW3
 U 1 1 5E2538C8
 P 1600 3000
+AR Path="/5E2538C8" Ref="SW3"  Part="1" 
+AR Path="/5E177B2B/5E2538C8" Ref="SW3"  Part="1" 
 F 0 "SW3" H 1600 3285 50  0000 C CNN
 F 1 "Switch_SW_Push" H 1600 3194 50  0000 C CNN
 F 2 "Button_Switch_THT:SW_PUSH_6mm" H 1600 3200 50  0001 C CNN
@@ -608,9 +616,11 @@ F 3 "" H 1600 3200 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L teensy_beats-cache:Switch_SW_Push SW4
+L teensy-fx-rescue:Switch_SW_Push-teensy_beats-cache SW4
 U 1 1 5E253CCE
 P 1600 3400
+AR Path="/5E253CCE" Ref="SW4"  Part="1" 
+AR Path="/5E177B2B/5E253CCE" Ref="SW4"  Part="1" 
 F 0 "SW4" H 1600 3685 50  0000 C CNN
 F 1 "Switch_SW_Push" H 1600 3594 50  0000 C CNN
 F 2 "Button_Switch_THT:SW_PUSH_6mm" H 1600 3600 50  0001 C CNN
@@ -670,10 +680,10 @@ F 3 "" H 1800 3400 50  0001 C CNN
 	1    1800 3400
 	0    -1   -1   0   
 $EndComp
-NoConn ~ 4550 3350
-NoConn ~ 4550 3450
-NoConn ~ 4550 3550
-NoConn ~ 4550 3650
+NoConn ~ 4800 3300
+NoConn ~ 4800 3400
+NoConn ~ 4800 3500
+NoConn ~ 4800 3600
 $Comp
 L Device:LED D7
 U 1 1 5E1F1148
@@ -1220,4 +1230,42 @@ Wire Wire Line
 Connection ~ 10150 4200
 Wire Wire Line
 	10150 4200 10150 4100
+$Comp
+L Device:R R10
+U 1 1 5E14FB1F
+P 3450 3400
+F 0 "R10" V 3243 3400 50  0000 C CNN
+F 1 "200r" V 3334 3400 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 3380 3400 50  0001 C CNN
+F 3 "~" H 3450 3400 50  0001 C CNN
+	1    3450 3400
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:C C16
+U 1 1 5E1525F8
+P 3300 3550
+F 0 "C16" H 3415 3596 50  0000 L CNN
+F 1 "2.2uF" H 3415 3505 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 3338 3400 50  0001 C CNN
+F 3 "~" H 3300 3550 50  0001 C CNN
+	1    3300 3550
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0177
+U 1 1 5E1577D0
+P 3300 3700
+F 0 "#PWR0177" H 3300 3450 50  0001 C CNN
+F 1 "GND" H 3305 3527 50  0000 C CNN
+F 2 "" H 3300 3700 50  0001 C CNN
+F 3 "" H 3300 3700 50  0001 C CNN
+	1    3300 3700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3250 3400 3300 3400
+Connection ~ 3300 3400
+Text Notes 2800 4150 0    50   ~ 0
+RC filter\n200R & 2.2u = 360Hz cutoff
 $EndSCHEMATC
