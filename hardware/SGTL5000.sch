@@ -288,7 +288,7 @@ AR Path="/5E0E3867/5BAC54DA" Ref="U2"  Part="1"
 F 0 "U2" H 2250 2342 50  0000 C CNN
 F 1 "AP7313-1.8V" H 2250 2251 50  0000 C CNN
 F 2 "Package_TO_SOT_SMD:SOT-23" H 2250 2100 50  0001 C CNN
-F 3 "" H 2250 2100 50  0001 C CNN
+F 3 "https://www.diodes.com/assets/Datasheets/AP7313.pdf" H 2250 2100 50  0001 C CNN
 	1    2250 2100
 	1    0    0    -1  
 $EndComp
@@ -829,4 +829,35 @@ Wire Wire Line
 	4350 3750 4950 3750
 Wire Wire Line
 	4350 3850 4950 3850
+Text Notes 1700 1450 0    50   ~ 0
+p17 datasheet says 5mA max
+$Comp
+L Device:C_Small C?
+U 1 1 5E1A3824
+P 2750 2200
+AR Path="/5E1A3824" Ref="C?"  Part="1" 
+AR Path="/5BAC34FB/5E1A3824" Ref="C?"  Part="1" 
+AR Path="/5E0E3867/5E1A3824" Ref="C17"  Part="1" 
+F 0 "C17" H 2842 2246 50  0000 L CNN
+F 1 "2.2uF" H 2842 2155 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 2750 2200 50  0001 C CNN
+F 3 "~" H 2750 2200 50  0001 C CNN
+	1    2750 2200
+	1    0    0    -1  
+$EndComp
+Connection ~ 2750 2100
+$Comp
+L power:GND #PWR?
+U 1 1 5E1A3C62
+P 2750 2300
+AR Path="/5E1A3C62" Ref="#PWR?"  Part="1" 
+AR Path="/5BAC34FB/5E1A3C62" Ref="#PWR?"  Part="1" 
+AR Path="/5E0E3867/5E1A3C62" Ref="#PWR03"  Part="1" 
+F 0 "#PWR03" H 2750 2050 50  0001 C CNN
+F 1 "GND" H 2755 2127 50  0000 C CNN
+F 2 "" H 2750 2300 50  0001 C CNN
+F 3 "" H 2750 2300 50  0001 C CNN
+	1    2750 2300
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

@@ -30,9 +30,19 @@ Based off the teensy 4 audio board and the [teensy beats shield](https://hackada
 ## Hardware todo
 
 * print and check footprints
-* double check wiring
+ * regulator fp comes in 2 varients - check
+ * smt sockets for teensy
+ * pots
+ * 4067
+ * tlc5947
+ * sgtl5000
 * test some parts? or at least check on the scope the pins are wiggling while fx are happening
-* add up current and check < 250ma
+* add up 3.3v & 1.8v current and check < 250ma (leds on 5v supply)
+    - pots: 4mA
+    - audio codec: 5mA
+* caps for audio, what parts
+* extra caps for led driver and led circuit
+* find suppliers
 
 # FW
 
