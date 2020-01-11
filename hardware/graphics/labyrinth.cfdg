@@ -1,0 +1,37 @@
+/*
+	Labyrinth
+
+	By AK, October 2009
+
+	Variants: most
+*/
+
+startshape START
+size { s 2.2}
+background { b -.5}
+
+rule START{
+	2* {s -1} SQUARE [ s 1.1 x .5 y .5 z -5]
+	2* {s -1} SQUARE [ s 1.1 x .5 y -.5 z -5 b 1]
+	2* {s -1} CIRCLE [  x 1.2 z -4 s .5]
+	2* {s -1} CIRCLE [  y 1.2 z -4 s .5 b 1]
+	CIRCLE { z -3 b .8 }
+	S{ |sat .26  h -60}
+	}
+rule S {
+	FOUR{}
+	S{ r .9 s .999 sat .0005| h 1.1 b .0002}
+	}
+rule S 0.002{ W{}}
+
+rule W {
+	12* { r .9 s .999 h 1.1} FOUR{r 90 z -1 h 90}
+	S{ r (.9*12) s (.999^12) h (1.1*12)}
+	}
+
+rule FOUR{
+	CIRCLE { s .101 x 1 }
+	CIRCLE { s .101 x -1 }
+	CIRCLE { s .101 y 1 b 1 h 180}
+	CIRCLE { s .101 y -1 b 1}
+	}
