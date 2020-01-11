@@ -3767,7 +3767,7 @@
   (gr_line (start 264 52.25) (end 264.25 52.25) (layer F.SilkS) (width 0.12))
   (gr_line (start 264 50.5) (end 264 52.25) (layer F.SilkS) (width 0.12))
   (gr_line (start 263.25 50.5) (end 264 50.5) (layer F.SilkS) (width 0.12))
-  (gr_text "Teensy FX - Matt Venn - 01/2020" (at 255 143.2) (layer F.SilkS)
+  (gr_text "Teensy FX - Matt Venn - 2020/01" (at 255 143.2) (layer F.SilkS)
     (effects (font (size 1.8 1.8) (thickness 0.35)))
   )
   (gr_line (start 247.5 48.25) (end 247.25 48.25) (layer F.SilkS) (width 0.12))
