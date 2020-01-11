@@ -9049,6 +9049,7 @@ F 0 "U6" H 2500 7550 50  0000 C CNN
 F 1 "W25Q128JVS" H 2500 7650 50  0000 C CNN
 F 2 "Package_SO:SOIC-8_5.23x5.23mm_P1.27mm" H 2500 6850 50  0001 C CNN
 F 3 "http://www.winbond.com/resource-files/w25q128jv_dtr%20revc%2003272018%20plus.pdf" H 2500 6850 50  0001 C CNN
+F 4 "dnp" H 2500 6850 50  0001 C CNN "farnell"
 	1    2500 6850
 	1    0    0    -1  
 $EndComp
@@ -9124,6 +9125,7 @@ F 0 "TP1" V 9395 1772 50  0000 C CNN
 F 1 "TestPoint" V 9304 1772 50  0000 C CNN
 F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 9400 1700 50  0001 C CNN
 F 3 "~" H 9400 1700 50  0001 C CNN
+F 4 "dnp" H 9200 1700 50  0001 C CNN "farnell"
 	1    9200 1700
 	0    -1   -1   0   
 $EndComp
@@ -9135,6 +9137,7 @@ F 0 "TP3" V 9395 2122 50  0000 C CNN
 F 1 "TestPoint" V 9304 2122 50  0000 C CNN
 F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 9400 2050 50  0001 C CNN
 F 3 "~" H 9400 2050 50  0001 C CNN
+F 4 "dnp" H 9200 2050 50  0001 C CNN "farnell"
 	1    9200 2050
 	0    -1   -1   0   
 $EndComp
@@ -9146,6 +9149,7 @@ F 0 "TP5" V 9395 2472 50  0000 C CNN
 F 1 "TestPoint" V 9304 2472 50  0000 C CNN
 F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 9400 2400 50  0001 C CNN
 F 3 "~" H 9400 2400 50  0001 C CNN
+F 4 "dnp" H 9200 2400 50  0001 C CNN "farnell"
 	1    9200 2400
 	0    -1   -1   0   
 $EndComp
@@ -9171,6 +9175,7 @@ F 0 "TP6" V 9395 2872 50  0000 C CNN
 F 1 "TestPoint" V 9304 2872 50  0000 C CNN
 F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 9400 2800 50  0001 C CNN
 F 3 "~" H 9400 2800 50  0001 C CNN
+F 4 "dnp" H 9200 2800 50  0001 C CNN "farnell"
 	1    9200 2800
 	0    -1   -1   0   
 $EndComp
@@ -9186,6 +9191,7 @@ F 0 "TP4" V 10545 2122 50  0000 C CNN
 F 1 "TestPoint" V 10454 2122 50  0000 C CNN
 F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 10550 2050 50  0001 C CNN
 F 3 "~" H 10550 2050 50  0001 C CNN
+F 4 "dnp" H 10350 2050 50  0001 C CNN "farnell"
 	1    10350 2050
 	0    -1   -1   0   
 $EndComp
@@ -9197,6 +9203,7 @@ F 0 "TP2" V 10545 1772 50  0000 C CNN
 F 1 "TestPoint" V 10454 1772 50  0000 C CNN
 F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 10550 1700 50  0001 C CNN
 F 3 "~" H 10550 1700 50  0001 C CNN
+F 4 "dnp" H 10350 1700 50  0001 C CNN "farnell"
 	1    10350 1700
 	0    -1   -1   0   
 $EndComp
@@ -9210,6 +9217,7 @@ F 0 "R6" V 1150 6450 50  0000 C CNN
 F 1 "10k" V 1250 6450 50  0000 C CNN
 F 2 "Resistor_SMD:R_0805_2012Metric" V 1180 6450 50  0001 C CNN
 F 3 "~" H 1250 6450 50  0001 C CNN
+F 4 "2906645" H 1250 6450 50  0001 C CNN "farnell"
 	1    1250 6450
 	0    1    1    0   
 $EndComp
@@ -9239,6 +9247,7 @@ F 0 "R7" V 3250 6950 50  0000 C CNN
 F 1 "10k" V 3150 6950 50  0000 C CNN
 F 2 "Resistor_SMD:R_0805_2012Metric" V 3080 6950 50  0001 C CNN
 F 3 "~" H 3150 6950 50  0001 C CNN
+F 4 "2906645" H 3150 6950 50  0001 C CNN "farnell"
 	1    3150 6950
 	0    1    1    0   
 $EndComp
@@ -9270,6 +9279,7 @@ F 0 "TP7" V 10495 2872 50  0000 C CNN
 F 1 "TestPoint" V 10404 2872 50  0000 C CNN
 F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 10500 2800 50  0001 C CNN
 F 3 "~" H 10500 2800 50  0001 C CNN
+F 4 "dnp" H 10300 2800 50  0001 C CNN "farnell"
 	1    10300 2800
 	0    -1   -1   0   
 $EndComp
@@ -9295,6 +9305,7 @@ F 0 "TP8" V 10495 2472 50  0000 C CNN
 F 1 "TestPoint" V 10404 2472 50  0000 C CNN
 F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 10500 2400 50  0001 C CNN
 F 3 "~" H 10500 2400 50  0001 C CNN
+F 4 "dnp" H 10300 2400 50  0001 C CNN "farnell"
 	1    10300 2400
 	0    -1   -1   0   
 $EndComp

@@ -34,6 +34,7 @@ F 0 "R4" V 3243 2300 50  0000 C CNN
 F 1 "10k" V 3334 2300 50  0000 C CNN
 F 2 "Resistor_SMD:R_0805_2012Metric" V 3380 2300 50  0001 C CNN
 F 3 "~" H 3450 2300 50  0001 C CNN
+F 4 "2906645" H 3450 2300 50  0001 C CNN "farnell"
 	1    3450 2300
 	0    1    1    0   
 $EndComp
@@ -114,6 +115,7 @@ F 0 "RV4" H 2331 4946 50  0000 R CNN
 F 1 "R_POT" H 2331 4855 50  0000 R CNN
 F 2 "audio-fx:Potentiometer_Alps_RK09L_Single_Vertical" H 2400 4900 50  0001 C CNN
 F 3 "~" H 2400 4900 50  0001 C CNN
+F 4 "729-3600" H 2400 4900 50  0001 C CNN "rs"
 	1    2400 4900
 	1    0    0    -1  
 $EndComp
@@ -149,6 +151,7 @@ F 0 "RV7" H 3081 4946 50  0000 R CNN
 F 1 "R_POT" H 3081 4855 50  0000 R CNN
 F 2 "audio-fx:Potentiometer_Alps_RK09L_Single_Vertical" H 3150 4900 50  0001 C CNN
 F 3 "~" H 3150 4900 50  0001 C CNN
+F 4 "729-3600" H 3150 4900 50  0001 C CNN "rs"
 	1    3150 4900
 	1    0    0    -1  
 $EndComp
@@ -184,6 +187,7 @@ F 0 "RV10" H 3831 4946 50  0000 R CNN
 F 1 "R_POT" H 3831 4855 50  0000 R CNN
 F 2 "audio-fx:Potentiometer_Alps_RK09L_Single_Vertical" H 3900 4900 50  0001 C CNN
 F 3 "~" H 3900 4900 50  0001 C CNN
+F 4 "729-3600" H 3900 4900 50  0001 C CNN "rs"
 	1    3900 4900
 	1    0    0    -1  
 $EndComp
@@ -219,6 +223,7 @@ F 0 "RV2" H 1581 5846 50  0000 R CNN
 F 1 "R_POT" H 1581 5755 50  0000 R CNN
 F 2 "audio-fx:Potentiometer_Alps_RK09L_Single_Vertical" H 1650 5800 50  0001 C CNN
 F 3 "~" H 1650 5800 50  0001 C CNN
+F 4 "729-3600" H 1650 5800 50  0001 C CNN "rs"
 	1    1650 5800
 	1    0    0    -1  
 $EndComp
@@ -254,6 +259,7 @@ F 0 "RV5" H 2331 5846 50  0000 R CNN
 F 1 "R_POT" H 2331 5755 50  0000 R CNN
 F 2 "audio-fx:Potentiometer_Alps_RK09L_Single_Vertical" H 2400 5800 50  0001 C CNN
 F 3 "~" H 2400 5800 50  0001 C CNN
+F 4 "729-3600" H 2400 5800 50  0001 C CNN "rs"
 	1    2400 5800
 	1    0    0    -1  
 $EndComp
@@ -289,6 +295,7 @@ F 0 "RV8" H 3081 5846 50  0000 R CNN
 F 1 "R_POT" H 3081 5755 50  0000 R CNN
 F 2 "audio-fx:Potentiometer_Alps_RK09L_Single_Vertical" H 3150 5800 50  0001 C CNN
 F 3 "~" H 3150 5800 50  0001 C CNN
+F 4 "729-3600" H 3150 5800 50  0001 C CNN "rs"
 	1    3150 5800
 	1    0    0    -1  
 $EndComp
@@ -324,6 +331,7 @@ F 0 "RV11" H 3831 5846 50  0000 R CNN
 F 1 "R_POT" H 3831 5755 50  0000 R CNN
 F 2 "audio-fx:Potentiometer_Alps_RK09L_Single_Vertical" H 3900 5800 50  0001 C CNN
 F 3 "~" H 3900 5800 50  0001 C CNN
+F 4 "729-3600" H 3900 5800 50  0001 C CNN "rs"
 	1    3900 5800
 	1    0    0    -1  
 $EndComp
@@ -359,6 +367,7 @@ F 0 "RV3" H 1581 6796 50  0000 R CNN
 F 1 "R_POT" H 1581 6705 50  0000 R CNN
 F 2 "audio-fx:Potentiometer_Alps_RK09L_Single_Vertical" H 1650 6750 50  0001 C CNN
 F 3 "~" H 1650 6750 50  0001 C CNN
+F 4 "729-3600" H 1650 6750 50  0001 C CNN "rs"
 	1    1650 6750
 	1    0    0    -1  
 $EndComp
@@ -394,6 +403,7 @@ F 0 "RV6" H 2331 6796 50  0000 R CNN
 F 1 "R_POT" H 2331 6705 50  0000 R CNN
 F 2 "audio-fx:Potentiometer_Alps_RK09L_Single_Vertical" H 2400 6750 50  0001 C CNN
 F 3 "~" H 2400 6750 50  0001 C CNN
+F 4 "729-3600" H 2400 6750 50  0001 C CNN "rs"
 	1    2400 6750
 	1    0    0    -1  
 $EndComp
@@ -429,6 +439,7 @@ F 0 "RV9" H 3081 6796 50  0000 R CNN
 F 1 "R_POT" H 3081 6705 50  0000 R CNN
 F 2 "audio-fx:Potentiometer_Alps_RK09L_Single_Vertical" H 3150 6750 50  0001 C CNN
 F 3 "~" H 3150 6750 50  0001 C CNN
+F 4 "729-3600" H 3150 6750 50  0001 C CNN "rs"
 	1    3150 6750
 	1    0    0    -1  
 $EndComp
@@ -464,6 +475,7 @@ F 0 "RV12" H 3831 6796 50  0000 R CNN
 F 1 "R_POT" H 3831 6705 50  0000 R CNN
 F 2 "audio-fx:Potentiometer_Alps_RK09L_Single_Vertical" H 3900 6750 50  0001 C CNN
 F 3 "~" H 3900 6750 50  0001 C CNN
+F 4 "729-3600" H 3900 6750 50  0001 C CNN "rs"
 	1    3900 6750
 	1    0    0    -1  
 $EndComp
@@ -535,6 +547,7 @@ F 0 "C10" H 3715 1746 50  0000 L CNN
 F 1 "2.2uF" H 3715 1655 50  0000 L CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric" H 3638 1550 50  0001 C CNN
 F 3 "~" H 3600 1700 50  0001 C CNN
+F 4 "2773238" H 3600 1700 50  0001 C CNN "farnell"
 	1    3600 1700
 	1    0    0    -1  
 $EndComp
@@ -589,6 +602,7 @@ F 0 "SW1" H 1600 2435 50  0000 C CNN
 F 1 "Switch_SW_Push" H 1600 2344 50  0000 C CNN
 F 2 "Button_Switch_THT:SW_PUSH_6mm" H 1600 2350 50  0001 C CNN
 F 3 "" H 1600 2350 50  0001 C CNN
+F 4 "dnp" H 1600 2150 50  0001 C CNN "farnell"
 	1    1600 2150
 	1    0    0    -1  
 $EndComp
@@ -602,6 +616,7 @@ F 0 "SW2" H 1600 2885 50  0000 C CNN
 F 1 "Switch_SW_Push" H 1600 2794 50  0000 C CNN
 F 2 "Button_Switch_THT:SW_PUSH_6mm" H 1600 2800 50  0001 C CNN
 F 3 "" H 1600 2800 50  0001 C CNN
+F 4 "dnp" H 1600 2600 50  0001 C CNN "farnell"
 	1    1600 2600
 	1    0    0    -1  
 $EndComp
@@ -615,6 +630,7 @@ F 0 "SW3" H 1600 3285 50  0000 C CNN
 F 1 "Switch_SW_Push" H 1600 3194 50  0000 C CNN
 F 2 "Button_Switch_THT:SW_PUSH_6mm" H 1600 3200 50  0001 C CNN
 F 3 "" H 1600 3200 50  0001 C CNN
+F 4 "dnp" H 1600 3000 50  0001 C CNN "farnell"
 	1    1600 3000
 	1    0    0    -1  
 $EndComp
@@ -628,6 +644,7 @@ F 0 "SW4" H 1600 3685 50  0000 C CNN
 F 1 "Switch_SW_Push" H 1600 3594 50  0000 C CNN
 F 2 "Button_Switch_THT:SW_PUSH_6mm" H 1600 3600 50  0001 C CNN
 F 3 "" H 1600 3600 50  0001 C CNN
+F 4 "dnp" H 1600 3400 50  0001 C CNN "farnell"
 	1    1600 3400
 	1    0    0    -1  
 $EndComp
@@ -1016,9 +1033,10 @@ L Device:R R5
 U 1 1 5E1937A8
 P 6100 3300
 F 0 "R5" V 5893 3300 50  0000 C CNN
-F 1 "5k" V 5984 3300 50  0000 C CNN
+F 1 "4.7k" V 5984 3300 50  0000 C CNN
 F 2 "Resistor_SMD:R_0805_2012Metric" V 6030 3300 50  0001 C CNN
 F 3 "~" H 6100 3300 50  0001 C CNN
+F 4 "1469923" H 6100 3300 50  0001 C CNN "farnell"
 	1    6100 3300
 	0    1    1    0   
 $EndComp
@@ -1041,6 +1059,7 @@ F 0 "C11" H 5965 2146 50  0000 L CNN
 F 1 "2.2uF" H 5965 2055 50  0000 L CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric" H 5888 1950 50  0001 C CNN
 F 3 "~" H 5850 2100 50  0001 C CNN
+F 4 "2773238" H 5850 2100 50  0001 C CNN "farnell"
 	1    5850 2100
 	1    0    0    -1  
 $EndComp
@@ -1075,6 +1094,7 @@ F 0 "C12" H 9565 5146 50  0000 L CNN
 F 1 "2.2uF" H 9565 5055 50  0000 L CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric" H 9488 4950 50  0001 C CNN
 F 3 "~" H 9450 5100 50  0001 C CNN
+F 4 "2773238" H 9450 5100 50  0001 C CNN "farnell"
 	1    9450 5100
 	1    0    0    -1  
 $EndComp
@@ -1101,6 +1121,7 @@ F 0 "L2" V 9487 4950 50  0000 C CNN
 F 1 "600R" V 9396 4950 50  0000 C CNN
 F 2 "Inductor_SMD:L_0805_2012Metric" V 9180 4950 50  0001 C CNN
 F 3 "~" H 9250 4950 50  0001 C CNN
+F 4 "2215655" H 9250 4950 50  0001 C CNN "farnell"
 	1    9250 4950
 	0    -1   -1   0   
 $EndComp
@@ -1211,9 +1232,10 @@ L Device:R R10
 U 1 1 5E14FB1F
 P 3450 3400
 F 0 "R10" V 3243 3400 50  0000 C CNN
-F 1 "200r" V 3334 3400 50  0000 C CNN
+F 1 "100R" V 3334 3400 50  0000 C CNN
 F 2 "Resistor_SMD:R_0805_2012Metric" V 3380 3400 50  0001 C CNN
 F 3 "~" H 3450 3400 50  0001 C CNN
+F 4 "1469862" H 3450 3400 50  0001 C CNN "farnell"
 	1    3450 3400
 	0    1    1    0   
 $EndComp
@@ -1225,7 +1247,7 @@ F 0 "C16" H 3415 3596 50  0000 L CNN
 F 1 "2.2uF" H 3415 3505 50  0000 L CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric" H 3338 3400 50  0001 C CNN
 F 3 "~" H 3300 3550 50  0001 C CNN
-F 4 "" H 3300 3550 50  0001 C CNN "farnell"
+F 4 "2773238" H 3300 3550 50  0001 C CNN "farnell"
 	1    3300 3550
 	1    0    0    -1  
 $EndComp
@@ -1244,7 +1266,7 @@ Wire Wire Line
 	3250 3400 3300 3400
 Connection ~ 3300 3400
 Text Notes 2800 4150 0    50   ~ 0
-RC filter\n200R & 2.2u = 360Hz cutoff
+RC filter\n200R & 2.2u = 700Hz cutoff
 Text Notes 2200 7300 0    50   ~ 0
 all pots 10k, taper 1b (linear)\nRK09K1130AP5
 Text Notes 2300 7450 0    50   ~ 0
