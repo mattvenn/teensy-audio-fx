@@ -18,6 +18,8 @@ interface that could later be translated to hardware in the form of a PCB.
 
 [schematic](hardware/schematic.pdf)
 
+[gerbers](hardware/teensy-fx-2020-01-11-fab.zip)
+
 ## Hardware Resources
 
 Based off the teensy 4 audio board and the [teensy beats shield](https://hackaday.io/project/161127-teensy-beats-shield)
@@ -41,10 +43,13 @@ Based off the teensy 4 audio board and the [teensy beats shield](https://hackada
 * add up 3.3v & 1.8v current and check < 250ma (leds on 5v supply) - done
     - pots: 4mA
     - audio codec: 5mA
-* caps for audio, what parts
+* caps for audio, what parts - done
 * extra caps for led driver and led circuit - done
 * find suppliers - done
 
+## Back graphic
+
+100 x 60mm == 3.94 x 2.36" == 1182 x 708 pix
 # FW
 
 Try to fulfil what the [control.py](control.py) program can do.
