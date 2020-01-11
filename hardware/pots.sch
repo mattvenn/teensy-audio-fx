@@ -1226,7 +1226,7 @@ Connection ~ 3300 3400
 Text Notes 2800 4150 0    50   ~ 0
 RC filter\n200R & 2.2u = 360Hz cutoff
 Text Notes 2200 7300 0    50   ~ 0
-all pots 10k, taper 1b (linear)
+all pots 10k, taper 1b (linear)\nRK09K1130AP5
 Text Notes 2300 7450 0    50   ~ 0
 all pots together = 4mA
 Text Notes 7850 1350 0    50   ~ 0
