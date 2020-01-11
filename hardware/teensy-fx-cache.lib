@@ -426,18 +426,18 @@ X 2 2 200 0 100 L 50 50 0 1 P
 ENDDRAW
 ENDDEF
 #
-# teensy-fx-rescue_teensy_beats_parts_AP7313R-1.8V-teensy_beats-cache
+# teensy-fx-rescue_ldo
 #
-DEF teensy-fx-rescue_teensy_beats_parts_AP7313R-1.8V-teensy_beats-cache U 0 40 Y Y 1 F N
-F0 "U" -150 150 50 H V C CNN
-F1 "teensy-fx-rescue_teensy_beats_parts_AP7313R-1.8V-teensy_beats-cache" 300 150 50 H V C CNN
+DEF teensy-fx-rescue_ldo U 0 40 Y Y 1 F N
+F0 "U" 0 250 50 H V C CNN
+F1 "teensy-fx-rescue_ldo" 0 150 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
-S -200 75 200 -200 1 1 10 f
-X GND 1 0 -300 100 U 50 50 1 1 W
-X VO 2 -300 0 100 R 50 50 1 1 w
-X VI 3 300 0 100 L 50 50 1 1 W
+S -300 100 300 -150 0 1 0 N
+X vout 1 400 0 100 L 50 50 1 1 I
+X vin 2 -400 0 100 R 50 50 1 1 I
+X gnd 3 0 -250 100 U 50 50 1 1 I
 ENDDRAW
 ENDDEF
 #
