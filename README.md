@@ -26,23 +26,24 @@ Based off the teensy 4 audio board and the [teensy beats shield](https://hackada
 * [SGTL5000 datasheet](https://static6.arrow.com/aropdfconversion/d5e3ddfdb01ac7d0ee29dd23626c23e0eb18a14a/1931605559406471sgtl5000.pdf)
 * TLC5947 24 channel PWM LED driver
 * 4067 multiplexer for the knobs
+* pot RK09K1130AP5
 
 ## Hardware todo
 
 * print and check footprints
  * regulator fp comes in 2 varients - check
- * smt sockets for teensy
- * pots
- * 4067
- * tlc5947
- * sgtl5000
+ * smt sockets for teensy - done
+ * pots - done
+ * 4067 - done
+ * tlc5947 - done
+ * sgtl5000 - done
 * test some parts? or at least check on the scope the pins are wiggling while fx are happening
-* add up 3.3v & 1.8v current and check < 250ma (leds on 5v supply)
+* add up 3.3v & 1.8v current and check < 250ma (leds on 5v supply) - done
     - pots: 4mA
     - audio codec: 5mA
 * caps for audio, what parts
-* extra caps for led driver and led circuit
-* find suppliers
+* extra caps for led driver and led circuit - done
+* find suppliers - done
 
 # FW
 

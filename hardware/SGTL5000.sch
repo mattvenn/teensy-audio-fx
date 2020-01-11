@@ -42,8 +42,9 @@ AR Path="/5BAC34FB/5BAC3E4F" Ref="J2"  Part="1"
 AR Path="/5E0E3867/5BAC3E4F" Ref="J1"  Part="1" 
 F 0 "J1" H 7600 3000 50  0000 R CNN
 F 1 "AudioJack3_Ground" H 7500 3100 50  0001 R CNN
-F 2 "Connector_Audio:Jack_3.5mm_CUI_SJ-3523-SMT_Horizontal" H 7900 3050 50  0001 C CNN
+F 2 "audio-fx:Jack_3.5mm_CUI_SJ-3523-SMT_Horizontal" H 7900 3050 50  0001 C CNN
 F 3 "https://uk.farnell.com/switchcraft-conxall/35rasmt2bhntrx/connector-smt-3-5mm-ph-jk-tap/dp/2915138" H 7900 3050 50  0001 C CNN
+F 4 "2915138" H 7900 3050 50  0001 C CNN "farnell"
 	1    7900 3050
 	-1   0    0    1   
 $EndComp
@@ -405,8 +406,9 @@ AR Path="/5BAC34FB/5E0F7896" Ref="J?"  Part="1"
 AR Path="/5E0E3867/5E0F7896" Ref="J2"  Part="1" 
 F 0 "J2" H 7600 4150 50  0000 R CNN
 F 1 "AudioJack3_Ground" H 7550 4050 50  0001 R CNN
-F 2 "Connector_Audio:Jack_3.5mm_CUI_SJ-3523-SMT_Horizontal" H 7900 4200 50  0001 C CNN
+F 2 "audio-fx:Jack_3.5mm_CUI_SJ-3523-SMT_Horizontal" H 7900 4200 50  0001 C CNN
 F 3 "~" H 7900 4200 50  0001 C CNN
+F 4 "2915138" H 7900 4200 50  0001 C CNN "farnell"
 	1    7900 4200
 	-1   0    0    1   
 $EndComp
@@ -435,10 +437,11 @@ P 5650 3750
 AR Path="/5BAC3E38" Ref="U?"  Part="1" 
 AR Path="/5BAC34FB/5BAC3E38" Ref="U7"  Part="1" 
 AR Path="/5E0E3867/5BAC3E38" Ref="U3"  Part="1" 
-F 0 "U3" H 5650 5000 60  0000 C CNN
-F 1 "SGTL5000" H 5650 4894 60  0000 C CNN
+F 0 "U3" H 5650 3750 60  0000 C CNN
+F 1 "SGTL5000" H 5600 2200 60  0000 C CNN
 F 2 "Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.6x3.6mm" H 5650 3800 60  0001 C CNN
 F 3 "https://www.nxp.com/docs/en/data-sheet/SGTL5000.pdf" H 5600 2100 60  0000 C CNN
+F 4 "2308049" H 5650 3750 50  0001 C CNN "farnell"
 	1    5650 3750
 	1    0    0    -1  
 $EndComp
@@ -450,9 +453,10 @@ AR Path="/5E146D40" Ref="C?"  Part="1"
 AR Path="/5BAC34FB/5E146D40" Ref="C?"  Part="1" 
 AR Path="/5E0E3867/5E146D40" Ref="C8"  Part="1" 
 F 0 "C8" V 7042 2996 50  0000 L CNN
-F 1 "2.2uF" V 7150 2900 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 6950 2950 50  0001 C CNN
-F 3 "~" H 6950 2950 50  0001 C CNN
+F 1 "1uF" V 7150 2900 50  0000 L CNN
+F 2 "Capacitor_SMD:C_1210_3225Metric" H 6950 2950 50  0001 C CNN
+F 3 "http://www.farnell.com/datasheets/199119.pdf" H 6950 2950 50  0001 C CNN
+F 4 "2112915" V 6950 2950 50  0001 C CNN "farnell"
 	1    6950 2950
 	0    -1   -1   0   
 $EndComp
@@ -464,9 +468,10 @@ AR Path="/5E147768" Ref="C?"  Part="1"
 AR Path="/5BAC34FB/5E147768" Ref="C?"  Part="1" 
 AR Path="/5E0E3867/5E147768" Ref="C9"  Part="1" 
 F 0 "C9" V 7050 3300 50  0000 L CNN
-F 1 "2.2uF" V 7150 3200 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 6950 3250 50  0001 C CNN
+F 1 "1uF" V 7150 3200 50  0000 L CNN
+F 2 "Capacitor_SMD:C_1210_3225Metric" H 6950 3250 50  0001 C CNN
 F 3 "~" H 6950 3250 50  0001 C CNN
+F 4 "2112915" H 6950 3250 50  0001 C CNN "farnell"
 	1    6950 3250
 	0    -1   -1   0   
 $EndComp
@@ -722,8 +727,9 @@ AR Path="/5BAC34FB/5E13FD57" Ref="J?"  Part="1"
 AR Path="/5E0E3867/5E13FD57" Ref="J3"  Part="1" 
 F 0 "J3" H 7600 3750 50  0000 R CNN
 F 1 "AudioJack3_Ground" H 7550 3650 50  0001 R CNN
-F 2 "Connector_Audio:Jack_3.5mm_CUI_SJ-3523-SMT_Horizontal" H 7900 3800 50  0001 C CNN
+F 2 "audio-fx:Jack_3.5mm_CUI_SJ-3523-SMT_Horizontal" H 7900 3800 50  0001 C CNN
 F 3 "~" H 7900 3800 50  0001 C CNN
+F 4 "2915138" H 7900 3800 50  0001 C CNN "farnell"
 	1    7900 3800
 	-1   0    0    1   
 $EndComp
@@ -735,9 +741,10 @@ AR Path="/5E1434E0" Ref="C?"  Part="1"
 AR Path="/5BAC34FB/5E1434E0" Ref="C?"  Part="1" 
 AR Path="/5E0E3867/5E1434E0" Ref="C14"  Part="1" 
 F 0 "C14" V 7050 3350 50  0000 L CNN
-F 1 "2.2uF" V 7150 3300 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 6950 3550 50  0001 C CNN
+F 1 "1uF" V 7150 3300 50  0000 L CNN
+F 2 "Capacitor_SMD:C_1210_3225Metric" H 6950 3550 50  0001 C CNN
 F 3 "~" H 6950 3550 50  0001 C CNN
+F 4 "2112915" H 6950 3550 50  0001 C CNN "farnell"
 	1    6950 3550
 	0    -1   -1   0   
 $EndComp
@@ -749,9 +756,10 @@ AR Path="/5E143FCC" Ref="C?"  Part="1"
 AR Path="/5BAC34FB/5E143FCC" Ref="C?"  Part="1" 
 AR Path="/5E0E3867/5E143FCC" Ref="C15"  Part="1" 
 F 0 "C15" V 6650 3750 50  0000 L CNN
-F 1 "2.2uF" V 6750 3650 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 6950 3750 50  0001 C CNN
+F 1 "1uF" V 6750 3650 50  0000 L CNN
+F 2 "Capacitor_SMD:C_1210_3225Metric" H 6950 3750 50  0001 C CNN
 F 3 "~" H 6950 3750 50  0001 C CNN
+F 4 "2112915" H 6950 3750 50  0001 C CNN "farnell"
 	1    6950 3750
 	0    -1   -1   0   
 $EndComp

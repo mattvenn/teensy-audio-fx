@@ -9036,7 +9036,8 @@ P 6100 3300
 F 0 "U1" H 6100 4915 50  0000 C CNN
 F 1 "Teensy4.0" H 6100 4824 50  0000 C CNN
 F 2 "audio-fx:teensy4smt" H 5700 3500 50  0001 C CNN
-F 3 "" H 5700 3500 50  0001 C CNN
+F 3 "https://uk.farnell.com/multicomp/2212sm-14g-75-b1-pcr/connector-rcpt-14pos-1row-2-54mm/dp/2847911" H 5700 3500 50  0001 C CNN
+F 4 "2847911" H 6100 3300 50  0001 C CNN "farnell"
 	1    6100 3300
 	1    0    0    -1  
 $EndComp

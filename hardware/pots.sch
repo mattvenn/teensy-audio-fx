@@ -20,7 +20,9 @@ P 1650 4900
 F 0 "RV1" H 1581 4946 50  0000 R CNN
 F 1 "R_POT" H 1581 4855 50  0000 R CNN
 F 2 "audio-fx:Potentiometer_Alps_RK09L_Single_Vertical" H 1650 4900 50  0001 C CNN
-F 3 "https://www.alps.com/prod/info/E/PDF/Potentiometer/RotaryPotentiometers/RK09L/RK09L.pdf" H 1650 4900 50  0001 C CNN
+F 3 "https://docs.rs-online.com/06f8/0900766b80f4c571.pdf" H 1650 4900 50  0001 C CNN
+F 4 "" H 1650 4900 50  0001 C CNN "farnell"
+F 5 "729-3600" H 1650 4900 50  0001 C CNN "rs"
 	1    1650 4900
 	1    0    0    -1  
 $EndComp
@@ -521,6 +523,7 @@ F 0 "U4" H 4500 3850 50  0000 C CNN
 F 1 "4067" H 4500 3750 50  0000 C CNN
 F 2 "Package_SO:SSOP-24_5.3x8.2mm_P0.65mm" H 4200 2850 50  0001 C CNN
 F 3 "https://www.ti.com/lit/ds/symlink/cd74hc4067.pdf" H 4200 2850 50  0001 C CNN
+F 4 "3124957" H 4200 2850 50  0001 C CNN "farnell"
 	1    4200 2850
 	1    0    0    -1  
 $EndComp
@@ -769,6 +772,7 @@ F 0 "U5" H 6850 5300 50  0000 C CNN
 F 1 "TLC5947DAP" H 6850 5200 50  0000 C CNN
 F 2 "Package_SO:HTSSOP-32-1EP_6.1x11mm_P0.65mm_EP5.2x11mm_Mask4.11x4.36mm" H 6400 5200 50  0001 L CNN
 F 3 "http://www.ti.com/lit/ds/symlink/tlc5947.pdf" H 6950 3600 50  0001 C CNN
+F 4 "1755259" H 6950 3600 50  0001 C CNN "farnell"
 	1    6950 3600
 	1    0    0    -1  
 $EndComp
@@ -1201,6 +1205,7 @@ F 0 "C16" H 3415 3596 50  0000 L CNN
 F 1 "2.2uF" H 3415 3505 50  0000 L CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric" H 3338 3400 50  0001 C CNN
 F 3 "~" H 3300 3550 50  0001 C CNN
+F 4 "" H 3300 3550 50  0001 C CNN "farnell"
 	1    3300 3550
 	1    0    0    -1  
 $EndComp
