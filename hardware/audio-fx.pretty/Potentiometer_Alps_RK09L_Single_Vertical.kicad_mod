@@ -1,4 +1,4 @@
-(module Potentiometer_Alps_RK09L_Single_Vertical (layer F.Cu) (tedit 5E19FAFB)
+(module Potentiometer_Alps_RK09L_Single_Vertical (layer F.Cu) (tedit 5E1A03EA)
   (descr "Potentiometer, vertical, Alps RK09L Single, http://www.alps.com/prod/info/E/HTML/Potentiometer/RotaryPotentiometers/RK09L/RK09L_list.html")
   (tags "Potentiometer vertical Alps RK09L Single")
   (fp_text reference RV1 (at -1.8 -8.1) (layer F.SilkS)
@@ -22,8 +22,8 @@
   (pad 3 thru_hole circle (at -7 -2.5) (size 1.8 1.8) (drill 1) (layers *.Cu *.Mask))
   (pad 2 thru_hole circle (at -7 0) (size 1.8 1.8) (drill 1) (layers *.Cu *.Mask))
   (pad 1 thru_hole circle (at -7 2.5) (size 1.8 1.8) (drill 1) (layers *.Cu *.Mask))
-  (pad "" thru_hole roundrect (at 0 -4.5) (size 3 3) (drill oval 2.1 1.8) (layers *.Cu *.Mask) (roundrect_rratio 0.25))
-  (pad "" thru_hole roundrect (at 0 4.5) (size 3 3) (drill oval 2.1 1.8) (layers *.Cu *.Mask) (roundrect_rratio 0.25))
+  (pad "" thru_hole roundrect (at 0 -4.5) (size 3 3) (drill 2.1) (layers *.Cu *.Mask) (roundrect_rratio 0.25))
+  (pad "" thru_hole roundrect (at 0 4.5) (size 3 3) (drill 2.1) (layers *.Cu *.Mask) (roundrect_rratio 0.25))
   (model ${KIPRJMOD}/audio-fx.pretty/RK09K1130AP5.STEP
     (offset (xyz 0 0 6.3))
     (scale (xyz 1 1 1))
