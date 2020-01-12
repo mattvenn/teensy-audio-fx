@@ -23,10 +23,12 @@ AudioFilterStateVariable filter_rev;        //xy=555,183
 AudioEffectDelay         delay_r;        //xy=614,867
 AudioEffectDelay         delay_l;        //xy=630,571
 AudioEffectFreeverbStereo freeverbs1;     //xy=642,279
-AudioSynthNoisePink      pink1;          //xy=839,783
-AudioFilterStateVariable filter_noise;        //xy=840,673
+AudioSynthNoisePink      pink2; //xy=812,732
+AudioSynthNoisePink      pink1;          //xy=815,677
 AudioMixer4              mix_op_l;       //xy=949,382
 AudioMixer4              mix_op_r;       //xy=952,475
+AudioFilterStateVariable filter_noise_l;        //xy=958,682
+AudioFilterStateVariable filter_noise_r; //xy=961,740
 AudioOutputI2S           i2s1;           //xy=1133,428
 AudioConnection          patchCord1(i2s2, 0, mix_del_l, 0);
 AudioConnection          patchCord2(i2s2, 0, mix_op_l, 0);
@@ -46,13 +48,15 @@ AudioConnection          patchCord15(delay_l, 0, mix_op_l, 2);
 AudioConnection          patchCord16(delay_l, 0, mix_del_r, 1);
 AudioConnection          patchCord17(freeverbs1, 0, mix_op_l, 1);
 AudioConnection          patchCord18(freeverbs1, 1, mix_op_r, 1);
-AudioConnection          patchCord19(pink1, 0, filter_noise, 0);
-AudioConnection          patchCord20(filter_noise, 1, mix_op_l, 3);
-AudioConnection          patchCord21(filter_noise, 1, mix_op_r, 3);
-AudioConnection          patchCord22(mix_op_l, 0, i2s1, 0);
-AudioConnection          patchCord23(mix_op_r, 0, i2s1, 1);
+AudioConnection          patchCord19(pink2, 0, filter_noise_r, 0);
+AudioConnection          patchCord20(pink1, 0, filter_noise_l, 0);
+AudioConnection          patchCord21(mix_op_l, 0, i2s1, 0);
+AudioConnection          patchCord22(mix_op_r, 0, i2s1, 1);
+AudioConnection          patchCord23(filter_noise_l, 1, mix_op_l, 3);
+AudioConnection          patchCord24(filter_noise_r, 1, mix_op_r, 3);
 AudioControlSGTL5000     sgtl5000_1;     //xy=292,903
 // GUItool: end automatically generated code
+
 
 #define SERIAL_CONTROL
 #define BOARD_CONTROL
@@ -133,6 +137,7 @@ void setup() {
   sgtl5000_1.inputSelect(AUDIO_INPUT_LINEIN);
 
   pink1.amplitude(0.5);
+  pink2.amplitude(0.5);
   filter_rev.frequency(200);  // high pass for reverb in
   mix_rev.gain(0, 0.0);    // left to rev
   mix_rev.gain(1, 0.0);    // right to rev
@@ -266,7 +271,8 @@ void check_serial()
               float freq = map(val, 0, 255, 0, 5000); 
               filter_del_l.frequency(freq);  // fb
               filter_del_r.frequency(freq);  // fb
-              filter_noise.frequency(freq);  // fb
+              filter_noise_l.frequency(freq);  // fb
+              filter_noise_r.frequency(freq);  // fb
               Serial.print("del fb, noise & rev filt freq: "); Serial.println(freq);
               break;
           }
@@ -276,7 +282,8 @@ void check_serial()
               float resonance = map(val, 0, 255, 0, 500) / 100.0; 
               filter_del_l.resonance(resonance);  // fb
               filter_del_r.resonance(resonance);  // fb
-              filter_noise.resonance(resonance);  // fb
+              filter_noise_l.resonance(resonance);  // fb
+              filter_noise_r.resonance(resonance);  // fb
               Serial.print("del fb, noise & rev res: "); Serial.println(resonance);
               break;
           }
