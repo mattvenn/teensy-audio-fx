@@ -526,7 +526,7 @@ F 3 "" H 4200 2050 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L teensy-fx-rescue:4067-teensy_beats-cache U4
+L teensy-fx:4067-teensy_beats-cache U4
 U 1 1 5E1AC48F
 P 4200 2850
 AR Path="/5E1AC48F" Ref="U4"  Part="1" 
@@ -593,7 +593,7 @@ F 3 "" H 7150 2100 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L teensy-fx-rescue:Switch_SW_Push-teensy_beats-cache SW1
+L teensy-fx:Switch_SW_Push-teensy_beats-cache SW1
 U 1 1 5E252246
 P 1600 2150
 AR Path="/5E252246" Ref="SW1"  Part="1" 
@@ -607,7 +607,7 @@ F 4 "dnp" H 1600 2150 50  0001 C CNN "farnell #"
 	1    0    0    -1  
 $EndComp
 $Comp
-L teensy-fx-rescue:Switch_SW_Push-teensy_beats-cache SW2
+L teensy-fx:Switch_SW_Push-teensy_beats-cache SW2
 U 1 1 5E252D7C
 P 1600 2600
 AR Path="/5E252D7C" Ref="SW2"  Part="1" 
@@ -621,7 +621,7 @@ F 4 "dnp" H 1600 2600 50  0001 C CNN "farnell #"
 	1    0    0    -1  
 $EndComp
 $Comp
-L teensy-fx-rescue:Switch_SW_Push-teensy_beats-cache SW3
+L teensy-fx:Switch_SW_Push-teensy_beats-cache SW3
 U 1 1 5E2538C8
 P 1600 3000
 AR Path="/5E2538C8" Ref="SW3"  Part="1" 
@@ -635,7 +635,7 @@ F 4 "dnp" H 1600 3000 50  0001 C CNN "farnell #"
 	1    0    0    -1  
 $EndComp
 $Comp
-L teensy-fx-rescue:Switch_SW_Push-teensy_beats-cache SW4
+L teensy-fx:Switch_SW_Push-teensy_beats-cache SW4
 U 1 1 5E253CCE
 P 1600 3400
 AR Path="/5E253CCE" Ref="SW4"  Part="1" 

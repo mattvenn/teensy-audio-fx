@@ -377,7 +377,7 @@ Wire Wire Line
 NoConn ~ 4950 4200
 NoConn ~ 6350 4300
 $Comp
-L teensy-fx-rescue:SparkFun-IC-Analog_SGTL5000-teensy_beats-cache U?
+L teensy-fx:SparkFun-IC-Analog_SGTL5000-teensy_beats-cache U?
 U 1 1 5BAC3E38
 P 5650 3750
 AR Path="/5BAC3E38" Ref="U?"  Part="1" 
@@ -820,7 +820,7 @@ F 3 "" H 2750 2300 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L teensy-fx-rescue:ldo U2
+L teensy-fx:ldo U2
 U 1 1 5E1AE9E1
 P 2150 2100
 F 0 "U2" H 2150 2365 50  0000 C CNN
