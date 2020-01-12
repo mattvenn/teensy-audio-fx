@@ -43,8 +43,8 @@ AR Path="/5E0E3867/5BAC3E4F" Ref="J1"  Part="1"
 F 0 "J1" H 7600 3000 50  0000 R CNN
 F 1 "AudioJack3_Ground" H 7500 3100 50  0001 R CNN
 F 2 "audio-fx:Jack_3.5mm_CUI_SJ-3523-SMT_Horizontal" H 7900 3050 50  0001 C CNN
-F 3 "https://uk.farnell.com/switchcraft-conxall/35rasmt2bhntrx/connector-smt-3-5mm-ph-jk-tap/dp/2915138" H 7900 3050 50  0001 C CNN
-F 4 "2915138" H 7900 3050 50  0001 C CNN "farnell"
+F 3 "https://uk.farnell #.com/switchcraft-conxall/35rasmt2bhntrx/connector-smt-3-5mm-ph-jk-tap/dp/2915138" H 7900 3050 50  0001 C CNN
+F 4 "2915138" H 7900 3050 50  0001 C CNN "farnell #"
 	1    7900 3050
 	-1   0    0    1   
 $EndComp
@@ -94,7 +94,7 @@ F 0 "C3" H 4642 2296 50  0000 L CNN
 F 1 "2.2uF" H 4642 2205 50  0000 L CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric" H 4550 2250 50  0001 C CNN
 F 3 "~" H 4550 2250 50  0001 C CNN
-F 4 "2773238" H 4550 2250 50  0001 C CNN "farnell"
+F 4 "2773238" H 4550 2250 50  0001 C CNN "farnell #"
 	1    4550 2250
 	1    0    0    -1  
 $EndComp
@@ -111,7 +111,7 @@ F 0 "C4" H 4942 2296 50  0000 L CNN
 F 1 "0.1uF" H 4942 2205 50  0000 L CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric" H 4850 2250 50  0001 C CNN
 F 3 "~" H 4850 2250 50  0001 C CNN
-F 4 "1414663" H 4850 2250 50  0001 C CNN "farnell"
+F 4 "1414663" H 4850 2250 50  0001 C CNN "farnell #"
 	1    4850 2250
 	1    0    0    -1  
 $EndComp
@@ -128,7 +128,7 @@ F 0 "C5" H 5242 2296 50  0000 L CNN
 F 1 "0.1uF" H 5242 2205 50  0000 L CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric" H 5150 2250 50  0001 C CNN
 F 3 "~" H 5150 2250 50  0001 C CNN
-F 4 "1414663" H 5150 2250 50  0001 C CNN "farnell"
+F 4 "1414663" H 5150 2250 50  0001 C CNN "farnell #"
 	1    5150 2250
 	1    0    0    -1  
 $EndComp
@@ -145,7 +145,7 @@ F 0 "C6" H 6442 2296 50  0000 L CNN
 F 1 "2.2uF" H 6442 2205 50  0000 L CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric" H 6350 2250 50  0001 C CNN
 F 3 "~" H 6350 2250 50  0001 C CNN
-F 4 "2773238" H 6350 2250 50  0001 C CNN "farnell"
+F 4 "2773238" H 6350 2250 50  0001 C CNN "farnell #"
 	1    6350 2250
 	1    0    0    -1  
 $EndComp
@@ -162,7 +162,7 @@ F 0 "C7" H 6742 2296 50  0000 L CNN
 F 1 "0.1uF" H 6742 2205 50  0000 L CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric" H 6650 2250 50  0001 C CNN
 F 3 "~" H 6650 2250 50  0001 C CNN
-F 4 "1414663" H 6650 2250 50  0001 C CNN "farnell"
+F 4 "1414663" H 6650 2250 50  0001 C CNN "farnell #"
 	1    6650 2250
 	1    0    0    -1  
 $EndComp
@@ -179,7 +179,7 @@ F 0 "L1" V 6087 2000 50  0000 C CNN
 F 1 "600R" V 5996 2000 50  0000 C CNN
 F 2 "Inductor_SMD:L_0805_2012Metric" V 5780 2000 50  0001 C CNN
 F 3 "~" H 5850 2000 50  0001 C CNN
-F 4 "2215655" H 5850 2000 50  0001 C CNN "farnell"
+F 4 "2215655" H 5850 2000 50  0001 C CNN "farnell #"
 	1    5850 2000
 	0    -1   -1   0   
 $EndComp
@@ -200,7 +200,7 @@ F 0 "R1" H 4670 2996 50  0000 L CNN
 F 1 "2.2K" H 4670 2905 50  0000 L CNN
 F 2 "Resistor_SMD:R_0805_2012Metric" V 4530 2950 50  0001 C CNN
 F 3 "~" H 4600 2950 50  0001 C CNN
-F 4 "1469887" H 4600 2950 50  0001 C CNN "farnell"
+F 4 "1469887" H 4600 2950 50  0001 C CNN "farnell #"
 	1    4600 2950
 	1    0    0    -1  
 $EndComp
@@ -229,7 +229,7 @@ F 0 "R2" H 4970 2996 50  0000 L CNN
 F 1 "2.2K" H 4970 2905 50  0000 L CNN
 F 2 "Resistor_SMD:R_0805_2012Metric" V 4830 2950 50  0001 C CNN
 F 3 "~" H 4900 2950 50  0001 C CNN
-F 4 "1469887" H 4900 2950 50  0001 C CNN "farnell"
+F 4 "1469887" H 4900 2950 50  0001 C CNN "farnell #"
 	1    4900 2950
 	1    0    0    -1  
 $EndComp
@@ -353,7 +353,7 @@ F 0 "J2" H 7600 4150 50  0000 R CNN
 F 1 "AudioJack3_Ground" H 7550 4050 50  0001 R CNN
 F 2 "audio-fx:Jack_3.5mm_CUI_SJ-3523-SMT_Horizontal" H 7900 4200 50  0001 C CNN
 F 3 "~" H 7900 4200 50  0001 C CNN
-F 4 "2915138" H 7900 4200 50  0001 C CNN "farnell"
+F 4 "2915138" H 7900 4200 50  0001 C CNN "farnell #"
 	1    7900 4200
 	-1   0    0    1   
 $EndComp
@@ -368,7 +368,7 @@ F 0 "C2" H 4542 4246 50  0000 L CNN
 F 1 "0.1uF" H 4542 4155 50  0000 L CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric" H 4450 4200 50  0001 C CNN
 F 3 "~" H 4450 4200 50  0001 C CNN
-F 4 "1414663" H 4450 4200 50  0001 C CNN "farnell"
+F 4 "1414663" H 4450 4200 50  0001 C CNN "farnell #"
 	1    4450 4200
 	1    0    0    -1  
 $EndComp
@@ -387,7 +387,7 @@ F 0 "U3" H 5650 3750 60  0000 C CNN
 F 1 "SGTL5000" H 5600 2200 60  0000 C CNN
 F 2 "Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.6x3.6mm" H 5650 3800 60  0001 C CNN
 F 3 "https://www.nxp.com/docs/en/data-sheet/SGTL5000.pdf" H 5600 2100 60  0000 C CNN
-F 4 "2308049" H 5650 3750 50  0001 C CNN "farnell"
+F 4 "2308049" H 5650 3750 50  0001 C CNN "farnell #"
 	1    5650 3750
 	1    0    0    -1  
 $EndComp
@@ -401,8 +401,8 @@ AR Path="/5E0E3867/5E146D40" Ref="C8"  Part="1"
 F 0 "C8" V 7042 2996 50  0000 L CNN
 F 1 "1uF" V 7150 2900 50  0000 L CNN
 F 2 "Capacitor_SMD:C_1210_3225Metric" H 6950 2950 50  0001 C CNN
-F 3 "http://www.farnell.com/datasheets/199119.pdf" H 6950 2950 50  0001 C CNN
-F 4 "2112915" V 6950 2950 50  0001 C CNN "farnell"
+F 3 "http://www.farnell #.com/datasheets/199119.pdf" H 6950 2950 50  0001 C CNN
+F 4 "2112915" V 6950 2950 50  0001 C CNN "farnell #"
 	1    6950 2950
 	0    -1   -1   0   
 $EndComp
@@ -417,14 +417,14 @@ F 0 "C9" V 7050 3300 50  0000 L CNN
 F 1 "1uF" V 7150 3200 50  0000 L CNN
 F 2 "Capacitor_SMD:C_1210_3225Metric" H 6950 3250 50  0001 C CNN
 F 3 "~" H 6950 3250 50  0001 C CNN
-F 4 "2112915" H 6950 3250 50  0001 C CNN "farnell"
+F 4 "2112915" H 6950 3250 50  0001 C CNN "farnell #"
 	1    6950 3250
 	0    -1   -1   0   
 $EndComp
 Wire Wire Line
 	7050 3250 7150 3250
 Text Notes 7650 2750 0    50   ~ 0
-farnell 2915138
+farnell # 2915138
 $Comp
 L Device:R R?
 U 1 1 5E21D79E
@@ -435,7 +435,7 @@ F 0 "R3" V 4400 3400 50  0000 C CNN
 F 1 "100R" V 4500 3500 50  0000 C CNN
 F 2 "Resistor_SMD:R_0805_2012Metric" V 4430 3450 50  0001 C CNN
 F 3 "~" H 4500 3450 50  0001 C CNN
-F 4 "1469862" H 4500 3450 50  0001 C CNN "farnell"
+F 4 "1469862" H 4500 3450 50  0001 C CNN "farnell #"
 	1    4500 3450
 	0    1    1    0   
 $EndComp
@@ -454,7 +454,7 @@ F 0 "C13" H 6700 4000 50  0000 L CNN
 F 1 "0.1uF" H 6700 4100 50  0000 L CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric" H 6550 4250 50  0001 C CNN
 F 3 "~" H 6550 4250 50  0001 C CNN
-F 4 "1414663" H 6550 4250 50  0001 C CNN "farnell"
+F 4 "1414663" H 6550 4250 50  0001 C CNN "farnell #"
 	1    6550 4250
 	1    0    0    -1  
 $EndComp
@@ -609,7 +609,7 @@ F 0 "R8" H 7150 2800 50  0000 L CNN
 F 1 "100k" V 7300 2700 50  0000 L CNN
 F 2 "Resistor_SMD:R_0805_2012Metric" V 7230 2800 50  0001 C CNN
 F 3 "~" H 7300 2800 50  0001 C CNN
-F 4 "1469860" H 7300 2800 50  0001 C CNN "farnell"
+F 4 "1469860" H 7300 2800 50  0001 C CNN "farnell #"
 	1    7300 2800
 	-1   0    0    1   
 $EndComp
@@ -628,7 +628,7 @@ F 0 "R9" H 7600 3200 50  0000 L CNN
 F 1 "100k" V 7500 3100 50  0000 L CNN
 F 2 "Resistor_SMD:R_0805_2012Metric" V 7430 3200 50  0001 C CNN
 F 3 "~" H 7500 3200 50  0001 C CNN
-F 4 "1469860" H 7500 3200 50  0001 C CNN "farnell"
+F 4 "1469860" H 7500 3200 50  0001 C CNN "farnell #"
 	1    7500 3200
 	-1   0    0    1   
 $EndComp
@@ -679,7 +679,7 @@ F 0 "J3" H 7600 3750 50  0000 R CNN
 F 1 "AudioJack3_Ground" H 7550 3650 50  0001 R CNN
 F 2 "audio-fx:Jack_3.5mm_CUI_SJ-3523-SMT_Horizontal" H 7900 3800 50  0001 C CNN
 F 3 "~" H 7900 3800 50  0001 C CNN
-F 4 "2915138" H 7900 3800 50  0001 C CNN "farnell"
+F 4 "2915138" H 7900 3800 50  0001 C CNN "farnell #"
 	1    7900 3800
 	-1   0    0    1   
 $EndComp
@@ -694,7 +694,7 @@ F 0 "C14" V 7050 3350 50  0000 L CNN
 F 1 "1uF" V 7150 3300 50  0000 L CNN
 F 2 "Capacitor_SMD:C_1210_3225Metric" H 6950 3550 50  0001 C CNN
 F 3 "~" H 6950 3550 50  0001 C CNN
-F 4 "2112915" H 6950 3550 50  0001 C CNN "farnell"
+F 4 "2112915" H 6950 3550 50  0001 C CNN "farnell #"
 	1    6950 3550
 	0    -1   -1   0   
 $EndComp
@@ -709,7 +709,7 @@ F 0 "C15" V 6650 3750 50  0000 L CNN
 F 1 "1uF" V 6750 3650 50  0000 L CNN
 F 2 "Capacitor_SMD:C_1210_3225Metric" H 6950 3750 50  0001 C CNN
 F 3 "~" H 6950 3750 50  0001 C CNN
-F 4 "2112915" H 6950 3750 50  0001 C CNN "farnell"
+F 4 "2112915" H 6950 3750 50  0001 C CNN "farnell #"
 	1    6950 3750
 	0    -1   -1   0   
 $EndComp
@@ -800,7 +800,7 @@ F 0 "C17" H 2842 2246 50  0000 L CNN
 F 1 "2.2uF" H 2842 2155 50  0000 L CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric" H 2750 2200 50  0001 C CNN
 F 3 "~" H 2750 2200 50  0001 C CNN
-F 4 "2773238" H 2750 2200 50  0001 C CNN "farnell"
+F 4 "2773238" H 2750 2200 50  0001 C CNN "farnell #"
 	1    2750 2200
 	1    0    0    -1  
 $EndComp
@@ -826,8 +826,8 @@ P 2150 2100
 F 0 "U2" H 2150 2365 50  0000 C CNN
 F 1 "MCP1811A" H 2150 2274 50  0000 C CNN
 F 2 "Package_TO_SOT_SMD:SOT-23" H 2150 2100 50  0001 C CNN
-F 3 "http://www.farnell.com/datasheets/2722379.pdf" H 2150 2100 50  0001 C CNN
-F 4 "2990195" H 2150 2100 50  0001 C CNN "farnell"
+F 3 "http://www.farnell #.com/datasheets/2722379.pdf" H 2150 2100 50  0001 C CNN
+F 4 "2990195" H 2150 2100 50  0001 C CNN "farnell #"
 	1    2150 2100
 	1    0    0    -1  
 $EndComp
@@ -877,7 +877,7 @@ F 0 "C1" H 1642 2396 50  0000 L CNN
 F 1 "2.2uF" H 1642 2305 50  0000 L CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric" H 1550 2350 50  0001 C CNN
 F 3 "~" H 1550 2350 50  0001 C CNN
-F 4 "2773238" H 1550 2350 50  0001 C CNN "farnell"
+F 4 "2773238" H 1550 2350 50  0001 C CNN "farnell #"
 	1    1550 2350
 	1    0    0    -1  
 $EndComp
