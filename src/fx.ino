@@ -69,7 +69,7 @@ AudioControlSGTL5000     sgtl5000_1;     //xy=292,903
 #define POT_MUX_PINS 4
 #define BUTTON_PINS 4
 int pot_mux_addr_p[POT_MUX_PINS] = { 2, 3, 4, 5 };
-int buttons_p[BUTTON_PINS] = { 0, 1, 6, 17 };
+int buttons_p[BUTTON_PINS] = { 0, 1, 17, 22 };
 int led_data_p = 11;  // MOSI
 int led_clk_p  = 13;  // SCK
 int led_latch_p = 10; // CS
@@ -108,18 +108,18 @@ void setup() {
     // setup SPI for LED control
     pinMode(led_latch_p, OUTPUT);
     pinMode(led_oe_p, OUTPUT);
-    SPI.begin();
+    pinMode(led_data_p, OUTPUT);
+    pinMode(led_clk_p, OUTPUT);
 
     // buttons
     for( uint8_t i = 0; i < BUTTON_PINS; i++)
     {
-        pinMode(buttons_p[i], INPUT);
-        digitalWrite(buttons_p[i], HIGH);
+        pinMode(buttons_p[i], INPUT_PULLUP);
     }
     // pot mux addr pins
     for( uint8_t i = 0; i < POT_MUX_PINS; i++)
     {
-        pinMode(pot_mux_addr_p[i], INPUT);
+        pinMode(pot_mux_addr_p[i], OUTPUT);
     }
     #endif
 
@@ -188,26 +188,29 @@ void check_board()
         knobs[i] = analogRead(pot_mux_p);
         digitalWrite(pot_mux_addr_p[i], false);
     }
+    Serial.print("pot"); Serial.println(knobs[0]);
 
     // read buttons
     for(int i = 0; i < NUM_BUTTONS; i ++) // TODO 
     {
         buttons[i] = digitalRead(buttons_p[i]);
+        Serial.print("button "); Serial.print(i); Serial.println(buttons[i]);
     }
 
     // update LEDs // TODO
-    SPI.beginTransaction(settings_LED);
     digitalWrite(led_oe_p, false);
     for(int i = 0; i < NUM_LEDS; i ++)
     {
         digitalWrite(led_latch_p, false);
-        SPI.transfer(leds[i] & 0xFF);
-        SPI.transfer(leds[i] >> 8);
+        digitalWrite(led_data_p, false);
+        digitalWrite(led_clk_p, false);
+        delay(1);
         digitalWrite(led_latch_p, true);
+        digitalWrite(led_data_p, true);
+        digitalWrite(led_clk_p, true);
+        delay(1);
     }
     digitalWrite(led_oe_p, true);
-    SPI.endTransaction();
-
 }
 
 void check_serial()
