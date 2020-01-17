@@ -26,7 +26,7 @@ class Cmd(IntEnum):
 
 class MainWindow(QtWidgets.QMainWindow):
 
-    SEQ_STEPS = 160
+    SEQ_STEPS = 32
 
     def __init__(self):
         super(self.__class__, self).__init__()
@@ -137,7 +137,9 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def get_ms_from_bpm(self):
         bpm = int(self.lineEdit_bpm.text())
-        return (60000*16/MainWindow.SEQ_STEPS)/bpm
+        ms = (60000*16/MainWindow.SEQ_STEPS)/bpm
+        logging.info("%d bpm is %d ms with %d steps" % (bpm, ms, MainWindow.SEQ_STEPS))
+        return ms
 
     def update_bpm(self):
         self.timer.start(self.get_ms_from_bpm())
