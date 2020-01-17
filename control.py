@@ -35,7 +35,7 @@ class MainWindow(QtWidgets.QMainWindow):
             self.ser.readline = Mock(return_value="mock".encode('utf-8'))
             self.ser.write = Mock(return_value=0)
         else:
-            self.ser = serial.Serial("/dev/ttyACM0", 9600, timeout = 2, write_timeout = 2)
+            self.ser = serial.Serial(args.serial_port, 9600, timeout = 2, write_timeout = 2)
         self.record = False
         self.play = True
     
@@ -200,6 +200,7 @@ if __name__ == '__main__':
     parser.add_argument('--perf-stats', help="log performance stats", action="store_const", const=True)
     parser.add_argument('--debug', help="debug logging", action="store_const", const=True)
     parser.add_argument('--mock-serial', help="show gui even if don't have teensy connected", action="store_const", const=True)
+    parser.add_argument('--serial-port', help="what port", action="store", default='/dev/ttyACM0')
     args = parser.parse_args()
 
     # setup log
