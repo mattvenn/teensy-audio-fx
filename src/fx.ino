@@ -11,6 +11,10 @@ https://github.com/PaulStoffregen/Audio/tree/master/examples
 #include <SPI.h>
 #include <SD.h>
 #include <SerialFlash.h>
+#include <LEDS.h>
+#include <Pots.h>
+#include <Buttons.h>
+#include <Control.h>
 
 // GUItool: begin automatically generated code
 AudioInputI2S            i2s2;           //xy=69,326
@@ -61,26 +65,19 @@ AudioControlSGTL5000     sgtl5000_1;     //xy=292,903
 #define SERIAL_CONTROL
 #define BOARD_CONTROL
 
-#define NUM_KNOBS 12
 #define NUM_BUTTONS 4
-#define NUM_LEDS 20
+Control controls[NUM_POTS];
+// data_p, clk_p, cs_p, oe_p
+LEDS leds(11, 13, 10, 9);
+Button buttons[NUM_BUTTONS] = { Button(0), Button(1), Button(17), Button(22) };
+Pots pots(2, 3, 4, 5, 14);
 
-// pin defs
-#define POT_MUX_PINS 4
-#define BUTTON_PINS 4
-int pot_mux_addr_p[POT_MUX_PINS] = { 2, 3, 4, 5 };
-int buttons_p[BUTTON_PINS] = { 0, 1, 17, 22 };
-int led_data_p = 11;  // MOSI
-int led_clk_p  = 13;  // SCK
-int led_latch_p = 10; // CS
-int led_oe_p = 9;
-int pot_mux_p = 14;
-SPISettings settings_LED(2000000, MSBFIRST, SPI_MODE1);
-
-// global data
-unsigned int knobs [NUM_KNOBS] = {0};
-bool buttons [NUM_BUTTONS] = {0};
-unsigned int leds[NUM_LEDS] = {0};
+enum Button {
+    WRITE,
+    TAP_TEMPO,
+    ERASE,
+    SET_TO_ONE,
+    };
 
 enum Cmd {
     REV_SIZE,
@@ -104,23 +101,9 @@ void setup() {
     Serial.begin(9600);
     #endif
 
-    #ifdef BOARD_CONTROL
-    // setup SPI for LED control
-    pinMode(led_latch_p, OUTPUT);
-    pinMode(led_oe_p, OUTPUT);
-    pinMode(led_data_p, OUTPUT);
-    pinMode(led_clk_p, OUTPUT);
 
-    // buttons
-    for( uint8_t i = 0; i < BUTTON_PINS; i++)
-    {
-        pinMode(buttons_p[i], INPUT_PULLUP);
-    }
-    // pot mux addr pins
-    for( uint8_t i = 0; i < POT_MUX_PINS; i++)
-    {
-        pinMode(pot_mux_addr_p[i], OUTPUT);
-    }
+    #ifdef BOARD_CONTROL
+
     #endif
 
   // Audio connections require memory to work.  For more
@@ -181,36 +164,34 @@ void loop()
 
 void check_board()
 {
-    // read pots
-    for(int i = 0; i < 4; i ++ ) //NUM_KNOBS; i ++) // TODO 
-    {
-        digitalWrite(pot_mux_addr_p[i], true);
-        knobs[i] = analogRead(pot_mux_p);
-        digitalWrite(pot_mux_addr_p[i], false);
-    }
-    Serial.print("pot"); Serial.println(knobs[0]);
+    bar_timer.update(buttons[SET_TO_ONE]);
+    leds.send();
+    pots.update();
 
-    // read buttons
-    for(int i = 0; i < NUM_BUTTONS; i ++) // TODO 
-    {
-        buttons[i] = digitalRead(buttons_p[i]);
-        Serial.print("button "); Serial.print(i); Serial.println(buttons[i]);
-    }
 
-    // update LEDs // TODO
-    digitalWrite(led_oe_p, false);
-    for(int i = 0; i < NUM_LEDS; i ++)
-    {
-        digitalWrite(led_latch_p, false);
-        digitalWrite(led_data_p, false);
-        digitalWrite(led_clk_p, false);
-        delay(1);
-        digitalWrite(led_latch_p, true);
-        digitalWrite(led_data_p, true);
-        digitalWrite(led_clk_p, true);
-        delay(1);
+    for(int button = 0; pot < NUM_BUTTONS; button ++) {
+        buttons[button].update();
+
+    for(int pot = 0; pot < NUM_POTS; pot ++) {
+        if(control[pot].changed() && buttons[WRITE])
+            // set this step to value
+            controls[pot].set_val(pots.get_value(pot), bar_timer.get_step())
+        else if(control[pot].changed() || buttons[ERASE])
+            // set all steps to value
+            controls[pot].set_val(pots.get_value(pot));
+
+        leds.set_data(pot, controls[pot].get_led_val());
+        
+        float val = controls[pot].get_val();
+        switch(pot) {
+            case REV_SIZE: freeverbs1.roomsize(val); break;
+            case REV_DAMP: freeverbs1.damping(val); break;
+            case MIX_REV:
+                mix_op_l.gain(1, val);
+                mix_op_r.gain(1, val);
+                break;
+        }
     }
-    digitalWrite(led_oe_p, true);
 }
 
 void check_serial()

@@ -33,9 +33,9 @@ Based off the teensy 4 audio board and the [teensy beats shield](https://hackada
 ## Hardware todo
 
 * print and check footprints
- * regulator fp comes in 2 varients - check
+ * regulator fp - done
  * smt sockets for teensy - done
- * pots - done
+ * pots - done RS
  * 4067 - done
  * tlc5947 - done
  * sgtl5000 - done
@@ -46,6 +46,8 @@ Based off the teensy 4 audio board and the [teensy beats shield](https://hackada
 * caps for audio, what parts - done
 * extra caps for led driver and led circuit - done
 * find suppliers - done
+* audio sockets weren't available in EU, changed to 35RASMT2BHNTRX which has 5 pads but will fit on the same fp
+* update FP of audio sockets to new FP
 
 ## Back graphic
 
@@ -53,6 +55,13 @@ Based off the teensy 4 audio board and the [teensy beats shield](https://hackada
 # FW
 
 Try to fulfil what the [control.py](control.py) program can do.
+
+## Todo
+
+* bar timer
+* map button and bar leds
+* sw probably need debounce
+* pot probably need filter
 
 ## Top Level
 
