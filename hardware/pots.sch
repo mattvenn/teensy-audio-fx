@@ -602,7 +602,7 @@ F 0 "SW1" H 1600 2435 50  0000 C CNN
 F 1 "Switch_SW_Push" H 1600 2344 50  0000 C CNN
 F 2 "Button_Switch_THT:SW_PUSH_6mm" H 1600 2350 50  0001 C CNN
 F 3 "" H 1600 2350 50  0001 C CNN
-F 4 "dnp" H 1600 2150 50  0001 C CNN "farnell #"
+F 4 "1608274" H 1600 2150 50  0001 C CNN "farnell #"
 	1    1600 2150
 	1    0    0    -1  
 $EndComp
@@ -616,7 +616,7 @@ F 0 "SW2" H 1600 2885 50  0000 C CNN
 F 1 "Switch_SW_Push" H 1600 2794 50  0000 C CNN
 F 2 "Button_Switch_THT:SW_PUSH_6mm" H 1600 2800 50  0001 C CNN
 F 3 "" H 1600 2800 50  0001 C CNN
-F 4 "dnp" H 1600 2600 50  0001 C CNN "farnell #"
+F 4 "1608274" H 1600 2600 50  0001 C CNN "farnell #"
 	1    1600 2600
 	1    0    0    -1  
 $EndComp
@@ -630,7 +630,7 @@ F 0 "SW3" H 1600 3285 50  0000 C CNN
 F 1 "Switch_SW_Push" H 1600 3194 50  0000 C CNN
 F 2 "Button_Switch_THT:SW_PUSH_6mm" H 1600 3200 50  0001 C CNN
 F 3 "" H 1600 3200 50  0001 C CNN
-F 4 "dnp" H 1600 3000 50  0001 C CNN "farnell #"
+F 4 "1608274" H 1600 3000 50  0001 C CNN "farnell #"
 	1    1600 3000
 	1    0    0    -1  
 $EndComp
@@ -644,7 +644,7 @@ F 0 "SW4" H 1600 3685 50  0000 C CNN
 F 1 "Switch_SW_Push" H 1600 3594 50  0000 C CNN
 F 2 "Button_Switch_THT:SW_PUSH_6mm" H 1600 3600 50  0001 C CNN
 F 3 "" H 1600 3600 50  0001 C CNN
-F 4 "dnp" H 1600 3400 50  0001 C CNN "farnell #"
+F 4 "1608274" H 1600 3400 50  0001 C CNN "farnell #"
 	1    1600 3400
 	1    0    0    -1  
 $EndComp
