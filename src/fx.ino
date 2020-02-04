@@ -13,8 +13,9 @@ https://github.com/PaulStoffregen/Audio/tree/master/examples
 #include <SerialFlash.h>
 #include <LEDS.h>
 #include <Pots.h>
-#include <Buttons.h>
+#include <Button.h>
 #include <Control.h>
+#include <BarTimer.h>
 
 // GUItool: begin automatically generated code
 AudioInputI2S            i2s2;           //xy=69,326
@@ -71,8 +72,9 @@ Control controls[NUM_POTS];
 LEDS leds(11, 13, 10, 9);
 Button buttons[NUM_BUTTONS] = { Button(0), Button(1), Button(17), Button(22) };
 Pots pots(2, 3, 4, 5, 14);
+BarTimer bar_timer;
 
-enum Button {
+enum ButtonType {
     WRITE,
     TAP_TEMPO,
     ERASE,
@@ -106,83 +108,86 @@ void setup() {
 
     #endif
 
-  // Audio connections require memory to work.  For more
-  // detailed information, see the MemoryAndCpuUsage example 
-  // delays requires 1 block per 3ms. 2000 blocks = 6000ms = 6s
-  AudioMemory(2000);
+    bar_timer.set_bpm(120);
 
-  // Comment these out if not using the audio adaptor board.
-  // This may wait forever if the SDA & SCL pins lack
-  // pullup resistors
-  sgtl5000_1.enable();
-  sgtl5000_1.volume(0.5);
+    // Audio connections require memory to work.  For more
+    // detailed information, see the MemoryAndCpuUsage example 
+    // delays requires 1 block per 3ms. 2000 blocks = 6000ms = 6s
+    AudioMemory(2000);
 
-  sgtl5000_1.inputSelect(AUDIO_INPUT_LINEIN);
+    // Comment these out if not using the audio adaptor board.
+    // This may wait forever if the SDA & SCL pins lack
+    // pullup resistors
+    sgtl5000_1.enable();
+    sgtl5000_1.volume(0.5);
 
-  pink1.amplitude(0.5);
-  pink2.amplitude(0.5);
-  filter_rev.frequency(200);  // high pass for reverb in
-  mix_rev.gain(0, 0.0);    // left to rev
-  mix_rev.gain(1, 0.0);    // right to rev
+    sgtl5000_1.inputSelect(AUDIO_INPUT_LINEIN);
 
-  mix_del_l.gain(0, 1);  // in
-  mix_del_l.gain(1, 0);  // fb
-  mix_del_l.gain(2, 0);  // noise
+    pink1.amplitude(0.5);
+    pink2.amplitude(0.5);
+    filter_rev.frequency(200);  // high pass for reverb in
+    mix_rev.gain(0, 0.0);    // left to rev
+    mix_rev.gain(1, 0.0);    // right to rev
 
-  mix_del_r.gain(0, 1);  // in
-  mix_del_r.gain(1, 0);  // fb
-  mix_del_r.gain(2, 0);  // noise
+    mix_del_l.gain(0, 1);  // in
+    mix_del_l.gain(1, 0);  // fb
+    mix_del_l.gain(2, 0);  // noise
 
-  mix_op_l.gain(0, 1.0); // wet
-  mix_op_l.gain(1, 1.0); // reverb
-  mix_op_l.gain(2, 1.0); // delay
-  mix_op_l.gain(3, 0.0); // noise
-  
-  mix_op_r.gain(0, 1.0); // wet
-  mix_op_r.gain(1, 1.0); // reverb
-  mix_op_r.gain(2, 1.0); // delay
-  mix_op_r.gain(3, 0.0); // noise
+    mix_del_r.gain(0, 1);  // in
+    mix_del_r.gain(1, 0);  // fb
+    mix_del_r.gain(2, 0);  // noise
 
-  delay_l.delay(0, 500);
-  delay_r.delay(0, 750);
+    mix_op_l.gain(0, 1.0); // wet
+    mix_op_l.gain(1, 1.0); // reverb
+    mix_op_l.gain(2, 1.0); // delay
+    mix_op_l.gain(3, 0.0); // noise
 
-  freeverbs1.roomsize(0.7);
-  freeverbs1.damping(0.8);
+    mix_op_r.gain(0, 1.0); // wet
+    mix_op_r.gain(1, 1.0); // reverb
+    mix_op_r.gain(2, 1.0); // delay
+    mix_op_r.gain(3, 0.0); // noise
+
+    delay_l.delay(0, 500);
+    delay_r.delay(0, 750);
+
+    freeverbs1.roomsize(0.7);
+    freeverbs1.damping(0.8);
 }
 
 
 void loop()
 {
-   #ifdef SERIAL_CONTROL
-   check_serial();
-   #endif
+    #ifdef SERIAL_CONTROL
+    check_serial();
+    #endif
 
-   #ifdef BOARD_CONTROL
-   check_board();
-   #endif
+    #ifdef BOARD_CONTROL
+    check_board();
+    #endif
 }
 
 void check_board()
 {
-    bar_timer.update(buttons[SET_TO_ONE]);
+    bar_timer.update(buttons[SET_TO_ONE].pressed());
     leds.send();
     pots.update();
 
 
-    for(int button = 0; pot < NUM_BUTTONS; button ++) {
+    for(int button = 0; button < NUM_BUTTONS; button ++) {
         buttons[button].update();
+    }
 
     for(int pot = 0; pot < NUM_POTS; pot ++) {
-        if(control[pot].changed() && buttons[WRITE])
+        if(pots.changed(pot) && buttons[WRITE].pressed())
             // set this step to value
-            controls[pot].set_val(pots.get_value(pot), bar_timer.get_step())
-        else if(control[pot].changed() || buttons[ERASE])
+            controls[pot].set_val(pots.get_value(pot), bar_timer.get_step());
+        else if(pots.changed(pot) || buttons[ERASE].pressed())
             // set all steps to value
             controls[pot].set_val(pots.get_value(pot));
 
-        leds.set_data(pot, controls[pot].get_led_val());
+        leds.set_data(pot, controls[pot].get_led_val(bar_timer.get_step()));
         
-        float val = controls[pot].get_val();
+        float val = controls[pot].get_val(bar_timer.get_step());
         switch(pot) {
             case REV_SIZE: freeverbs1.roomsize(val); break;
             case REV_DAMP: freeverbs1.damping(val); break;
@@ -196,100 +201,100 @@ void check_board()
 
 void check_serial()
 {
-   if(Serial.available() == 2)
-   {
-       char cmd = Serial.read();
-       uint8_t val = Serial.read();
-       float val_0_to_1 = float(val) / 255;
-       switch(cmd) {
-          case REV_SIZE: 
-               freeverbs1.roomsize(val_0_to_1);
-               Serial.print("roomsize: "); Serial.println(val);
-              break;
-          case REV_DAMP:
-               freeverbs1.damping(val_0_to_1);
-               Serial.print("damping: "); Serial.println(val);
-              break;
-          case MIX_REV:
-              mix_op_l.gain(1, val_0_to_1); // reverb
-              mix_op_r.gain(1, val_0_to_1); // reverb
-              Serial.print("mix reverb: "); Serial.println(val);
-              break;
-          case MIX_DEL:
-              mix_del_l.gain(0, val_0_to_1); // delay
-              mix_del_r.gain(0, val_0_to_1); // delay
-              Serial.print("mix delay: "); Serial.println(val);
-              break;
-          case MIX_NOISE:
-              mix_op_l.gain(3, val_0_to_1); // noise
-              mix_op_r.gain(3, val_0_to_1); // noise
-              Serial.print("mix noise: "); Serial.println(val);
-              break;
-          case MIX_SIG:
-              mix_op_l.gain(0, val_0_to_1); // reverb
-              mix_op_r.gain(0, val_0_to_1); // reverb
-              Serial.print("mix wet: "); Serial.println(val);
-              break;
-          case DEL_L_TIME:
-          {
-              int dtime = map(val, 0, 255, 0, 2000); 
-              delay_l.delay(0, dtime);
-              Serial.print("del l: "); Serial.println(dtime);
-              break;
-          }
-          case DEL_R_TIME:
-          {
-              int dtime = map(val, 0, 255, 0, 2000); 
-              delay_r.delay(0, dtime);
-              Serial.print("del r: "); Serial.println(dtime);
-              break;
-          }
-          case DEL_FB:
-              mix_del_r.gain(1, val_0_to_1);  // fb
-              mix_del_l.gain(1, val_0_to_1);  // fb
-              Serial.print("del fb: "); Serial.println(val_0_to_1);
-              break;
+    if(Serial.available() == 2)
+    {
+        char cmd = Serial.read();
+        uint8_t val = Serial.read();
+        float val_0_to_1 = float(val) / 255;
+        switch(cmd) {
+            case REV_SIZE: 
+                freeverbs1.roomsize(val_0_to_1);
+                Serial.print("roomsize: "); Serial.println(val);
+                break;
+            case REV_DAMP:
+                freeverbs1.damping(val_0_to_1);
+                Serial.print("damping: "); Serial.println(val);
+                break;
+            case MIX_REV:
+                mix_op_l.gain(1, val_0_to_1); // reverb
+                mix_op_r.gain(1, val_0_to_1); // reverb
+                Serial.print("mix reverb: "); Serial.println(val);
+                break;
+            case MIX_DEL:
+                mix_del_l.gain(0, val_0_to_1); // delay
+                mix_del_r.gain(0, val_0_to_1); // delay
+                Serial.print("mix delay: "); Serial.println(val);
+                break;
+            case MIX_NOISE:
+                mix_op_l.gain(3, val_0_to_1); // noise
+                mix_op_r.gain(3, val_0_to_1); // noise
+                Serial.print("mix noise: "); Serial.println(val);
+                break;
+            case MIX_SIG:
+                mix_op_l.gain(0, val_0_to_1); // reverb
+                mix_op_r.gain(0, val_0_to_1); // reverb
+                Serial.print("mix wet: "); Serial.println(val);
+                break;
+            case DEL_L_TIME:
+            {
+                int dtime = map(val, 0, 255, 0, 2000); 
+                delay_l.delay(0, dtime);
+                Serial.print("del l: "); Serial.println(dtime);
+                break;
+            }
+            case DEL_R_TIME:
+            {
+                int dtime = map(val, 0, 255, 0, 2000); 
+                delay_r.delay(0, dtime);
+                Serial.print("del r: "); Serial.println(dtime);
+                break;
+            }
+            case DEL_FB:
+                mix_del_r.gain(1, val_0_to_1);  // fb
+                mix_del_l.gain(1, val_0_to_1);  // fb
+                Serial.print("del fb: "); Serial.println(val_0_to_1);
+                break;
 
-          case DEL_FB_FILT_FREQ:
-          {
-              float freq = map(val, 0, 255, 0, 5000); 
-              filter_del_l.frequency(freq);  // fb
-              filter_del_r.frequency(freq);  // fb
-              filter_noise_l.frequency(freq);  // fb
-              filter_noise_r.frequency(freq);  // fb
-              Serial.print("del fb, noise & rev filt freq: "); Serial.println(freq);
-              break;
-          }
+            case DEL_FB_FILT_FREQ:
+            {
+                float freq = map(val, 0, 255, 0, 5000); 
+                filter_del_l.frequency(freq);  // fb
+                filter_del_r.frequency(freq);  // fb
+                filter_noise_l.frequency(freq);  // fb
+                filter_noise_r.frequency(freq);  // fb
+                Serial.print("del fb, noise & rev filt freq: "); Serial.println(freq);
+                break;
+            }
 
-          case DEL_FB_FILT_RES:
-          {
-              float resonance = map(val, 0, 255, 0, 500) / 100.0; 
-              filter_del_l.resonance(resonance);  // fb
-              filter_del_r.resonance(resonance);  // fb
-              filter_noise_l.resonance(resonance);  // fb
-              filter_noise_r.resonance(resonance);  // fb
-              Serial.print("del fb, noise & rev res: "); Serial.println(resonance);
-              break;
-          }
+            case DEL_FB_FILT_RES:
+            {
+                float resonance = map(val, 0, 255, 0, 500) / 100.0; 
+                filter_del_l.resonance(resonance);  // fb
+                filter_del_r.resonance(resonance);  // fb
+                filter_noise_l.resonance(resonance);  // fb
+                filter_noise_r.resonance(resonance);  // fb
+                Serial.print("del fb, noise & rev res: "); Serial.println(resonance);
+                break;
+            }
 
-          case MIX_REV_IN:
-              mix_rev.gain(0, val_0_to_1/2);    // left to rev
-              mix_rev.gain(1, val_0_to_1/2);    // right to rev
-              Serial.print("rev mix in: "); Serial.println(val_0_to_1/2);
-              break;
+            case MIX_REV_IN:
+                mix_rev.gain(0, val_0_to_1/2);    // left to rev
+                mix_rev.gain(1, val_0_to_1/2);    // right to rev
+                Serial.print("rev mix in: "); Serial.println(val_0_to_1/2);
+                break;
 
-          case AUDIO_PROC:
-              Serial.print("audio cpu max: "); Serial.println(AudioProcessorUsageMax());
-              break;
+            case AUDIO_PROC:
+                Serial.print("audio cpu max: "); Serial.println(AudioProcessorUsageMax());
+                break;
 
-          case AUDIO_MEM:
-              Serial.print("audio mem max: "); Serial.println(AudioMemoryUsageMax());
-              break;
+            case AUDIO_MEM:
+                Serial.print("audio mem max: "); Serial.println(AudioMemoryUsageMax());
+                break;
 
-          default:
-               Serial.print("got cmd: "); Serial.print(cmd);
-               Serial.print("with val: "); Serial.println(val);
-               break;
-       }
-   }
+            default:
+                 Serial.print("got cmd: "); Serial.print(cmd);
+                 Serial.print("with val: "); Serial.println(val);
+                 break;
+        }
+    }
 }
