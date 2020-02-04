@@ -168,25 +168,26 @@ void loop()
 
 void check_board()
 {
+    // update automation timer, pots and buttons
     bar_timer.update(buttons[SET_TO_ONE].pressed());
-    leds.send();
     pots.update();
-
-
-    for(int button = 0; button < NUM_BUTTONS; button ++) {
+    for(int button = 0; button < NUM_BUTTONS; button ++)
         buttons[button].update();
-    }
 
     for(int pot = 0; pot < NUM_POTS; pot ++) {
-        if(pots.changed(pot) && buttons[WRITE].pressed())
-            // set this step to value
+
+        // write automation if write button pressed & pot has changed
+        if(buttons[WRITE].pressed() && pots.changed(pot))
             controls[pot].set_val(pots.get_value(pot), bar_timer.get_step());
+
+        // otherwise erase automation if pot has changed or erase pressed
         else if(pots.changed(pot) || buttons[ERASE].pressed())
-            // set all steps to value
             controls[pot].set_val(pots.get_value(pot));
 
+        // update leds
         leds.set_data(pot, controls[pot].get_led_val(bar_timer.get_step()));
         
+        // update sound parameters
         float val = controls[pot].get_val(bar_timer.get_step());
         switch(pot) {
             case REV_SIZE: freeverbs1.roomsize(val); break;
@@ -197,6 +198,9 @@ void check_board()
                 break;
         }
     }
+
+    // send the led data out
+    leds.send();
 }
 
 void check_serial()
