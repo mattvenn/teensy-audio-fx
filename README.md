@@ -49,16 +49,21 @@ Based off the teensy 4 audio board and the [teensy beats shield](https://hackada
 * audio sockets weren't available in EU, changed to 35RASMT2BHNTRX which has 5 pads but will fit on the same fp
 * update FP of audio sockets to new FP
 
+# HWv2
+
+* test points for mic input
+* separate regulator for pot 3.3v to reduce noise
+
 ## Back graphic
 
 100 x 60mm == 3.94 x 2.36" == 1182 x 708 pix
+
 # FW
 
 Try to fulfil what the [control.py](control.py) program can do.
 
 ## Todo
 
-* bar timer
 * map button and bar leds
 * sw probably need debounce
 * pot probably need filter
@@ -74,3 +79,25 @@ Try to fulfil what the [control.py](control.py) program can do.
 * moving a knob without pressing record will wipe the pattern and set it all to the current knob value
 * leds for buttons are tempo, if recording, and if wiping
 * 4 leds on top right show progression through the bar
+
+## Notes
+
+Problem with knowing when to write or erase knob automation data. In the software, you know
+because the handle is clicked. But in hw if you do
+
+for knob in knobs:
+    if (button.write && knob.changed)
+        set_new_data(knob.value, step)
+
+what happens if you wiggle the knob and then hold it in one place. And if you have
+
+for knob in knobs:
+    if (button.write)
+        set_new_data(knob.value, step)
+
+Then all knob automation will be overwritten as soon as write button is pressed.
+
+So probably need state machine where writing is started on knob move, and then stopped when write is released
+
+Also, in testing, knob value is fairly noisy and even with filtering in hw and sw still not easy to know if it's changed
+while remaining responsive.

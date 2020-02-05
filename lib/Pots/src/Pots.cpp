@@ -7,22 +7,24 @@
 #include <stdio.h>
 #endif
 
+//https://www.norwegiancreations.com/2015/10/tutorial-potentiometers-with-arduino-and-filtering/
+
 void Pots::update()
 {
-    for(int i = 0; i < NUM_POTS ; i ++ )
+    for(int pot = 0; pot < NUM_POTS ; pot ++ )
     {
         // set mux pins
         for(int m = 0; m < POT_MUX_PINS; m ++)
 #ifdef ARDUINO
-            digitalWrite(_pot_mux_addr_p[m], i & (1 << m));
+            digitalWrite(_pot_mux_addr_p[m], pot & (1 << m));
 #else
-            printf("%d", i & (1 << m) ? 1 : 0);
+            printf("%d", pot & (1 << m) ? 1 : 0);
 #endif
         // read analogue data
         // filter?
 #ifdef ARDUINO
-        _old_pot_data[i] = _pot_data[i];
-        _pot_data[i] = analogRead(_pot_p);
+        _old_pot_data[pot] = _pot_data[pot];
+        _pot_data[pot] = (EMA_a * analogRead(_pot_p)) + ((1 - EMA_a) * _pot_data[pot]);
 #else
         printf("\n");
 #endif
@@ -31,7 +33,8 @@ void Pots::update()
 
 bool Pots::changed(int pot) {
     // maybe needs some leeway depending on filter and noise
-    return _old_pot_data[pot] != _pot_data[pot];
+    bool change = _old_pot_data[pot] != _pot_data[pot];
+    return change;
 }
 
 int Pots::get_value(int pot) {

@@ -70,8 +70,8 @@ AudioControlSGTL5000     sgtl5000_1;     //xy=292,903
 Control controls[NUM_POTS];
 // data_p, clk_p, cs_p, oe_p
 LEDS leds(11, 13, 10, 9);
-Button buttons[NUM_BUTTONS] = { Button(0), Button(1), Button(17), Button(22) };
-Pots pots(2, 3, 4, 5, 14);
+Button buttons[NUM_BUTTONS] = { Button(0), Button(0), Button(17), Button(22) }; // TODO change 2nd button back to 1
+Pots pots(2, 3, 4, 5, 15); // 14 for teensy fx pcb, 15 for audio pcb
 BarTimer bar_timer;
 
 enum ButtonType {
@@ -166,23 +166,46 @@ void loop()
     #endif
 }
 
+int last_step = 0;
 void check_board()
 {
     // update automation timer, pots and buttons
     bar_timer.update(buttons[SET_TO_ONE].pressed());
+    
+    if(bar_timer.get_step() != last_step) {
+        Serial.print("step ");
+        Serial.println(bar_timer.get_step());
+        last_step  = bar_timer.get_step();
+        //Serial.println(pots.get_value(0));
+    }
+
     pots.update();
+
     for(int button = 0; button < NUM_BUTTONS; button ++)
         buttons[button].update();
+
+    analogWrite(1, controls[0].get_led_val(bar_timer.get_step()));
 
     for(int pot = 0; pot < NUM_POTS; pot ++) {
 
         // write automation if write button pressed & pot has changed
-        if(buttons[WRITE].pressed() && pots.changed(pot))
+        if(buttons[WRITE].pressed()) // && pots.changed(pot))
+        {
+            Serial.print("setting pot ");
+            Serial.print(pot);
+            Serial.print(" to ");
+            Serial.print(pots.get_value(pot));
+            Serial.print(" at step ");
+            Serial.println(bar_timer.get_step());
             controls[pot].set_val(pots.get_value(pot), bar_timer.get_step());
+        }
 
         // otherwise erase automation if pot has changed or erase pressed
-        else if(pots.changed(pot) || buttons[ERASE].pressed())
+        else if(/*pots.changed(pot) || */ buttons[ERASE].pressed())
+        {
+            Serial.println("erasing pot");
             controls[pot].set_val(pots.get_value(pot));
+        }
 
         // update leds
         leds.set_data(pot, controls[pot].get_led_val(bar_timer.get_step()));
@@ -191,11 +214,13 @@ void check_board()
         float val = controls[pot].get_val(bar_timer.get_step());
         switch(pot) {
             case REV_SIZE: freeverbs1.roomsize(val); break;
+            /*
             case REV_DAMP: freeverbs1.damping(val); break;
             case MIX_REV:
                 mix_op_l.gain(1, val);
                 mix_op_r.gain(1, val);
                 break;
+            */
         }
     }
 
