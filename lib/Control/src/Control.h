@@ -9,13 +9,13 @@ class Control {
 
     public:
         Control() {};
-        void set_val(int val, int step);
-        void set_val(int val);
+        void set_val(int val, int step, bool changed, bool write);
         float get_val(int step);
         int get_led_val(int step);
     
     private:
         int _val[MAX_STEPS] = {0};
+        bool _writing = false;
 };
 
 #endif

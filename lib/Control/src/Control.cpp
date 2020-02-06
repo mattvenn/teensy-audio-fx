@@ -6,13 +6,17 @@
 #include <stdio.h>
 #endif
 
-void Control::set_val(int val, int step) {
-    _val[step] = val;
-}
+void Control::set_val(int val, int step, bool changed, bool write) {
+    if(write && changed)
+        _writing = true;         
+    if(!write)
+        _writing = false;
 
-void Control::set_val(int val) {
-    for(int s = 0; s < MAX_STEPS; s ++)
-        _val[s] = val;
+    if(_writing)
+        _val[step] = val;
+    else
+        for(int s = 0; s < MAX_STEPS; s ++)
+            _val[s] = val;
 }
 
 float Control::get_val(int step) {

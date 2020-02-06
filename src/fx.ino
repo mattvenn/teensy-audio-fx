@@ -187,25 +187,8 @@ void check_board()
     analogWrite(1, controls[0].get_led_val(bar_timer.get_step()));
 
     for(int pot = 0; pot < NUM_POTS; pot ++) {
-
         // write automation if write button pressed & pot has changed
-        if(buttons[WRITE].pressed()) // && pots.changed(pot))
-        {
-            Serial.print("setting pot ");
-            Serial.print(pot);
-            Serial.print(" to ");
-            Serial.print(pots.get_value(pot));
-            Serial.print(" at step ");
-            Serial.println(bar_timer.get_step());
-            controls[pot].set_val(pots.get_value(pot), bar_timer.get_step());
-        }
-
-        // otherwise erase automation if pot has changed or erase pressed
-        else if(/*pots.changed(pot) || */ buttons[ERASE].pressed())
-        {
-            Serial.println("erasing pot");
-            controls[pot].set_val(pots.get_value(pot));
-        }
+        controls[pot].set_val(pots.get_value(pot), bar_timer.get_step(), pots.changed(pot), buttons[WRITE].pressed());
 
         // update leds
         leds.set_data(pot, controls[pot].get_led_val(bar_timer.get_step()));
