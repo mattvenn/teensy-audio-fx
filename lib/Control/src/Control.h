@@ -3,7 +3,9 @@
 
 #define MAX_POT 1024
 #define MAX_LED 255
-#define MAX_STEPS 64
+#define MAX_STEPS 128
+
+//#define DEBUG
 
 class Control {
 
@@ -16,6 +18,9 @@ class Control {
     private:
         int _val[MAX_STEPS] = {0};
         bool _writing = false;
+#ifdef DEBUG
+        char _buf [80];
+#endif
 };
 
 #endif

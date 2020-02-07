@@ -9,14 +9,25 @@
 void Control::set_val(int val, int step, bool changed, bool write) {
     if(write && changed)
         _writing = true;         
-    if(!write)
+    else if(!write)
         _writing = false;
 
-    if(_writing)
+    if(_writing) {
         _val[step] = val;
-    else
+#ifdef DEBUG
+        sprintf(_buf, "write %d at %d", val, step);
+        Serial.println(_buf);
+#endif
+    }
+    else if(changed)
+    {
         for(int s = 0; s < MAX_STEPS; s ++)
             _val[s] = val;
+#ifdef DEBUG
+        sprintf(_buf, "set all to %d", val);
+        Serial.println(_buf);
+#endif
+    }
 }
 
 float Control::get_val(int step) {

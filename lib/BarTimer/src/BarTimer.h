@@ -20,7 +20,7 @@ class BarTimer {
         int _bpm = DEFAULT_BPM;
         int _step = 0;
         int _step_millis;
-        int _next_step_millis;
+        unsigned long _next_step_millis;
 #ifndef ARDUINO
         int _millis;
 #endif

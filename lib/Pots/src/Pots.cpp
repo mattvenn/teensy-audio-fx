@@ -33,8 +33,7 @@ void Pots::update()
 
 bool Pots::changed(int pot) {
     // maybe needs some leeway depending on filter and noise
-    bool change = _old_pot_data[pot] != _pot_data[pot];
-    return change;
+    return abs(_old_pot_data[pot] - _pot_data[pot]) > 3;
 }
 
 int Pots::get_value(int pot) {

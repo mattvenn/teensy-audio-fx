@@ -169,12 +169,15 @@ void loop()
 int last_step = 0;
 void check_board()
 {
+    delay(5);
     // update automation timer, pots and buttons
     bar_timer.update(buttons[SET_TO_ONE].pressed());
     
     if(bar_timer.get_step() != last_step) {
+    /*
         Serial.print("step ");
         Serial.println(bar_timer.get_step());
+        */
         last_step  = bar_timer.get_step();
         //Serial.println(pots.get_value(0));
     }
@@ -184,10 +187,8 @@ void check_board()
     for(int button = 0; button < NUM_BUTTONS; button ++)
         buttons[button].update();
 
-    analogWrite(1, controls[0].get_led_val(bar_timer.get_step()));
-
     for(int pot = 0; pot < NUM_POTS; pot ++) {
-        // write automation if write button pressed & pot has changed
+        // update controls
         controls[pot].set_val(pots.get_value(pot), bar_timer.get_step(), pots.changed(pot), buttons[WRITE].pressed());
 
         // update leds
@@ -208,6 +209,7 @@ void check_board()
     }
 
     // send the led data out
+    analogWrite(1, controls[0].get_led_val(bar_timer.get_step()));
     leds.send();
 }
 
