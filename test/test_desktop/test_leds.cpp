@@ -1,18 +1,18 @@
 #include <unity.h>
 #include <stdio.h>
 #include <LEDS.h>
-#include <Control.h>
+//#include <Control.h>
 #include <Pots.h>
 #include <Button.h>
 #include <BarTimer.h>
 
 #define NUM_CONTROLS 2
 #define NUM_BUTTONS 2
-Control control[NUM_CONTROLS];
+//Control control[NUM_CONTROLS];
 LEDS led(1, 2, 3, 4);
 Pots pots(2, 3, 4, 5, 14);
 Button buttons[NUM_BUTTONS] = { Button(0), Button(1) }; //(0, 1, 17, 22);
-BarTimer bar_timer;
+//BarTimer bar_timer;
 
 void test_bar_timer(void){
     bar_timer.set_bpm(120);
@@ -84,12 +84,12 @@ void test_pot_mux(void) {
 int main(int argc, char **argv) {
     UNITY_BEGIN();
     RUN_TEST(test_send_led_data);
-    RUN_TEST(test_control);
-    RUN_TEST(test_control_seq);
+//    RUN_TEST(test_control);
+ //   RUN_TEST(test_control_seq);
 //    RUN_TEST(test_pot_mux);
-    RUN_TEST(test_control_led_and_param);
-    RUN_TEST(test_button);
-    RUN_TEST(test_bar_timer);
+  //  RUN_TEST(test_control_led_and_param);
+   // RUN_TEST(test_button);
+    //RUN_TEST(test_bar_timer);
     UNITY_END();
 
     return 0;

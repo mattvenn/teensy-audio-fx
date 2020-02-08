@@ -68,10 +68,10 @@ AudioControlSGTL5000     sgtl5000_1;     //xy=292,903
 
 #define NUM_BUTTONS 4
 Control controls[NUM_POTS];
-// data_p, clk_p, cs_p, oe_p
-LEDS leds(11, 13, 10, 9);
-Button buttons[NUM_BUTTONS] = { Button(0), Button(0), Button(17), Button(22) }; // TODO change 2nd button back to 1
-Pots pots(2, 3, 4, 5, 15); // 14 for teensy fx pcb, 15 for audio pcb
+// data_p, clk_p, latch_p, blank_p
+LEDS leds(11, 13, 16, 9);
+Button buttons[NUM_BUTTONS] = { Button(0), Button(1), Button(17), Button(22) }; // TODO change 2nd button back to 1
+Pots pots(2, 3, 4, 5, 14); // 14 for teensy fx pcb, 15 for audio pcb
 BarTimer bar_timer;
 
 enum ButtonType {
@@ -105,7 +105,24 @@ void setup() {
 
 
     #ifdef BOARD_CONTROL
-
+    for(int j = 0; j < 1024; j ++)
+    {
+        for(int i = 0; i < 24; i ++)
+        {
+            leds.set_data(i, j);
+        }
+        leds.send();
+        delayMicroseconds(100);
+    }
+    for(int j = 1024; j > 0; j --)
+    {
+        for(int i = 0; i < 24; i ++)
+        {
+            leds.set_data(i, j);
+        }
+        leds.send();
+        delayMicroseconds(100);
+    }
     #endif
 
     bar_timer.set_bpm(120);
@@ -174,18 +191,24 @@ void check_board()
     bar_timer.update(buttons[SET_TO_ONE].pressed());
     
     if(bar_timer.get_step() != last_step) {
+        last_step  = bar_timer.get_step();
     /*
         Serial.print("step ");
         Serial.println(bar_timer.get_step());
+        Serial.println(pots.get_value(0));
         */
-        last_step  = bar_timer.get_step();
-        //Serial.println(pots.get_value(0));
     }
 
     pots.update();
 
-    for(int button = 0; button < NUM_BUTTONS; button ++)
+    for(int button = 0; button < NUM_BUTTONS; button ++) {
         buttons[button].update();
+        leds.set_data(12 + button, buttons[button].pressed() ? 1024 : 0);
+    }
+    
+    for(int bar = 0; bar < 4; bar ++)
+        leds.set_data(16+bar, 0);
+    leds.set_data(16+bar_timer.get_step() / (MAX_STEPS/4), 1024);
 
     for(int pot = 0; pot < NUM_POTS; pot ++) {
         // update controls
@@ -209,7 +232,7 @@ void check_board()
     }
 
     // send the led data out
-    analogWrite(1, controls[0].get_led_val(bar_timer.get_step()));
+    //analogWrite(1, controls[0].get_led_val(bar_timer.get_step()));
     leds.send();
 }
 

@@ -2,7 +2,7 @@
 #define Control_H
 
 #define MAX_POT 1024
-#define MAX_LED 255
+#define MAX_LED 1024
 #define MAX_STEPS 128
 
 //#define DEBUG

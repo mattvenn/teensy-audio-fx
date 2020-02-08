@@ -18,42 +18,55 @@ void LEDS::send_bit(bool bit)
 #endif
 }
 
-void LEDS::send_cs(bool cs)
+void LEDS::send_latch(bool cs)
 {
 #ifdef ARDUINO
-    digitalWrite(_cs_p, cs);
+    digitalWrite(_latch_p, cs);
 #else
     printf("\ncs %d\n", cs);
 #endif
 }
 
-LEDS::LEDS(int data_p, int clk_p, int cs_p, int oe_p)
+void LEDS::send_blank(bool blank)
+{
+#ifdef ARDUINO
+    digitalWrite(_blank_p, blank);
+#else
+    printf("\nblank %d\n", blank);
+#endif
+}
+
+LEDS::LEDS(int data_p, int clk_p, int latch_p, int blank_p)
 {
     _data_p = data_p;
     _clk_p  = clk_p;
-    _cs_p   = cs_p;
-    _oe_p   = oe_p;
+    _latch_p   = latch_p;
+    _blank_p   = blank_p; // blank high, outputs off
 
 #ifdef ARDUINO
     pinMode(_data_p, OUTPUT);
     pinMode(_clk_p, OUTPUT);
-    pinMode(_cs_p, OUTPUT);
-    pinMode(_oe_p, OUTPUT);
+    pinMode(_latch_p, OUTPUT);
+    pinMode(_blank_p, OUTPUT);
 #endif
 }
 
 void LEDS::send()
 {
-    send_cs(0);
-    for(int led = 0; led < NUM_LEDS; led ++)
-        for(int bit = 0 ; bit < 8 ; bit ++)
+//    send_blank(1);
+    send_latch(0);
+    for(int led = NUM_LEDS - 1; led >= 0; led --)
+        for(int bit = 11 ; bit >= 0 ; bit --)
         {
             if(_led_data[led] & (1 << bit))
                 send_bit(1);
             else
                 send_bit(0);
         }
-    send_cs(1);
+    send_latch(1);
+  //  delayMicroseconds(1);
+    send_latch(0);
+ //   send_blank(0);
 }
 
 void LEDS::set_data(int led, int val)

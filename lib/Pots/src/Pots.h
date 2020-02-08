@@ -1,7 +1,7 @@
 #ifndef Pots_H
 #define Pots_H
 
-#define NUM_POTS 1
+#define NUM_POTS 12
 #define POT_MUX_PINS 4
 
 class Pots {
