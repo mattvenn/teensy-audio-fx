@@ -49,11 +49,19 @@ Based off the teensy 4 audio board and the [teensy beats shield](https://hackada
 * audio sockets weren't available in EU, changed to 35RASMT2BHNTRX which has 5 pads but will fit on the same fp
 * update FP of audio sockets to new FP
 
+## debugging bust audio
+
+* keep posting to https://forum.pjrc.com/threads/58899-quot-pocket-operator-quot-style-teensy-effects-board-design-review
+* check chip id is the same
+* check wiring of the teensy board (ignore schematic) LRCLK and BCLK were reversed...
+* check and understand i2s signals
+
 # HWv2
 
 * test points for mic input
 * separate regulator for pot 3.3v to reduce noise?
 * filter behind pot mux was a mistake. filters must be in front of mux
+* fix LRCLK & BCLK mixup
 
 ## Back graphic
 
