@@ -1,18 +1,18 @@
 #include <unity.h>
 #include <stdio.h>
 #include <LEDS.h>
-//#include <Control.h>
+#include <Control.h>
 #include <Pots.h>
 #include <Button.h>
 #include <BarTimer.h>
 
 #define NUM_CONTROLS 2
 #define NUM_BUTTONS 2
-//Control control[NUM_CONTROLS];
+Control control[NUM_CONTROLS];
 LEDS led(1, 2, 3, 4);
 Pots pots(2, 3, 4, 5, 14);
 Button buttons[NUM_BUTTONS] = { Button(0), Button(1) }; //(0, 1, 17, 22);
-//BarTimer bar_timer;
+BarTimer bar_timer;
 
 void test_bar_timer(void){
     bar_timer.set_bpm(120);
@@ -40,7 +40,7 @@ void test_button(void) {
 void test_control_led_and_param(void) {
     for(int i = 0; i < 1024; i += 200)
     {
-        control[0].set_val(i);
+        control[0].set_val(i,0,true,false);
         printf("pot %d val %.2f led %d\n", i, control[0].get_val(0), control[0].get_led_val(0));
     }
 
@@ -48,7 +48,7 @@ void test_control_led_and_param(void) {
 void test_control(void) {
     for(int i = 0; i < NUM_CONTROLS; i ++)
     {
-        control[i].set_val(500);
+        control[i].set_val(500,0,true,false);
         TEST_ASSERT_EQUAL(float(500)/1024, control[i].get_val(0));
         TEST_ASSERT_EQUAL(500/(1024/256), control[i].get_led_val(0));
     }
@@ -57,14 +57,14 @@ void test_control(void) {
 void test_control_seq(void) {
     // write
     for(int i = 0; i < MAX_STEPS; i ++)
-        control[0].set_val(i, i);
+        control[0].set_val(i, i, true, true);
 
     // read
     for(int i = 0; i < MAX_STEPS; i ++)
         TEST_ASSERT_EQUAL(float(i)/1024, control[0].get_val(i));
 
     // set to single value
-    control[0].set_val(0);
+    control[0].set_val(0, 0, true, false);
 
     // read
     for(int i = 0; i < MAX_STEPS; i ++)
@@ -84,12 +84,12 @@ void test_pot_mux(void) {
 int main(int argc, char **argv) {
     UNITY_BEGIN();
     RUN_TEST(test_send_led_data);
-//    RUN_TEST(test_control);
- //   RUN_TEST(test_control_seq);
-//    RUN_TEST(test_pot_mux);
-  //  RUN_TEST(test_control_led_and_param);
-   // RUN_TEST(test_button);
-    //RUN_TEST(test_bar_timer);
+    RUN_TEST(test_control);
+    RUN_TEST(test_control_seq);
+    RUN_TEST(test_pot_mux);
+    RUN_TEST(test_control_led_and_param);
+    RUN_TEST(test_button);
+    RUN_TEST(test_bar_timer);
     UNITY_END();
 
     return 0;

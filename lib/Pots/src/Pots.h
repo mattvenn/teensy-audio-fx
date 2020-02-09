@@ -1,7 +1,7 @@
 #ifndef Pots_H
 #define Pots_H
 
-#define NUM_POTS 12
+#define NUM_POTS 1
 #define POT_MUX_PINS 4
 
 class Pots {
@@ -18,7 +18,7 @@ class Pots {
         int _old_pot_data [NUM_POTS] = {0};
         int _pot_mux_addr_p[POT_MUX_PINS];
         int _pot_p;
-        float EMA_a = 0.1;  //initialization of EMA alpha
+        float EMA_a = 0.5;  //initialization of EMA alpha
 };
 
 #endif

@@ -6,7 +6,7 @@
 #include <stdio.h>
 #endif
 
-void Control::set_val(int val, int step, bool changed, bool write) {
+void Control::set_val(int val, int step, bool changed, bool write, bool erase) {
     if(write && changed)
         _writing = true;         
     else if(!write)
@@ -19,7 +19,7 @@ void Control::set_val(int val, int step, bool changed, bool write) {
         Serial.println(_buf);
 #endif
     }
-    else if(changed)
+    else if(changed || erase)
     {
         for(int s = 0; s < MAX_STEPS; s ++)
             _val[s] = val;

@@ -11,7 +11,7 @@ class Control {
 
     public:
         Control() {};
-        void set_val(int val, int step, bool changed, bool write);
+        void set_val(int val, int step, bool changed, bool write, bool erase);
         float get_val(int step);
         int get_led_val(int step);
     

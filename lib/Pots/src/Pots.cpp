@@ -5,6 +5,7 @@
 #include <Arduino.h>
 #else
 #include <stdio.h>
+#include <stdlib.h>
 #endif
 
 //https://www.norwegiancreations.com/2015/10/tutorial-potentiometers-with-arduino-and-filtering/
@@ -16,15 +17,17 @@ void Pots::update()
         // set mux pins
         for(int m = 0; m < POT_MUX_PINS; m ++)
 #ifdef ARDUINO
-            digitalWrite(_pot_mux_addr_p[m], pot & (1 << m));
+            digitalWrite(_pot_mux_addr_p[m], pot & (1 << m) ? 1 : 0);
 #else
             printf("%d", pot & (1 << m) ? 1 : 0);
+        
 #endif
-        // read analogue data
-        // filter?
 #ifdef ARDUINO
+        // read analogue data and filter with exp filter
+        delayMicroseconds(1); // wait for mux to switch
         _old_pot_data[pot] = _pot_data[pot];
         _pot_data[pot] = (EMA_a * analogRead(_pot_p)) + ((1 - EMA_a) * _pot_data[pot]);
+//        _pot_data[pot] = analogRead(_pot_p);
 #else
         printf("\n");
 #endif

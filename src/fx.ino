@@ -71,14 +71,14 @@ Control controls[NUM_POTS];
 // data_p, clk_p, latch_p, blank_p
 LEDS leds(11, 13, 16, 9);
 Button buttons[NUM_BUTTONS] = { Button(0), Button(1), Button(17), Button(22) }; // TODO change 2nd button back to 1
-Pots pots(2, 3, 4, 5, 14); // 14 for teensy fx pcb, 15 for audio pcb
+Pots pots(5, 4, 2, 3, 14); // 14 for teensy fx pcb, 15 for audio pcb
 BarTimer bar_timer;
 
 enum ButtonType {
     WRITE,
-    TAP_TEMPO,
     ERASE,
     SET_TO_ONE,
+    TAP_TEMPO,
     };
 
 enum Cmd {
@@ -112,7 +112,7 @@ void setup() {
             leds.set_data(i, j);
         }
         leds.send();
-        delayMicroseconds(100);
+        delayMicroseconds(300);
     }
     for(int j = 1024; j > 0; j --)
     {
@@ -121,7 +121,7 @@ void setup() {
             leds.set_data(i, j);
         }
         leds.send();
-        delayMicroseconds(100);
+        delayMicroseconds(300);
     }
     #endif
 
@@ -179,8 +179,21 @@ void loop()
     #endif
 
     #ifdef BOARD_CONTROL
+//    check_pot();
     check_board();
     #endif
+}
+
+void check_pot()
+{
+    delay(20);
+    pots.update();
+    for(int p = 0; p < NUM_POTS; p ++)
+    {
+        Serial.print(pots.get_value(p));
+        Serial.print(" ");
+    }
+    Serial.println("");
 }
 
 int last_step = 0;
@@ -205,14 +218,14 @@ void check_board()
         buttons[button].update();
         leds.set_data(12 + button, buttons[button].pressed() ? 1024 : 0);
     }
-    
+
     for(int bar = 0; bar < 4; bar ++)
         leds.set_data(16+bar, 0);
     leds.set_data(16+bar_timer.get_step() / (MAX_STEPS/4), 1024);
 
     for(int pot = 0; pot < NUM_POTS; pot ++) {
         // update controls
-        controls[pot].set_val(pots.get_value(pot), bar_timer.get_step(), pots.changed(pot), buttons[WRITE].pressed());
+        controls[pot].set_val(pots.get_value(pot), bar_timer.get_step(), pots.changed(pot), buttons[WRITE].pressed(), buttons[ERASE].pressed());
 
         // update leds
         leds.set_data(pot, controls[pot].get_led_val(bar_timer.get_step()));

@@ -52,7 +52,8 @@ Based off the teensy 4 audio board and the [teensy beats shield](https://hackada
 # HWv2
 
 * test points for mic input
-* separate regulator for pot 3.3v to reduce noise
+* separate regulator for pot 3.3v to reduce noise?
+* filter behind pot mux was a mistake. filters must be in front of mux
 
 ## Back graphic
 
