@@ -220,8 +220,7 @@ void check_board()
     }
 
     for(int bar = 0; bar < 4; bar ++)
-        leds.set_data(16+bar, 0);
-    leds.set_data(16+bar_timer.get_step() / (MAX_STEPS/4), 1024);
+        leds.set_data(19-bar, bar_timer.bar_led(bar) ? 1024 : 0); // leds are right to left 
 
     for(int pot = 0; pot < NUM_POTS; pot ++) {
         // update controls
