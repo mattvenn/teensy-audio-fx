@@ -1,5 +1,6 @@
 #include <LEDS.h>
 #include <stdint.h>
+#include <gamma.h>
 
 #ifdef ARDUINO
 #include <Arduino.h>
@@ -58,7 +59,7 @@ void LEDS::send()
     for(int led = NUM_LEDS - 1; led >= 0; led --)
         for(int bit = 11 ; bit >= 0 ; bit --)
         {
-            if(_led_data[led] & (1 << bit))
+            if(gamma_table[_led_data[led]] & (1 << bit))
                 send_bit(1);
             else
                 send_bit(0);
