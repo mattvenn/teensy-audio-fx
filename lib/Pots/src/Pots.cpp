@@ -25,7 +25,6 @@ void Pots::update()
 #ifdef ARDUINO
         // read analogue data and filter with exp filter
         delayMicroseconds(1); // wait for mux to switch
-        _old_pot_data[pot] = _pot_data[pot];
         _pot_data[pot] = (EMA_a * analogRead(_pot_p)) + ((1 - EMA_a) * _pot_data[pot]);
 //        _pot_data[pot] = analogRead(_pot_p);
 #else
@@ -36,7 +35,10 @@ void Pots::update()
 
 bool Pots::changed(int pot) {
     // maybe needs some leeway depending on filter and noise
-    return abs(_old_pot_data[pot] - _pot_data[pot]) > 3;
+    bool changed = abs(_old_pot_data[pot] - _pot_data[pot]) > 4;
+    if(changed) 
+        _old_pot_data[pot] = _pot_data[pot];
+    return changed;
 }
 
 int Pots::get_value(int pot) {
