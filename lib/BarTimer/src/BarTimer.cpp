@@ -17,6 +17,9 @@ int BarTimer::get_next_step_millis() {
 }
 #endif
 
+bool BarTimer::bar_led(int bar) {
+    return bar == _step / (MAX_STEPS / 4);
+}
 
 void BarTimer::update(bool set_to_one) {
     if(set_to_one) {

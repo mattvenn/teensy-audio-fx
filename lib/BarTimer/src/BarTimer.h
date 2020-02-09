@@ -10,6 +10,7 @@ class BarTimer {
         void update(bool set_to_one);
         void set_bpm(int bpm);
         int get_step();
+        bool bar_led(int bar);
 #ifndef ARDUINO
         int millis();
         void set_millis(int millis);
