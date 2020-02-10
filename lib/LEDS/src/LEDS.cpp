@@ -44,6 +44,9 @@ LEDS::LEDS(int data_p, int clk_p, int latch_p, int blank_p)
     _latch_p   = latch_p;
     _blank_p   = blank_p; // blank high, outputs off
 
+    send_blank(1);
+    send_latch(0);
+
 #ifdef ARDUINO
     pinMode(_data_p, OUTPUT);
     pinMode(_clk_p, OUTPUT);
@@ -54,8 +57,6 @@ LEDS::LEDS(int data_p, int clk_p, int latch_p, int blank_p)
 
 void LEDS::send()
 {
-//    send_blank(1);
-    send_latch(0);
     for(int led = NUM_LEDS - 1; led >= 0; led --)
         for(int bit = 11 ; bit >= 0 ; bit --)
         {
@@ -65,14 +66,14 @@ void LEDS::send()
                 send_bit(0);
         }
     send_latch(1);
-  //  delayMicroseconds(1);
     send_latch(0);
- //   send_blank(0);
 }
 
 void LEDS::set_data(int led, int val)
 {
     if(led >= NUM_LEDS)
         return;
+    if(val >= LED_MAX)
+        val = LED_MAX;
     _led_data[led] = val;
 }
