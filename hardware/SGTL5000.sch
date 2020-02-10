@@ -330,9 +330,9 @@ Text GLabel 4350 3250 0    50   Input ~ 0
 SCL
 Text GLabel 4350 3450 0    50   Input ~ 0
 MCLK
-Text GLabel 4350 3650 0    50   Input ~ 0
-BCLK
 Text GLabel 4350 3550 0    50   Input ~ 0
+BCLK
+Text GLabel 4350 3650 0    50   Input ~ 0
 LRCLK
 Text GLabel 4350 3750 0    50   Input ~ 0
 I2S_IN

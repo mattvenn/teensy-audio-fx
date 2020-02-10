@@ -33,9 +33,9 @@ Based off the teensy 4 audio board and the [teensy beats shield](https://hackada
 ## Hardware todo
 
 * print and check footprints
- * regulator fp comes in 2 varients - check
+ * regulator fp - done
  * smt sockets for teensy - done
- * pots - done
+ * pots - done RS
  * 4067 - done
  * tlc5947 - done
  * sgtl5000 - done
@@ -46,13 +46,36 @@ Based off the teensy 4 audio board and the [teensy beats shield](https://hackada
 * caps for audio, what parts - done
 * extra caps for led driver and led circuit - done
 * find suppliers - done
+* audio sockets weren't available in EU, changed to 35RASMT2BHNTRX which has 5 pads but will fit on the same fp
+* update FP of audio sockets to new FP
+
+## debugging bust audio
+
+* keep posting to https://forum.pjrc.com/threads/58899-quot-pocket-operator-quot-style-teensy-effects-board-design-review
+* check chip id is the same
+* check wiring of the teensy board (ignore schematic) LRCLK and BCLK were reversed...
+* check and understand i2s signals
+
+# HWv2
+
+* test points for mic input
+* separate regulator for pot 3.3v to reduce noise?
+* filter behind pot mux was a mistake. filters must be in front of mux
+* fix LRCLK & BCLK mixup
 
 ## Back graphic
 
 100 x 60mm == 3.94 x 2.36" == 1182 x 708 pix
+
 # FW
 
 Try to fulfil what the [control.py](control.py) program can do.
+
+## Todo
+
+* map button and bar leds
+* sw probably need debounce
+* pot probably need filter
 
 ## Top Level
 
@@ -65,3 +88,25 @@ Try to fulfil what the [control.py](control.py) program can do.
 * moving a knob without pressing record will wipe the pattern and set it all to the current knob value
 * leds for buttons are tempo, if recording, and if wiping
 * 4 leds on top right show progression through the bar
+
+## Notes
+
+Problem with knowing when to write or erase knob automation data. In the software, you know
+because the handle is clicked. But in hw if you do
+
+for knob in knobs:
+    if (button.write && knob.changed)
+        set_new_data(knob.value, step)
+
+what happens if you wiggle the knob and then hold it in one place. And if you have
+
+for knob in knobs:
+    if (button.write)
+        set_new_data(knob.value, step)
+
+Then all knob automation will be overwritten as soon as write button is pressed.
+
+So probably need state machine where writing is started on knob move, and then stopped when write is released
+
+Also, in testing, knob value is fairly noisy and even with filtering in hw and sw still not easy to know if it's changed
+while remaining responsive.
