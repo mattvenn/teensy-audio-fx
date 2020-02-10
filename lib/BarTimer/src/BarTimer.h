@@ -11,6 +11,7 @@ class BarTimer {
         void set_bpm(int bpm);
         int get_step();
         bool bar_led(int bar);
+        float get_step_millis();
 #ifndef ARDUINO
         int millis();
         void set_millis(int millis);
@@ -21,6 +22,8 @@ class BarTimer {
         int _bpm = DEFAULT_BPM;
         int _step = 0;
         int _step_millis;
+        float _step_millis_fraction;
+        float _next_step_fraction;
         unsigned long _next_step_millis;
 #ifndef ARDUINO
         int _millis;

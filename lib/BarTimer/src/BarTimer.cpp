@@ -17,6 +17,10 @@ int BarTimer::get_next_step_millis() {
 }
 #endif
 
+float BarTimer::get_step_millis() {
+    return _step_millis;
+}
+
 bool BarTimer::bar_led(int bar) {
     return bar == _step / (MAX_STEPS / 4);
 }
@@ -28,6 +32,13 @@ void BarTimer::update(bool set_to_one) {
     }
     if(millis() >= _next_step_millis) {
         _step ++;
+        _next_step_fraction += _step_millis_fraction;
+
+        if(_next_step_fraction >= 1) {
+            _next_step_millis += 1;
+            _next_step_fraction -= 1;
+        }
+
         _next_step_millis += _step_millis;
         if(_step == MAX_STEPS)
             _step = 0;
@@ -36,7 +47,8 @@ void BarTimer::update(bool set_to_one) {
 
 void BarTimer::set_bpm(int bpm) {
     _bpm = bpm;
-    _step_millis = (60000*16/MAX_STEPS)/_bpm;
+    _step_millis = (60000.0 * 16.0 / MAX_STEPS) / _bpm;
+    _step_millis_fraction = (60000.0 * 16.0 / MAX_STEPS) / _bpm - _step_millis;
 }
 
 int BarTimer::get_step() {
