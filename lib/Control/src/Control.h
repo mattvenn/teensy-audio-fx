@@ -3,7 +3,7 @@
 
 #define MAX_POT 1024
 #define MAX_LED 1024
-#define MAX_STEPS 128
+#define MAX_STEPS 512
 
 //#define DEBUG
 
