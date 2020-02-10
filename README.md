@@ -18,7 +18,7 @@ interface that could later be translated to hardware in the form of a PCB.
 
 [schematic](hardware/schematic.pdf)
 
-[gerbers](hardware/teensy-fx-2020-01-11-fab.zip)
+[gerbers](hardware/teensy-fx-2020-02-10-fab.zip)
 
 ## Hardware Resources
 
@@ -60,8 +60,8 @@ Based off the teensy 4 audio board and the [teensy beats shield](https://hackada
 
 * test points for mic input
 * separate regulator for pot 3.3v to reduce noise?
-* filter behind pot mux was a mistake. filters must be in front of mux
-* fix LRCLK & BCLK mixup
+* filter behind pot mux was a mistake. filters must be in front of mux - fixed
+* fix LRCLK & BCLK mixup - fixed
 
 ## Back graphic
 

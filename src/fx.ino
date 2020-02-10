@@ -62,6 +62,8 @@ AudioConnection          patchCord24(filter_noise_r, 1, mix_op_r, 3);
 AudioControlSGTL5000     sgtl5000_1;     //xy=292,903
 // GUItool: end automatically generated code
 
+#define MAX_DELAY 1200 // should be 2000ms with combined delay of 4000ms (2 delays).
+// Combined delays of more than 2400 currently lead to audio distortion, so set to 1200
 
 //#define SERIAL_CONTROL
 #define BOARD_CONTROL
@@ -129,8 +131,8 @@ void setup() {
 
     // Audio connections require memory to work.  For more
     // detailed information, see the MemoryAndCpuUsage example 
-    // delays requires 1 block per 3ms. 2000 blocks = 6000ms = 6s
-    AudioMemory(2000);
+    // delays requires 1 block per 3ms. 
+    AudioMemory(1300);
 
     // Comment these out if not using the audio adaptor board.
     // This may wait forever if the SDA & SCL pins lack
@@ -166,13 +168,16 @@ void setup() {
 
     delay_l.delay(0, 500);
     delay_r.delay(0, 750);
+    for(int i = 1; i < 7; i ++) {
+        delay_l.disable(i);
+        delay_r.disable(i);
+    }
 
     freeverbs1.roomsize(0.7);
     freeverbs1.damping(0.8);
 
     bar_timer.set_bpm(120);
     bar_timer.update(true); // set to 1
-
 }
 
 
@@ -210,9 +215,11 @@ void check_board()
     
     if(bar_timer.get_step() != last_step) {
         last_step  = bar_timer.get_step();
-    //    Serial.println(bar_timer.get_step_millis());
-        Serial.print("step ");
-        Serial.println(bar_timer.get_step());
+        //Serial.println(bar_timer.get_step_millis());
+        //Serial.print("step ");
+        //Serial.println(bar_timer.get_step());
+        //Serial.print("audio cpu max: "); Serial.println(AudioProcessorUsageMax());
+        //Serial.print("audio mem max: "); Serial.println(AudioMemoryUsageMax());
     }
 
     pots.update();
@@ -245,8 +252,8 @@ void check_board()
                 mix_del_l.gain(0, val); // delay
                 mix_del_r.gain(0, val); // delay
                 break;
-            case DEL_L_TIME: delay_l.delay(0, val*2000); break;
-            case DEL_R_TIME: delay_r.delay(0, val*2000); break;
+            case DEL_L_TIME: delay_l.delay(0, val*MAX_DELAY); break;
+            case DEL_R_TIME: delay_r.delay(0, val*MAX_DELAY); break;
             case DEL_FB:
                 mix_del_r.gain(1, val);  // fb
                 mix_del_l.gain(1, val);  // fb
@@ -258,10 +265,10 @@ void check_board()
                 filter_noise_r.frequency(5000*val);  // fb
                 break;
             case DEL_FB_FILT_RES:
-                filter_del_l.resonance(val*5);  // fb
-                filter_del_r.resonance(val*5);  // fb
-                filter_noise_l.resonance(val*5);  // fb
-                filter_noise_r.resonance(val*5);  // fb
+                filter_del_l.resonance(val*4);  // fb
+                filter_del_r.resonance(val*4);  // fb
+                filter_noise_l.resonance(val*4);  // fb
+                filter_noise_r.resonance(val*4);  // fb
                 break;
             case MIX_REV_IN:
                 mix_rev.gain(0, val/2);    // left to rev
@@ -363,6 +370,7 @@ void check_serial()
                 break;
 
             case AUDIO_MEM:
+                Serial.print("audio cpu max: "); Serial.println(AudioProcessorUsageMax());
                 Serial.print("audio mem max: "); Serial.println(AudioMemoryUsageMax());
                 break;
             */
