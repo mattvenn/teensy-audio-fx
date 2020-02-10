@@ -17,9 +17,9 @@ void Pots::update()
         // set mux pins
         for(int m = 0; m < POT_MUX_PINS; m ++)
 #ifdef ARDUINO
-            digitalWrite(_pot_mux_addr_p[m], pot & (1 << m) ? 1 : 0);
+            digitalWrite(_pot_mux_addr_p[m], _pot_map[pot] & (1 << m) ? 1 : 0);
 #else
-            printf("%d", pot & (1 << m) ? 1 : 0);
+            printf("%d", _pot_map[pot] & (1 << m) ? 1 : 0);
         
 #endif
 #ifdef ARDUINO
