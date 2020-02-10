@@ -63,14 +63,14 @@ AudioControlSGTL5000     sgtl5000_1;     //xy=292,903
 // GUItool: end automatically generated code
 
 
-#define SERIAL_CONTROL
+//#define SERIAL_CONTROL
 #define BOARD_CONTROL
 
 #define NUM_BUTTONS 4
 Control controls[NUM_POTS];
 // data_p, clk_p, latch_p, blank_p
 LEDS leds(11, 13, 16, 9);
-Button buttons[NUM_BUTTONS] = { Button(0), Button(1), Button(17), Button(22) }; // TODO change 2nd button back to 1
+Button buttons[NUM_BUTTONS] = { Button(0), Button(1), Button(17), Button(22) };
 Pots pots(5, 4, 2, 3, 14); // 14 for teensy fx pcb, 15 for audio pcb
 BarTimer bar_timer;
 
@@ -82,25 +82,27 @@ enum ButtonType {
     };
 
 enum Cmd {
-    REV_SIZE,
-    REV_DAMP,
     MIX_DEL,
-    MIX_SIG,
-    MIX_REV,
     DEL_L_TIME,
     DEL_R_TIME,
     DEL_FB,
+
+    MIX_REV_IN,
+    REV_SIZE,
+    REV_DAMP,
+    NONE,
+
     DEL_FB_FILT_FREQ,
     DEL_FB_FILT_RES,
-    MIX_REV_IN,
+   
     MIX_NOISE,
-    AUDIO_PROC,
-    AUDIO_MEM,
+    MIX_SIG,
+
     };
 
 void setup() {
-    #ifdef SERIAL_CONTROL
     Serial.begin(9600);
+    #ifdef SERIAL_CONTROL
     #endif
 
 
@@ -124,8 +126,6 @@ void setup() {
         delayMicroseconds(300);
     }
     #endif
-
-    bar_timer.set_bpm(120);
 
     // Audio connections require memory to work.  For more
     // detailed information, see the MemoryAndCpuUsage example 
@@ -169,6 +169,10 @@ void setup() {
 
     freeverbs1.roomsize(0.7);
     freeverbs1.damping(0.8);
+
+    bar_timer.set_bpm(120);
+    bar_timer.update(true); // set to 1
+
 }
 
 
@@ -199,28 +203,27 @@ void check_pot()
 int last_step = 0;
 void check_board()
 {
-    delay(5);
+    delay(5); // limit rate of updates
+
     // update automation timer, pots and buttons
     bar_timer.update(buttons[SET_TO_ONE].pressed());
     
     if(bar_timer.get_step() != last_step) {
         last_step  = bar_timer.get_step();
-    /*
+    //    Serial.println(bar_timer.get_step_millis());
         Serial.print("step ");
         Serial.println(bar_timer.get_step());
-        Serial.println(pots.get_value(0));
-        */
     }
 
     pots.update();
 
     for(int button = 0; button < NUM_BUTTONS; button ++) {
         buttons[button].update();
-        leds.set_data(12 + button, buttons[button].pressed() ? 1024 : 0);
+        leds.set_data(12 + button, buttons[button].pressed() ? LED_MAX : 0);
     }
 
     for(int bar = 0; bar < 4; bar ++)
-        leds.set_data(19-bar, bar_timer.bar_led(bar) ? 1024 : 0); // leds are right to left 
+        leds.set_data(19-bar, bar_timer.bar_led(bar) ? LED_MAX : 0); // leds are right to left 
 
     for(int pot = 0; pot < NUM_POTS; pot ++) {
         // update controls
@@ -233,18 +236,45 @@ void check_board()
         float val = controls[pot].get_val(bar_timer.get_step());
         switch(pot) {
             case REV_SIZE: freeverbs1.roomsize(val); break;
-            /*
             case REV_DAMP: freeverbs1.damping(val); break;
-            case MIX_REV:
-                mix_op_l.gain(1, val);
-                mix_op_r.gain(1, val);
+            case MIX_SIG:
+                mix_op_l.gain(0, val); // reverb
+                mix_op_r.gain(0, val); // reverb
                 break;
-            */
+            case MIX_DEL:
+                mix_del_l.gain(0, val); // delay
+                mix_del_r.gain(0, val); // delay
+                break;
+            case DEL_L_TIME: delay_l.delay(0, val*2000); break;
+            case DEL_R_TIME: delay_r.delay(0, val*2000); break;
+            case DEL_FB:
+                mix_del_r.gain(1, val);  // fb
+                mix_del_l.gain(1, val);  // fb
+                break;
+            case DEL_FB_FILT_FREQ:
+                filter_del_l.frequency(5000*val);  // fb
+                filter_del_r.frequency(5000*val);  // fb
+                filter_noise_l.frequency(5000*val);  // fb
+                filter_noise_r.frequency(5000*val);  // fb
+                break;
+            case DEL_FB_FILT_RES:
+                filter_del_l.resonance(val*5);  // fb
+                filter_del_r.resonance(val*5);  // fb
+                filter_noise_l.resonance(val*5);  // fb
+                filter_noise_r.resonance(val*5);  // fb
+                break;
+            case MIX_REV_IN:
+                mix_rev.gain(0, val/2);    // left to rev
+                mix_rev.gain(1, val/2);    // right to rev
+                break;
+            case MIX_NOISE:
+                mix_op_l.gain(3, val); // noise
+                mix_op_r.gain(3, val); // noise
+                break;
         }
     }
 
     // send the led data out
-    //analogWrite(1, controls[0].get_led_val(bar_timer.get_step()));
     leds.send();
 }
 
@@ -263,11 +293,6 @@ void check_serial()
             case REV_DAMP:
                 freeverbs1.damping(val_0_to_1);
                 Serial.print("damping: "); Serial.println(val);
-                break;
-            case MIX_REV:
-                mix_op_l.gain(1, val_0_to_1); // reverb
-                mix_op_r.gain(1, val_0_to_1); // reverb
-                Serial.print("mix reverb: "); Serial.println(val);
                 break;
             case MIX_DEL:
                 mix_del_l.gain(0, val_0_to_1); // delay
@@ -332,6 +357,7 @@ void check_serial()
                 Serial.print("rev mix in: "); Serial.println(val_0_to_1/2);
                 break;
 
+            /*
             case AUDIO_PROC:
                 Serial.print("audio cpu max: "); Serial.println(AudioProcessorUsageMax());
                 break;
@@ -339,6 +365,7 @@ void check_serial()
             case AUDIO_MEM:
                 Serial.print("audio mem max: "); Serial.println(AudioMemoryUsageMax());
                 break;
+            */
 
             default:
                  Serial.print("got cmd: "); Serial.print(cmd);
