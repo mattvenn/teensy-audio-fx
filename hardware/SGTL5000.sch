@@ -4,10 +4,10 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 2 3
-Title ""
-Date ""
-Rev ""
-Comp ""
+Title "teensy-fx"
+Date "2020-02-10"
+Rev "v2"
+Comp "mattvenn"
 Comment1 ""
 Comment2 ""
 Comment3 ""
@@ -441,8 +441,6 @@ F 4 "1469862" H 4500 3450 50  0001 C CNN "farnell #"
 $EndComp
 Text Notes 4700 1350 0    118  Italic 24
 SGTL5000 audio driver
-Text Notes 2500 3800 0    50   ~ 0
-these were mislabelled in the symbol\n
 $Comp
 L Device:C_Small C?
 U 1 1 5E112693

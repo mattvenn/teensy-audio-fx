@@ -4,10 +4,10 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 3
-Title "Teensy FX"
-Date "2020-01-03"
-Rev "0.1"
-Comp "Matt Venn"
+Title "teensy-fx"
+Date "2020-02-10"
+Rev "v2"
+Comp "mattvenn"
 Comment1 ""
 Comment2 ""
 Comment3 ""

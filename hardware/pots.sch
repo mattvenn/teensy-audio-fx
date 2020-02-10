@@ -4,10 +4,10 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 3 3
-Title ""
-Date ""
-Rev ""
-Comp ""
+Title "teensy-fx"
+Date "2020-02-10"
+Rev "v2"
+Comp "mattvenn"
 Comment1 ""
 Comment2 ""
 Comment3 ""
@@ -49,7 +49,7 @@ F 3 "" H 3300 2300 50  0001 C CNN
 	1    3300 2300
 	1    0    0    -1  
 $EndComp
-Text GLabel 3250 3400 0    50   Input ~ 0
+Text GLabel 3600 3400 0    50   Input ~ 0
 pot_multiplex
 Text GLabel 3600 2700 0    50   Input ~ 0
 pot_b0
@@ -1227,46 +1227,6 @@ Wire Wire Line
 Connection ~ 10150 4200
 Wire Wire Line
 	10150 4200 10150 4100
-$Comp
-L Device:R R10
-U 1 1 5E14FB1F
-P 3450 3400
-F 0 "R10" V 3243 3400 50  0000 C CNN
-F 1 "100R" V 3334 3400 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric" V 3380 3400 50  0001 C CNN
-F 3 "~" H 3450 3400 50  0001 C CNN
-F 4 "1469862" H 3450 3400 50  0001 C CNN "farnell #"
-	1    3450 3400
-	0    1    1    0   
-$EndComp
-$Comp
-L Device:C C16
-U 1 1 5E1525F8
-P 3300 3550
-F 0 "C16" H 3415 3596 50  0000 L CNN
-F 1 "2.2uF" H 3415 3505 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 3338 3400 50  0001 C CNN
-F 3 "~" H 3300 3550 50  0001 C CNN
-F 4 "1759424" H 3300 3550 50  0001 C CNN "farnell #"
-	1    3300 3550
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR0177
-U 1 1 5E1577D0
-P 3300 3700
-F 0 "#PWR0177" H 3300 3450 50  0001 C CNN
-F 1 "GND" H 3305 3527 50  0000 C CNN
-F 2 "" H 3300 3700 50  0001 C CNN
-F 3 "" H 3300 3700 50  0001 C CNN
-	1    3300 3700
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	3250 3400 3300 3400
-Connection ~ 3300 3400
-Text Notes 2800 4150 0    50   ~ 0
-RC filter\n200R & 2.2u = 700Hz cutoff
 Text Notes 2200 7300 0    50   ~ 0
 all pots 10k, taper 1b (linear)\nRK09K1130AP5
 Text Notes 2300 7450 0    50   ~ 0
