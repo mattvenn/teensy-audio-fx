@@ -62,6 +62,8 @@ Based off the teensy 4 audio board and the [teensy beats shield](https://hackada
 * separate regulator for pot 3.3v to reduce noise?
 * filter behind pot mux was a mistake. filters must be in front of mux - fixed
 * fix LRCLK & BCLK mixup - fixed
+* put leds and buttons below pots for easier viewing and pressing
+* leave space on back for rubber feet
 
 ## Back graphic
 
