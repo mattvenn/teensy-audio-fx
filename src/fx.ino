@@ -134,53 +134,32 @@ void setup() {
     }
     #endif
 
-    // Audio connections require memory to work.  For more
-    // detailed information, see the MemoryAndCpuUsage example 
     // delays requires 1 block per 3ms. 
     AudioMemory(1300);
 
-    // Comment these out if not using the audio adaptor board.
-    // This may wait forever if the SDA & SCL pins lack
-    // pullup resistors
+    // enable i2s audio chip
     sgtl5000_1.enable();
     sgtl5000_1.volume(1);
 
     sgtl5000_1.inputSelect(AUDIO_INPUT_LINEIN);
-
+    
+    // pink noise output
     pink1.amplitude(0.5);
     pink2.amplitude(0.5);
-    filter_rev.frequency(200);  // high pass for reverb in
-    mix_rev.gain(0, 0.0);    // left to rev
-    mix_rev.gain(1, 0.0);    // right to rev
 
-    mix_del_l.gain(0, 1);  // in
-    mix_del_l.gain(1, 0);  // fb
-    mix_del_l.gain(2, 0);  // noise
-
-    mix_del_r.gain(0, 1);  // in
-    mix_del_r.gain(1, 0);  // fb
-    mix_del_r.gain(2, 0);  // noise
-
-    mix_op_l.gain(0, 1.0); // wet
+    // max gain for fx modules outputs. Only control the inputs
     mix_op_l.gain(1, 1.0); // reverb
     mix_op_l.gain(2, 1.0); // delay
-    mix_op_l.gain(3, 0.0); // noise
-
-    mix_op_r.gain(0, 1.0); // wet
     mix_op_r.gain(1, 1.0); // reverb
     mix_op_r.gain(2, 1.0); // delay
-    mix_op_r.gain(3, 0.0); // noise
 
-    delay_l.delay(0, 500);
-    delay_r.delay(0, 750);
+    // turn off unused delays - makes any difference?
     for(int i = 1; i < 7; i ++) {
         delay_l.disable(i);
         delay_r.disable(i);
     }
 
-    freeverbs1.roomsize(0.7);
-    freeverbs1.damping(0.8);
-
+    // init bar timer
     bar_timer.set_bpm(120);
     bar_timer.update(true); // set to 1
 }
@@ -250,8 +229,8 @@ void check_board()
             case REV_SIZE: freeverbs1.roomsize(val); break;
             case REV_DAMP: freeverbs1.damping(val); break;
             case MIX_SIG:
-                mix_op_l.gain(0, val); // reverb
-                mix_op_r.gain(0, val); // reverb
+                mix_op_l.gain(0, val); // dry
+                mix_op_r.gain(0, val); // dry
                 break;
             case MIX_DEL:
                 mix_del_l.gain(0, val); // delay
@@ -276,8 +255,8 @@ void check_board()
                 filter_noise_r.resonance(val*4);  // fb
                 break;
             case MIX_REV_IN:
-                mix_rev.gain(0, val/2);    // left to rev
-                mix_rev.gain(1, val/2);    // right to rev
+                mix_rev.gain(0, val);    // left to rev
+                mix_rev.gain(1, val);    // right to rev
                 break;
             case MIX_NOISE:
                 mix_op_l.gain(3, val); // noise
