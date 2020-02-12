@@ -69,6 +69,12 @@ AudioControlSGTL5000     sgtl5000_1;     //xy=292,903
 #define BOARD_CONTROL
 
 #define NUM_BUTTONS 4
+
+// led indexing, first 12 pots, then 4 buttons, then 4 (reversed) bars
+#define NUM_POT_LEDS 12
+#define NUM_BUT_LEDS 4
+#define NUM_BAR_LEDS 4
+
 Control controls[NUM_POTS];
 // data_p, clk_p, latch_p, blank_p
 LEDS leds(11, 13, 16, 9);
@@ -77,29 +83,28 @@ Pots pots(5, 4, 2, 3, 14); // 14 for teensy fx pcb, 15 for audio pcb
 BarTimer bar_timer;
 
 enum ButtonType {
-    WRITE,
-    ERASE,
-    SET_TO_ONE,
     TAP_TEMPO,
+    SET_TO_ONE,
+    ERASE,
+    WRITE,
     };
 
 enum Cmd {
-    MIX_DEL,
-    DEL_L_TIME,
-    DEL_R_TIME,
-    DEL_FB,
-
-    MIX_REV_IN,
-    REV_SIZE,
-    REV_DAMP,
-    NONE,
-
-    DEL_FB_FILT_FREQ,
-    DEL_FB_FILT_RES,
-   
-    MIX_NOISE,
     MIX_SIG,
+    MIX_NOISE,
+   
+    DEL_FB_FILT_RES,
+    DEL_FB_FILT_FREQ,
 
+    NONE,
+    REV_DAMP,
+    REV_SIZE,
+    MIX_REV_IN,
+
+    DEL_FB,
+    DEL_R_TIME,
+    DEL_L_TIME,
+    MIX_DEL,
     };
 
 void setup() {
@@ -138,7 +143,7 @@ void setup() {
     // This may wait forever if the SDA & SCL pins lack
     // pullup resistors
     sgtl5000_1.enable();
-    sgtl5000_1.volume(0.5);
+    sgtl5000_1.volume(1);
 
     sgtl5000_1.inputSelect(AUDIO_INPUT_LINEIN);
 
@@ -226,11 +231,11 @@ void check_board()
 
     for(int button = 0; button < NUM_BUTTONS; button ++) {
         buttons[button].update();
-        leds.set_data(12 + button, buttons[button].pressed() ? LED_MAX : 0);
+        leds.set_data(NUM_POT_LEDS + button, buttons[button].pressed() ? LED_MAX : 0);
     }
 
-    for(int bar = 0; bar < 4; bar ++)
-        leds.set_data(19-bar, bar_timer.bar_led(bar) ? LED_MAX : 0); // leds are right to left 
+    for(int bar = 0; bar < NUM_BAR_LEDS; bar ++)
+        leds.set_data(NUM_POT_LEDS + NUM_BUT_LEDS + bar, bar_timer.bar_led(bar) ? LED_MAX : 0); // leds are right to left 
 
     for(int pot = 0; pot < NUM_POTS; pot ++) {
         // update controls
