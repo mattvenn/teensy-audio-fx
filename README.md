@@ -20,6 +20,8 @@ interface that could later be translated to hardware in the form of a PCB.
 
 [gerbers](hardware/teensy-fx-2020-02-10-fab.zip)
 
+Buy the right parts through the links on the [kitspace page](https://kitspace.org/boards/github.com/mattvenn/teensy-audio-fx).
+
 ## Hardware Resources
 
 Based off the teensy 4 audio board and the [teensy beats shield](https://hackaday.io/project/161127-teensy-beats-shield)
