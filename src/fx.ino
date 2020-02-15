@@ -196,8 +196,8 @@ void check_pot()
 }
 
 int last_step = 0;
-unsigned long beat_time, last_beat_time;
-float peak, last_peak;
+float peak;
+bool in_peak;
 
 void check_board()
 {
@@ -207,14 +207,12 @@ void check_board()
 
     // look for sync signal
     if (peak1.available()) {
-        peak = peak1.read();
-        if(peak - last_peak > 0.8)
-        {
-            last_beat_time = beat_time;
-            beat_time = millis();
+        if(peak1.read() > 0.5 && in_peak == false) {
             bar_timer.sync_tempo();
+            in_peak = true;
         }
-        last_peak = peak;
+        else if(peak < 0.5)
+            in_peak = false;
     } 
 
     // bar_timer buttons
@@ -239,10 +237,16 @@ void check_board()
     // update pots & buttons
     pots.update();
 
-    for(int button = 0; button < NUM_BUTTONS; button ++) {
+    for(int button = 0; button < NUM_BUTTONS; button ++)
         buttons[button].update();
-    }
-    leds.set_data(NUM_POT_LEDS + TAP_TEMPO, bar_timer.get_led()); //leds.get_data(NUM_POT_LEDS + TAP_TEMPO) ? 0 : LED_MAX);
+
+    // led for tempo
+    leds.set_data(NUM_POT_LEDS + TAP_TEMPO, bar_timer.get_led());
+
+    // led for write & erase & set to one
+    leds.set_data(NUM_POT_LEDS + WRITE, buttons[WRITE].pressed() ? LED_MAX : 0);
+    leds.set_data(NUM_POT_LEDS + SET_TO_ONE, buttons[SET_TO_ONE].pressed() ? LED_MAX : 0);
+    leds.set_data(NUM_POT_LEDS + ERASE, buttons[ERASE].pressed() ? LED_MAX : 0);
 
     for(int bar = 0; bar < NUM_BAR_LEDS; bar ++)
         leds.set_data(NUM_POT_LEDS + NUM_BUT_LEDS + bar, bar_timer.bar_led(bar) ? LED_MAX : 0); // leds are right to left 
