@@ -28,11 +28,11 @@ bool BarTimer::bar_led(int bar) {
 void BarTimer::inc_sync_mode() {
     if(_sync_mode == TAP) {
         _sync_mode = SYNC;
-        Serial.println("sync = SYNC");
+        //Serial.println("sync = SYNC");
     }
     else {
         _sync_mode = TAP;
-        Serial.println("sync = TAP");
+        //Serial.println("sync = TAP");
     }
 }
 
@@ -54,7 +54,8 @@ void BarTimer::sync_tempo() {
         _sync_led = !_sync_led;
         int sync_time = millis() - _last_tap; 
         _last_tap = millis();
-        Serial.println(30000 / sync_time);
+//        Serial.println(sync_time);
+//        Serial.println(30000 / sync_time);
         set_bpm(30000 / sync_time);
 
         // force automation sequence to keep in line with the sync
@@ -95,7 +96,7 @@ void BarTimer::tap_tempo() {
         for(int i = 0; i < NUM_TAPS; i ++)
             avg_tap += _taps[i];
         //Serial.println(avg_tap/NUM_TAPS);
-        Serial.println(60000 / (avg_tap/NUM_TAPS));
+//        Serial.println(60000 / (avg_tap/NUM_TAPS));
         set_bpm(60000 / (avg_tap/NUM_TAPS));
     }
 }
