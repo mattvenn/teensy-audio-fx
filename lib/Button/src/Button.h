@@ -7,6 +7,7 @@ class Button {
         Button(int b_p); //, int erase_p, int set_one_p, int tap_tempo_p);
         void update();
         bool pressed();
+        bool was_pressed();
         /*
         bool get_write();
         bool get_erase();
@@ -17,6 +18,7 @@ class Button {
     private:
         int _b_p;
         bool _b;
+        bool _was_pressed = false;
     /*
         bool _write;
         bool _erase;

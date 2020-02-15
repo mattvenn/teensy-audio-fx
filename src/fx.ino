@@ -161,7 +161,7 @@ void setup() {
 
     // init bar timer
     bar_timer.set_bpm(120);
-    bar_timer.update(true); // set to 1
+    bar_timer.update(true, false); // set to 1
 }
 
 
@@ -195,7 +195,7 @@ void check_board()
     delay(5); // limit rate of updates
 
     // update automation timer, pots and buttons
-    bar_timer.update(buttons[SET_TO_ONE].pressed());
+    bar_timer.update(buttons[SET_TO_ONE].was_pressed(), buttons[TAP_TEMPO].was_pressed());
     
     if(bar_timer.get_step() != last_step) {
         last_step  = bar_timer.get_step();

@@ -21,6 +21,18 @@ void Button::update() { // debounce?
 #endif    
 }
 
+bool Button::was_pressed() {
+    if(_b && _was_pressed == false) {
+        _was_pressed = true;
+        return true;
+    }
+
+    if(!_b)
+        _was_pressed = false;
+
+    return false;
+}
+
 bool Button::pressed() {
     return _b;
 }
