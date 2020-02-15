@@ -1,0 +1,6 @@
+.pio
+*pkl
+*swp
+include
+*user
+teensy-beats
