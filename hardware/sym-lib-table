@@ -1,0 +1,4 @@
+(sym_lib_table
+  (lib (name teensy)(type Legacy)(uri ${KIPRJMOD}/teensy_library/teensy.lib)(options "")(descr ""))
+  (lib (name teensy-fx)(type Legacy)(uri ${KIPRJMOD}/teensy-fx.lib)(options "")(descr ""))
+)

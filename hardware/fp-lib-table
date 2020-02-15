@@ -1,0 +1,5 @@
+(fp_lib_table
+  (lib (name teensy_library)(type KiCad)(uri ${KIPRJMOD}/teensy_library)(options "")(descr "")(disabled))
+  (lib (name teensy)(type KiCad)(uri ${KIPRJMOD}/teensy.pretty)(options "")(descr ""))
+  (lib (name audio-fx)(type KiCad)(uri ${KIPRJMOD}/audio-fx.pretty)(options "")(descr ""))
+)

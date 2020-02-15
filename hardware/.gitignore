@@ -1,0 +1,9 @@
+*bak
+*.STEP
+auto-fab
+bom
+*log
+*net
+*xml
+fp-info-cache
+oldlib
