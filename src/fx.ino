@@ -1,28 +1,31 @@
 /*
 https://forum.pjrc.com/threads/25679-Audio-adapter-schematic
 
-https://www.pjrc.com/teensy/gui/index.html?info=AudioEffectFreeverbStereo
+https://www.pjrc.com/teensy/gui/index.html
 
 https://github.com/PaulStoffregen/Audio/tree/master/examples
 */
 
-#include <Audio.h>
-#include <Wire.h>
-#include <SPI.h>
-#include <SD.h>
-#include <SerialFlash.h>
 #include <LEDS.h>
 #include <Pots.h>
 #include <Button.h>
 #include <Control.h>
 #include <BarTimer.h>
 
+//16 -> 66 auto generated from audio tool
+#include <Audio.h>
+#include <Wire.h>
+#include <SPI.h>
+#include <SD.h>
+#include <SerialFlash.h>
+
 // GUItool: begin automatically generated code
-AudioInputI2S            i2s2;           //xy=69,326
+AudioInputI2S            i2s2;           //xy=63,319
+AudioAnalyzePeak         peak1;          //xy=227,127
 AudioMixer4              mix_del_l;      //xy=312,424
 AudioMixer4              mix_del_r;      //xy=320,619
+AudioMixer4              mix_rev;         //xy=363.1999969482422,237.1999969482422
 AudioFilterStateVariable filter_del_r;   //xy=429,744
-AudioMixer4              mix_rev;        //xy=471,294
 AudioFilterStateVariable filter_del_l;   //xy=495,488
 AudioFilterStateVariable filter_rev;        //xy=555,183
 AudioEffectDelay         delay_r;        //xy=614,867
@@ -34,17 +37,17 @@ AudioMixer4              mix_op_l;       //xy=949,382
 AudioMixer4              mix_op_r;       //xy=952,475
 AudioFilterStateVariable filter_noise_l;        //xy=958,682
 AudioFilterStateVariable filter_noise_r; //xy=961,740
-AudioOutputI2S           i2s1;           //xy=1133,428
-AudioConnection          patchCord1(i2s2, 0, mix_del_l, 0);
-AudioConnection          patchCord2(i2s2, 0, mix_op_l, 0);
-AudioConnection          patchCord3(i2s2, 0, mix_rev, 0);
-AudioConnection          patchCord4(i2s2, 1, mix_op_r, 0);
-AudioConnection          patchCord5(i2s2, 1, mix_rev, 1);
-AudioConnection          patchCord6(i2s2, 1, mix_del_r, 0);
+AudioOutputI2S           i2s1;           //xy=1179,417
+AudioConnection          patchCord1(i2s2, 0, peak1, 0);
+AudioConnection          patchCord2(i2s2, 1, mix_op_r, 0);
+AudioConnection          patchCord3(i2s2, 1, mix_del_r, 0);
+AudioConnection          patchCord4(i2s2, 1, mix_rev, 1);
+AudioConnection          patchCord5(i2s2, 1, mix_op_l, 0);
+AudioConnection          patchCord6(i2s2, 1, mix_del_l, 0);
 AudioConnection          patchCord7(mix_del_l, 0, filter_del_l, 0);
 AudioConnection          patchCord8(mix_del_r, 0, filter_del_r, 0);
-AudioConnection          patchCord9(filter_del_r, 2, delay_r, 0);
-AudioConnection          patchCord10(mix_rev, 0, filter_rev, 0);
+AudioConnection          patchCord9(mix_rev, 0, filter_rev, 0);
+AudioConnection          patchCord10(filter_del_r, 2, delay_r, 0);
 AudioConnection          patchCord11(filter_del_l, 2, delay_l, 0);
 AudioConnection          patchCord12(filter_rev, 2, freeverbs1, 0);
 AudioConnection          patchCord13(delay_r, 0, mix_op_r, 2);
@@ -61,6 +64,8 @@ AudioConnection          patchCord23(filter_noise_l, 1, mix_op_l, 3);
 AudioConnection          patchCord24(filter_noise_r, 1, mix_op_r, 3);
 AudioControlSGTL5000     sgtl5000_1;     //xy=292,903
 // GUItool: end automatically generated code
+
+
 
 #define MAX_DELAY 1200 // should be 2000ms with combined delay of 4000ms (2 delays).
 // Combined delays of more than 2400 currently lead to audio distortion, so set to 1200
@@ -139,7 +144,9 @@ void setup() {
 
     // enable i2s audio chip
     sgtl5000_1.enable();
-    sgtl5000_1.volume(1);
+    sgtl5000_1.volume(0.6);
+    sgtl5000_1.lineOutLevel(5);
+    sgtl5000_1.lineInLevel(5);
 
     sgtl5000_1.inputSelect(AUDIO_INPUT_LINEIN);
     
@@ -161,7 +168,6 @@ void setup() {
 
     // init bar timer
     bar_timer.set_bpm(120);
-    bar_timer.update(true, false); // set to 1
 }
 
 
@@ -190,13 +196,37 @@ void check_pot()
 }
 
 int last_step = 0;
+unsigned long beat_time, last_beat_time;
+float peak, last_peak;
+
 void check_board()
 {
     delay(5); // limit rate of updates
+    if(buttons[TAP_TEMPO].long_hold())
+        bar_timer.inc_sync_mode();
 
-    // update automation timer, pots and buttons
-    bar_timer.update(buttons[SET_TO_ONE].was_pressed(), buttons[TAP_TEMPO].was_pressed());
+    // look for sync signal
+    if (peak1.available()) {
+        peak = peak1.read();
+        if(peak - last_peak > 0.8)
+        {
+            last_beat_time = beat_time;
+            beat_time = millis();
+            bar_timer.sync_tempo();
+        }
+        last_peak = peak;
+    } 
+
+    // bar_timer buttons
+    if(buttons[TAP_TEMPO].was_pressed())
+        bar_timer.tap_tempo();
+    if(buttons[SET_TO_ONE].was_pressed())
+        bar_timer.set_to_one();
+
+    // update automation timer
+    bar_timer.update();
     
+    // debugging info
     if(bar_timer.get_step() != last_step) {
         last_step  = bar_timer.get_step();
         //Serial.println(bar_timer.get_step_millis());
@@ -206,12 +236,13 @@ void check_board()
         //Serial.print("audio mem max: "); Serial.println(AudioMemoryUsageMax());
     }
 
+    // update pots & buttons
     pots.update();
 
     for(int button = 0; button < NUM_BUTTONS; button ++) {
         buttons[button].update();
-        leds.set_data(NUM_POT_LEDS + button, buttons[button].pressed() ? LED_MAX : 0);
     }
+    leds.set_data(NUM_POT_LEDS + TAP_TEMPO, bar_timer.get_led()); //leds.get_data(NUM_POT_LEDS + TAP_TEMPO) ? 0 : LED_MAX);
 
     for(int bar = 0; bar < NUM_BAR_LEDS; bar ++)
         leds.set_data(NUM_POT_LEDS + NUM_BUT_LEDS + bar, bar_timer.bar_led(bar) ? LED_MAX : 0); // leds are right to left 
@@ -239,23 +270,23 @@ void check_board()
             case DEL_L_TIME: delay_l.delay(0, val*MAX_DELAY); break;
             case DEL_R_TIME: delay_r.delay(0, val*MAX_DELAY); break;
             case DEL_FB:
-                mix_del_r.gain(1, val);  // fb
-                mix_del_l.gain(1, val);  // fb
+                mix_del_r.gain(1, val);
+                mix_del_l.gain(1, val);
                 break;
             case DEL_FB_FILT_FREQ:
-                filter_del_l.frequency(5000*val);  // fb
-                filter_del_r.frequency(5000*val);  // fb
-                filter_noise_l.frequency(5000*val);  // fb
+                filter_del_l.frequency(5000*val);
+                filter_del_r.frequency(5000*val);
+                filter_noise_l.frequency(5000*val);
                 filter_noise_r.frequency(5000*val);  // fb
+                filter_rev.frequency(5000*val);
                 break;
             case DEL_FB_FILT_RES:
-                filter_del_l.resonance(val*4);  // fb
-                filter_del_r.resonance(val*4);  // fb
-                filter_noise_l.resonance(val*4);  // fb
-                filter_noise_r.resonance(val*4);  // fb
+                filter_del_l.resonance(val*4);
+                filter_del_r.resonance(val*4);
+                filter_noise_l.resonance(val*4);
+                filter_noise_r.resonance(val*4);
                 break;
             case MIX_REV_IN:
-                mix_rev.gain(0, val);    // left to rev
                 mix_rev.gain(1, val);    // right to rev
                 break;
             case MIX_NOISE:
@@ -327,6 +358,7 @@ void check_serial()
                 filter_del_r.frequency(freq);  // fb
                 filter_noise_l.frequency(freq);  // fb
                 filter_noise_r.frequency(freq);  // fb
+                filter_rev.frequency(freq);
                 Serial.print("del fb, noise & rev filt freq: "); Serial.println(freq);
                 break;
             }

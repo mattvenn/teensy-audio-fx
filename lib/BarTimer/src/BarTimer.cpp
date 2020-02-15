@@ -25,40 +25,85 @@ bool BarTimer::bar_led(int bar) {
     return bar == _step / (MAX_STEPS / 4);
 }
 
-void BarTimer::set_sync(bool sync) {
-    _sync = sync;
+void BarTimer::inc_sync_mode() {
+    if(_sync_mode == TAP) {
+        _sync_mode = SYNC;
+        Serial.println("sync = SYNC");
+    }
+    else {
+        _sync_mode = TAP;
+        Serial.println("sync = TAP");
+    }
 }
 
-void BarTimer::update(bool set_to_one, bool tap_tempo) {
-    if(tap_tempo && !_sync) {
-        Serial.println("tap");
+int BarTimer::get_led() {
+    if(_sync_mode == SYNC)
+        return _sync_led ? MAX_LED : 0;
+    else
+        return millis() - _last_tap > 100 ? MAX_LED : 0;
+}
 
-        if(millis() - _last_tap > TAP_TIMEOUT) {
-            _tap_count = 0;
-            _last_tap = millis(); 
-        }
-        else {
-            _taps[_tap_count++] = millis() - _last_tap;
-            _last_tap = millis();
-        }
+void BarTimer::sync_tempo() {
+    if(_sync_mode != SYNC)
+        return;
 
-        if(_tap_count==NUM_TAPS) {
-            _tap_count = 0;
-            int avg_tap = 0;
-            for(int i = 0; i < NUM_TAPS; i ++)
-                avg_tap += _taps[i];
-            //Serial.println(avg_tap/NUM_TAPS);
-            Serial.println(60000 / (avg_tap/NUM_TAPS));
-            set_bpm(60000 / (avg_tap/NUM_TAPS));
-        }
+    if(millis() - _last_tap > TAP_TIMEOUT) {
+        _last_tap = millis(); 
+    }
+    else {
+        _sync_led = !_sync_led;
+        int sync_time = millis() - _last_tap; 
+        _last_tap = millis();
+        Serial.println(30000 / sync_time);
+        set_bpm(30000 / sync_time);
+    }
+}
+
+void BarTimer::tap_tempo() {
+    if(_sync_mode != TAP)
+        return;
+
+    // don't rely on counter until _tap_count == NUM_TAPS
+    // if it's been a long time since a tap, set _tap_count to 0
+    if(millis() - _last_tap > TAP_TIMEOUT) {
+        _tap_count = 0;
+        _last_tap = millis(); 
+    }
+    // otherwise, keep a track of the tap times in a circular buffer
+    else {
+        // rotate buffer
+        for(int i = NUM_TAPS-1; i > 0; i --)
+            _taps[i] = _taps[i-1];
+
+        _taps[0] = millis() - _last_tap;
+        _last_tap = millis();
+
+        // increment _tap_count but don't let it rollover
+        if(_tap_count < NUM_TAPS)
+            _tap_count ++;
     }
 
-    if(set_to_one) {
-        _step = 0;
-        _next_step_millis = millis() + _step_millis;
+    // the taps should be stable now, so use them to set the bpm
+    if(_tap_count == NUM_TAPS) {
+        int avg_tap = 0;
+        for(int i = 0; i < NUM_TAPS; i ++)
+            avg_tap += _taps[i];
+        //Serial.println(avg_tap/NUM_TAPS);
+        Serial.println(60000 / (avg_tap/NUM_TAPS));
+        set_bpm(60000 / (avg_tap/NUM_TAPS));
     }
+}
+
+void BarTimer::set_to_one() {
+    _step = 0;
+    _next_step_millis = millis() + _step_millis;
+}
+
+void BarTimer::update() {
+
     if(millis() >= _next_step_millis) {
         _step ++;
+        // fractional count to handle non integer step millis
         _next_step_fraction += _step_millis_fraction;
 
         if(_next_step_fraction >= 1) {

@@ -10,6 +10,7 @@ class LEDS {
         LEDS(int data_p, int clk_p, int latch_p, int blank_p);
         LEDS() {};
         void set_data(int led, int val); // gamma correct?
+        int get_data(int led);
         void send();
     
     private:

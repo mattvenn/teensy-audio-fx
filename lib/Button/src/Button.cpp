@@ -14,11 +14,27 @@ Button::Button(int b_p) {
 #endif    
 }
 
-void Button::update() { // debounce?
+void Button::update() { // need to debounce this at some point
 #ifdef ARDUINO
     // active low
     _b = !digitalRead(_b_p);
 #endif    
+}
+
+bool Button::long_hold() {
+    if(_b)
+        _hold_time = millis() - _start_hold;
+    else {
+        _start_hold = millis();
+        _long_hold = false;
+    }
+
+    if(_b && _hold_time > LONG_HOLD && _long_hold == false) {
+        _long_hold = true;
+        return true;
+    }
+
+    return false;
 }
 
 bool Button::was_pressed() {
