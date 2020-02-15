@@ -56,6 +56,12 @@ void BarTimer::sync_tempo() {
         _last_tap = millis();
         Serial.println(30000 / sync_time);
         set_bpm(30000 / sync_time);
+
+        // force automation sequence to keep in line with the sync
+        _set_to((MAX_STEPS/SYNC_STEPS) * _sync_beat);
+        _sync_beat ++;
+        if(_sync_beat >= SYNC_STEPS)
+            _sync_beat = 0;
     }
 }
 
@@ -95,7 +101,14 @@ void BarTimer::tap_tempo() {
 }
 
 void BarTimer::set_to_one() {
-    _step = 0;
+    _sync_beat = 0;
+    _set_to(0);
+}
+
+void BarTimer::_set_to(int step) {
+    if(step > MAX_STEPS)
+        step = 0;
+    _step = step;
     _next_step_millis = millis() + _step_millis;
 }
 

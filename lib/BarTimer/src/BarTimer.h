@@ -4,6 +4,7 @@
 #define DEFAULT_BPM 120
 #define NUM_TAPS 4
 #define TAP_TIMEOUT 1000
+#define SYNC_STEPS 32
 
 enum SyncMode {
     TAP,
@@ -31,6 +32,8 @@ class BarTimer {
 #endif
     
     private:
+        void _set_to(int step);
+        int _sync_beat = 0;
         int _bpm = DEFAULT_BPM;
         int _step = 0;
         int _taps[NUM_TAPS] = {0};

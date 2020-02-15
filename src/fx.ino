@@ -101,7 +101,7 @@ enum Cmd {
     DEL_FB_FILT_RES,
     DEL_FB_FILT_FREQ,
 
-    NONE,
+    REV_FILT,
     REV_DAMP,
     REV_SIZE,
     MIX_REV_IN,
@@ -277,7 +277,9 @@ void check_board()
                 filter_del_l.frequency(5000*val);
                 filter_del_r.frequency(5000*val);
                 filter_noise_l.frequency(5000*val);
-                filter_noise_r.frequency(5000*val);  // fb
+                filter_noise_r.frequency(5000*val);
+                break;
+            case REV_FILT:
                 filter_rev.frequency(5000*val);
                 break;
             case DEL_FB_FILT_RES:
