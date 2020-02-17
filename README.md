@@ -28,7 +28,7 @@ Based off the teensy 4 audio board and the [teensy beats shield](https://hackada
 ### Errata
 
 * Do not place C16
-* Swap LRCLK & BCLK
+* Swap LRCLK & BCLK - see pic [lrclk-bclk-swap](docs/lrclk-bclk-swap.png)
 * 2.2uF ceramics sound as good and are much cheaper than the 1uF acrylics for C8, C9, C14 & C15
 
 ## Hardware V2
