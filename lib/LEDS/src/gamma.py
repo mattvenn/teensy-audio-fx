@@ -10,11 +10,12 @@ def rounder(topValue, gammas):
 
 if __name__ == "__main__":
     myGamma = 2.3
-    steps = 1024
+    steps = 2 ** 12
+    max_val = steps - 1
     output = file("gamma.h", "w")
     output.write("/* %d-step brightness table: gamma = %s */ \n\n" % (steps, myGamma))
     output.write("const int gamma_table[%d] = {\n" % steps)
-    for value in rounder(1023, gamma(steps, myGamma)):
+    for value in rounder(max_val, gamma(steps, myGamma)):
         output.write("\t %d,\n" % value)
     output.write("};\n")
     output.close()

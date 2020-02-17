@@ -12,7 +12,7 @@ https://github.com/PaulStoffregen/Audio/tree/master/examples
 #include <Control.h>
 #include <BarTimer.h>
 
-//16 -> 66 auto generated from audio tool
+//16 -> 69 auto generated from audio tool
 #include <Audio.h>
 #include <Wire.h>
 #include <SPI.h>
@@ -64,8 +64,6 @@ AudioConnection          patchCord23(filter_noise_l, 1, mix_op_l, 3);
 AudioConnection          patchCord24(filter_noise_r, 1, mix_op_r, 3);
 AudioControlSGTL5000     sgtl5000_1;     //xy=292,903
 // GUItool: end automatically generated code
-
-
 
 #define MAX_DELAY 1200 // should be 2000ms with combined delay of 4000ms (2 delays).
 // Combined delays of more than 2400 currently lead to audio distortion, so set to 1200
@@ -119,23 +117,23 @@ void setup() {
 
 
     #ifdef BOARD_CONTROL
-    for(int j = 0; j < 1024; j ++)
+    for(int j = 0; j < MAX_LED; j ++)
     {
         for(int i = 0; i < 24; i ++)
         {
             leds.set_data(i, j);
         }
         leds.send();
-        delayMicroseconds(300);
+        delayMicroseconds(50);
     }
-    for(int j = 1024; j > 0; j --)
+    for(int j = MAX_LED; j > 0; j --)
     {
         for(int i = 0; i < 24; i ++)
         {
             leds.set_data(i, j);
         }
         leds.send();
-        delayMicroseconds(300);
+        delayMicroseconds(50);
     }
     #endif
 
@@ -244,12 +242,12 @@ void check_board()
     leds.set_data(NUM_POT_LEDS + TAP_TEMPO, bar_timer.get_led());
 
     // led for write & erase & set to one
-    leds.set_data(NUM_POT_LEDS + WRITE, buttons[WRITE].pressed() ? LED_MAX : 0);
-    leds.set_data(NUM_POT_LEDS + SET_TO_ONE, buttons[SET_TO_ONE].pressed() ? LED_MAX : 0);
-    leds.set_data(NUM_POT_LEDS + ERASE, buttons[ERASE].pressed() ? LED_MAX : 0);
+    leds.set_data(NUM_POT_LEDS + WRITE, buttons[WRITE].pressed() ? MAX_LED : 0);
+    leds.set_data(NUM_POT_LEDS + SET_TO_ONE, buttons[SET_TO_ONE].pressed() ? MAX_LED : 0);
+    leds.set_data(NUM_POT_LEDS + ERASE, buttons[ERASE].pressed() ? MAX_LED : 0);
 
     for(int bar = 0; bar < NUM_BAR_LEDS; bar ++)
-        leds.set_data(NUM_POT_LEDS + NUM_BUT_LEDS + bar, bar_timer.bar_led(bar) ? LED_MAX : 0); // leds are right to left 
+        leds.set_data(NUM_POT_LEDS + NUM_BUT_LEDS + bar, bar_timer.bar_led(bar) ? MAX_LED : 0); // leds are right to left 
 
     for(int pot = 0; pot < NUM_POTS; pot ++) {
         // update controls

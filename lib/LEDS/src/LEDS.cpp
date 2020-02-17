@@ -51,12 +51,13 @@ LEDS::LEDS(int data_p, int clk_p, int latch_p, int blank_p)
     pinMode(_blank_p, OUTPUT);
 #endif
 
-    send_blank(1); // doesn't seem to do anything though
+    send_blank(1);
     send_latch(0);
 }
 
 void LEDS::send()
 {
+    send_blank(1);
     for(int led = NUM_LEDS - 1; led >= 0; led --)
         for(int bit = 11 ; bit >= 0 ; bit --)
         {
@@ -67,14 +68,15 @@ void LEDS::send()
         }
     send_latch(1);
     send_latch(0);
+    send_blank(0);
 }
 
 void LEDS::set_data(int led, int val)
 {
     if(led >= NUM_LEDS)
         return;
-    if(val >= LED_MAX)
-        val = LED_MAX;
+    if(val >= MAX_LED)
+        val = MAX_LED;
     _led_data[led] = val;
 }
 

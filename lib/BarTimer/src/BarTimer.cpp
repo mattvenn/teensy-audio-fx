@@ -1,5 +1,6 @@
 #include <BarTimer.h>
 #include <Control.h> // for MAX_STEPS
+#include <LEDS.h> // for MAX_LED
 
 #ifdef ARDUINO
 #include <Arduino.h>

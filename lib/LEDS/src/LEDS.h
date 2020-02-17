@@ -2,7 +2,8 @@
 #define LEDS_H
 
 #define NUM_LEDS 24
-#define LED_MAX 1023 // actually is 12b = 4095, but much above 1024 looks flickery
+// if you change MAX_LED, make sure to regenerate gamma.h
+#define MAX_LED 4095
 
 class LEDS {
 

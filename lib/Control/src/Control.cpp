@@ -1,4 +1,5 @@
 #include <Control.h>
+#include <LEDS.h>
 
 #ifdef ARDUINO
 #include <Arduino.h>
@@ -35,5 +36,5 @@ float Control::get_val(int step) {
 }
 
 int Control::get_led_val(int step) {
-    return _val[step] / (MAX_POT / MAX_LED);
+    return _val[step] * (MAX_LED / MAX_POT);
 }
