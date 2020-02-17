@@ -5,13 +5,6 @@
 * Playing with settings with [control.py](control.py) as I work on the hardware
 * Each knob can be automated (a bit like punch in effects on the Pocket Operators)
 
-# Software
-
-[control.py](control.py) is a PyQT program that was developed in order to make an MVP
-interface that could later be translated to hardware in the form of a PCB.
-
-![gui](gui.png)
-
 # Hardware
 
 ![board](hardware/board.png)
@@ -30,85 +23,50 @@ Based off the teensy 4 audio board and the [teensy beats shield](https://hackada
 * 4067 multiplexer for the knobs
 * pot RK09K1130AP5
 
-## Hardware todo
+## Hardware V1: git hash 99c1038
 
-* print and check footprints
- * regulator fp - done
- * smt sockets for teensy - done
- * pots - done RS
- * 4067 - done
- * tlc5947 - done
- * sgtl5000 - done
-* test some parts? or at least check on the scope the pins are wiggling while fx are happening
-* add up 3.3v & 1.8v current and check < 250ma (leds on 5v supply) - done
-    - pots: 4mA
-    - audio codec: 5mA
-* caps for audio, what parts - done
-* extra caps for led driver and led circuit - done
-* find suppliers - done
-* audio sockets weren't available in EU, changed to 35RASMT2BHNTRX which has 5 pads but will fit on the same fp
+### Errata
 
-## debugging bust audio
+* Do not place C16
+* Swap LRCLK & BCLK
+* 2.2uF ceramics sound as good and are much cheaper than the 1uF acrylics for C8, C9, C14 & C15
 
-* keep posting to https://forum.pjrc.com/threads/58899-quot-pocket-operator-quot-style-teensy-effects-board-design-review
-* check chip id is the same
-* check wiring of the teensy board (ignore schematic) LRCLK and BCLK were reversed...
-* check and understand i2s signals
-
-# HWv2
+## Hardware V2
 
 * test points for mic input
 * separate regulator for pot 3.3v to reduce noise?
 * put leds and buttons below pots for easier viewing and pressing
 * leave space on back for rubber feet
-* update FP of audio sockets to new FP
-* filter behind pot mux was a mistake. filters must be in front of mux - fixed
+* update FP of audio sockets to new FP - audio sockets weren't available in EU, changed to 35RASMT2BHNTRX which has 5 pads but will fit on the same fp
+* filter behind pot mux was a mistake. filters must be in front of mux or removed - fixed by removing
 * fix LRCLK & BCLK mixup - fixed
 
 ## Back graphic
 
-100 x 60mm == 3.94 x 2.36" == 1182 x 708 pix
+* Art by Kipling: http://bit.ly/39Wxc4R. Designed in ContextFree
+* 100 x 60mm == 3.94 x 2.36" == 1182 x 708 pix
 
 # FW
 
-Try to fulfil what the [control.py](control.py) program can do.
-
-## Todo
-
-* map button and bar leds
-* sw probably need debounce
-* pot probably need filter
-
-## Top Level
-
-* each knob controls one of the parameters (see config in control.py)
-* each knob has a number of steps of recordable automation (160 in control.py)
+* each knob controls one of the parameters
+* each knob has a number of steps of recordable automation
 * knob's leds brightness shows current value of parameter
 * record time is based on bpm tap tempo and number of steps (4 bars in control.py)
-* buttons are: tap tempo, record, wipe and start automation loop from beginning
-* press record and move a knob to record its movement
+* buttons are: tap tempo/sync, write, erase and start automation loop from beginning
+* press & hold tempo button to switch between tap tempo and PO sync mode (looks for full amp sync pulse on 1/8 notes on left channel).
+* press write and move a knob to record its movement
 * moving a knob without pressing record will wipe the pattern and set it all to the current knob value
-* leds for buttons are tempo, if recording, and if wiping
-* 4 leds on top right show progression through the bar
+* 4 leds on top right show progression through the automation loop
 
-## Notes
+# Audio patch
 
-Problem with knowing when to write or erase knob automation data. In the software, you know
-because the handle is clicked. But in hw if you do
+made with https://www.pjrc.com/teensy/gui/index.html
 
-for knob in knobs:
-    if (button.write && knob.changed)
-        set_new_data(knob.value, step)
+![patch](docs/patch.png)
 
-what happens if you wiggle the knob and then hold it in one place. And if you have
+# Software
 
-for knob in knobs:
-    if (button.write)
-        set_new_data(knob.value, step)
+[control.py](control.py) is a PyQT program that was developed in order to make an MVP
+interface that could later be translated to hardware in the form of a PCB.
 
-Then all knob automation will be overwritten as soon as write button is pressed.
-
-So probably need state machine where writing is started on knob move, and then stopped when write is released
-
-Also, in testing, knob value is fairly noisy and even with filtering in hw and sw still not easy to know if it's changed
-while remaining responsive.
+![gui](docs/gui.png)
