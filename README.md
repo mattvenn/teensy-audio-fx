@@ -1,6 +1,6 @@
 # Teensy FX
 
-* A Teensy 4 based FX box with Pocket Operator style and playability.
+* A Teensy 4 based FX box with [Pocket Operator](https://teenage.engineering/products/po) style and playability.
 * Currently a combination of reverb, ping pong filtered delay and a noise source.
 * Playing with settings with [control.py](control.py) as I work on the hardware
 * Each knob can be automated (a bit like punch in effects on the Pocket Operators)
@@ -12,6 +12,8 @@
 [schematic](hardware/schematic.pdf)
 
 [gerbers](hardware/teensy-fx-2020-02-10-fab.zip)
+
+[photos](https://photos.app.goo.gl/ELiSmwA5KhBPN7PL9)
 
 ## Hardware Resources
 
