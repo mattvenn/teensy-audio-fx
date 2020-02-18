@@ -1,6 +1,6 @@
 # Teensy FX
 
-* A Teensy 4 based FX box with [Pocket Operator](https://teenage.engineering/products/po) style and playability.
+* A [Teensy 4](https://www.pjrc.com/teensy-4-0/) based FX unit with [Pocket Operator](https://teenage.engineering/products/po) style and playability.
 * 12 knobs, 4 buttons each with LED, and 4 LEDs showing automation cycle.
 * Combination of filtered reverb, ping pong filtered delay and a noise source, but this is [customisable](#Audio-patch).
 * Each knob can be automated (a bit like punch in effects on the Pocket Operators)
