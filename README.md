@@ -5,6 +5,8 @@
 * Playing with settings with [control.py](control.py) as I work on the hardware
 * Each knob can be automated (a bit like punch in effects on the Pocket Operators)
 
+[video series on development and use of the teensy-fx](https://www.youtube.com/playlist?list=PLmcDgdDpcaPg4DthWWuq7HqhB-hiN_gUg)
+
 # Hardware
 
 ![board](hardware/board.png)
