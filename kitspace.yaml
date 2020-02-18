@@ -1,0 +1,4 @@
+bom: hardware/teensy-fx-bom.csv
+eda:
+    type: kicad
+    pcb: hardware/teensy-fx.kicad_pcb

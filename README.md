@@ -17,6 +17,8 @@
 
 [photos](https://photos.app.goo.gl/ELiSmwA5KhBPN7PL9)
 
+Buy the right parts through the links on the [kitspace page](https://kitspace.org/boards/github.com/mattvenn/teensy-audio-fx).
+
 ## Hardware Resources
 
 Based off the teensy 4 audio board and the [teensy beats shield](https://hackaday.io/project/161127-teensy-beats-shield)
