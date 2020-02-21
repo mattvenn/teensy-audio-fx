@@ -2,7 +2,7 @@
 
 ## I2S 12MHz clock
 
-![i2s clock and fft](i2s clock.PNG)
+![i2s clock and fft](i2s-clock.PNG)
 
 ## Noise on input jack, nothing plugged in
 
