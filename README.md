@@ -17,6 +17,8 @@
 
 [photos](https://photos.app.goo.gl/ELiSmwA5KhBPN7PL9)
 
+[noise performance](docs/noise.md)
+
 Buy the right parts through the links on the [kitspace page](https://kitspace.org/boards/github.com/mattvenn/teensy-audio-fx).
 
 ## Hardware Resources
@@ -59,7 +61,7 @@ Based off the teensy 4 audio board and the [teensy beats shield](https://hackada
 * knob's leds brightness shows current value of parameter
 * record time is based on bpm tap tempo and number of steps (4 bars in control.py)
 * buttons are: tap tempo/sync, write, erase and start automation loop from beginning
-* press & hold tempo button to switch between tap tempo and PO sync mode (looks for full amp sync pulse on 1/8 notes on left channel).
+* press & hold tempo button to switch between tap tempo and [PO sync mode](docs/PO_sync_mode.md)
 * press write and move a knob to record its movement
 * moving a knob without pressing record will wipe the pattern and set it all to the current knob value
 * 4 leds on top right show progression through the automation loop
