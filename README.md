@@ -33,7 +33,7 @@ Based off the teensy 4 audio board and the [teensy beats shield](https://hackada
 
 ## Hardware V1: git commit 99c1038
 
-check the git repo out to the [hash](github.com/mattvenn/teensy-audio-fx/tree/99c1038) to make sure everything is in sync.
+check the git repo out to the [hash](https://github.com/mattvenn/teensy-audio-fx/tree/99c1038) to make sure everything is in sync.
 
 ### Errata
 
