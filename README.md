@@ -31,7 +31,9 @@ Based off the teensy 4 audio board and the [teensy beats shield](https://hackada
 * 4067 multiplexer for the knobs
 * pot RK09K1130AP5
 
-## Hardware V1: git hash 99c1038
+## Hardware V1: git commit 99c1038
+
+check the git repo out to the [hash](99c1038) to make sure everything is in sync.
 
 ### Errata
 
@@ -39,7 +41,7 @@ Based off the teensy 4 audio board and the [teensy beats shield](https://hackada
 * Swap LRCLK & BCLK - see pic [lrclk-bclk-swap](docs/lrclk-bclk-swap.png)
 * 2.2uF ceramics sound as good and are much cheaper than the 1uF acrylics for C8, C9, C14 & C15
 
-## Hardware V2
+## Hardware V2: git master
 
 * test points for mic input
 * separate regulator for pot 3.3v to reduce noise?
