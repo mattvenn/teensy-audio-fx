@@ -38,7 +38,7 @@ class BarTimer {
         int _step = 0;
         int _taps[NUM_TAPS] = {0};
         int _tap_count = 0;
-        bool _sync_mode = TAP;
+        bool _sync_mode = SYNC;
         bool _sync_led = false;
         unsigned long _last_tap = 0;
         int _step_millis;

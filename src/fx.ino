@@ -20,7 +20,18 @@ https://github.com/PaulStoffregen/Audio/tree/master/examples
 #include <SerialFlash.h>
 
 // GUItool: begin automatically generated code
+#include <Audio.h>
+#include <Wire.h>
+#include <SPI.h>
+#include <SD.h>
+#include <SerialFlash.h>
+
+// GUItool: begin automatically generated code
+AudioSynthNoisePink      pink2; //xy=60.000030517578125,799
 AudioInputI2S            i2s2;           //xy=63,319
+AudioSynthNoisePink      pink1;          //xy=63.000030517578125,744
+AudioFilterStateVariable filter_noise_l;        //xy=206.00003051757812,749
+AudioFilterStateVariable filter_noise_r; //xy=209.00003051757812,807
 AudioAnalyzePeak         peak1;          //xy=227,127
 AudioMixer4              mix_del_l;      //xy=312,424
 AudioMixer4              mix_del_r;      //xy=320,619
@@ -31,38 +42,36 @@ AudioFilterStateVariable filter_rev;        //xy=555,183
 AudioEffectDelay         delay_r;        //xy=614,867
 AudioEffectDelay         delay_l;        //xy=630,571
 AudioEffectFreeverbStereo freeverbs1;     //xy=642,279
-AudioSynthNoisePink      pink2; //xy=812,732
-AudioSynthNoisePink      pink1;          //xy=815,677
 AudioMixer4              mix_op_l;       //xy=949,382
 AudioMixer4              mix_op_r;       //xy=952,475
-AudioFilterStateVariable filter_noise_l;        //xy=958,682
-AudioFilterStateVariable filter_noise_r; //xy=961,740
 AudioOutputI2S           i2s1;           //xy=1179,417
-AudioConnection          patchCord1(i2s2, 0, peak1, 0);
-AudioConnection          patchCord2(i2s2, 1, mix_op_r, 0);
-AudioConnection          patchCord3(i2s2, 1, mix_del_r, 0);
-AudioConnection          patchCord4(i2s2, 1, mix_rev, 1);
-AudioConnection          patchCord5(i2s2, 1, mix_op_l, 0);
-AudioConnection          patchCord6(i2s2, 1, mix_del_l, 0);
-AudioConnection          patchCord7(mix_del_l, 0, filter_del_l, 0);
-AudioConnection          patchCord8(mix_del_r, 0, filter_del_r, 0);
-AudioConnection          patchCord9(mix_rev, 0, filter_rev, 0);
-AudioConnection          patchCord10(filter_del_r, 2, delay_r, 0);
-AudioConnection          patchCord11(filter_del_l, 2, delay_l, 0);
-AudioConnection          patchCord12(filter_rev, 2, freeverbs1, 0);
-AudioConnection          patchCord13(delay_r, 0, mix_op_r, 2);
-AudioConnection          patchCord14(delay_r, 0, mix_del_l, 1);
-AudioConnection          patchCord15(delay_l, 0, mix_op_l, 2);
-AudioConnection          patchCord16(delay_l, 0, mix_del_r, 1);
-AudioConnection          patchCord17(freeverbs1, 0, mix_op_l, 1);
-AudioConnection          patchCord18(freeverbs1, 1, mix_op_r, 1);
-AudioConnection          patchCord19(pink2, 0, filter_noise_r, 0);
-AudioConnection          patchCord20(pink1, 0, filter_noise_l, 0);
-AudioConnection          patchCord21(mix_op_l, 0, i2s1, 0);
-AudioConnection          patchCord22(mix_op_r, 0, i2s1, 1);
-AudioConnection          patchCord23(filter_noise_l, 1, mix_op_l, 3);
-AudioConnection          patchCord24(filter_noise_r, 1, mix_op_r, 3);
+AudioConnection          patchCord1(pink2, 0, filter_noise_r, 0);
+AudioConnection          patchCord2(i2s2, 0, peak1, 0);
+AudioConnection          patchCord3(i2s2, 1, mix_op_r, 0);
+AudioConnection          patchCord4(i2s2, 1, mix_del_r, 0);
+AudioConnection          patchCord5(i2s2, 1, mix_rev, 1);
+AudioConnection          patchCord6(i2s2, 1, mix_op_l, 0);
+AudioConnection          patchCord7(i2s2, 1, mix_del_l, 0);
+AudioConnection          patchCord8(pink1, 0, filter_noise_l, 0);
+AudioConnection          patchCord9(filter_noise_l, 1, mix_del_l, 2);
+AudioConnection          patchCord10(filter_noise_r, 1, mix_del_r, 2);
+AudioConnection          patchCord11(mix_del_l, 0, filter_del_l, 0);
+AudioConnection          patchCord12(mix_del_r, 0, filter_del_r, 0);
+AudioConnection          patchCord13(mix_rev, 0, filter_rev, 0);
+AudioConnection          patchCord14(filter_del_r, 2, delay_r, 0);
+AudioConnection          patchCord15(filter_del_l, 2, delay_l, 0);
+AudioConnection          patchCord16(filter_rev, 2, freeverbs1, 0);
+AudioConnection          patchCord17(delay_r, 0, mix_op_r, 2);
+AudioConnection          patchCord18(delay_r, 0, mix_del_l, 1);
+AudioConnection          patchCord19(delay_l, 0, mix_op_l, 2);
+AudioConnection          patchCord20(delay_l, 0, mix_del_r, 1);
+AudioConnection          patchCord21(freeverbs1, 0, mix_op_l, 1);
+AudioConnection          patchCord22(freeverbs1, 1, mix_op_r, 1);
+AudioConnection          patchCord23(mix_op_l, 0, i2s1, 0);
+AudioConnection          patchCord24(mix_op_r, 0, i2s1, 1);
 AudioControlSGTL5000     sgtl5000_1;     //xy=292,903
+// GUItool: end automatically generated code
+
 // GUItool: end automatically generated code
 
 #define MAX_DELAY 1200 // should be 2000ms with combined delay of 4000ms (2 delays).
@@ -294,8 +303,8 @@ void check_board()
                 mix_rev.gain(1, val);    // right to rev
                 break;
             case MIX_NOISE:
-                mix_op_l.gain(3, val); // noise
-                mix_op_r.gain(3, val); // noise
+                mix_del_l.gain(2, val/2); // noise
+                mix_del_r.gain(2, val/2); // noise
                 break;
         }
     }
@@ -311,6 +320,7 @@ void check_serial()
         char cmd = Serial.read();
         uint8_t val = Serial.read();
         float val_0_to_1 = float(val) / 255;
+        float val_0_to_05 = float(val) / 127;
         switch(cmd) {
             case REV_SIZE: 
                 freeverbs1.roomsize(val_0_to_1);
@@ -326,8 +336,8 @@ void check_serial()
                 Serial.print("mix delay: "); Serial.println(val);
                 break;
             case MIX_NOISE:
-                mix_op_l.gain(3, val_0_to_1); // noise
-                mix_op_r.gain(3, val_0_to_1); // noise
+                mix_del_l.gain(2, val_0_to_05); // noise to delay input
+                mix_del_r.gain(2, val_0_to_05); // noise to delay input
                 Serial.print("mix noise: "); Serial.println(val);
                 break;
             case MIX_SIG:
