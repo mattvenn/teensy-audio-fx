@@ -205,12 +205,16 @@ void check_pot()
 int last_step = 0;
 float peak;
 bool in_peak;
+bool delay_mode = true; // beat based delay
 
 void check_board()
 {
     delay(5); // limit rate of updates
     if(buttons[TAP_TEMPO].long_hold())
         bar_timer.inc_sync_mode();
+
+    if(buttons[SET_TO_ONE].long_hold())
+        delay_mode = !delay_mode;
 
     // look for sync signal
     if (peak1.available()) {
@@ -252,7 +256,7 @@ void check_board()
 
     // led for write & erase & set to one
     leds.set_data(NUM_POT_LEDS + WRITE, buttons[WRITE].pressed() ? MAX_LED : 0);
-    leds.set_data(NUM_POT_LEDS + SET_TO_ONE, buttons[SET_TO_ONE].pressed() ? MAX_LED : 0);
+    leds.set_data(NUM_POT_LEDS + SET_TO_ONE, delay_mode ? MAX_LED : 0);
     leds.set_data(NUM_POT_LEDS + ERASE, buttons[ERASE].pressed() ? MAX_LED : 0);
 
     for(int bar = 0; bar < NUM_BAR_LEDS; bar ++)
@@ -267,6 +271,12 @@ void check_board()
         
         // update sound parameters
         float val = controls[pot].get_val(bar_timer.get_step());
+
+        // beat based delay calcs
+        float delay_val = bar_timer.get_beat_ms() * int(val * 16);
+        if(delay_val > MAX_DELAY)
+            delay_val = MAX_DELAY;
+
         switch(pot) {
             case REV_SIZE: freeverbs1.roomsize(val); break;
             case REV_DAMP: freeverbs1.damping(val); break;
@@ -278,8 +288,19 @@ void check_board()
                 mix_del_l.gain(0, val); // delay
                 mix_del_r.gain(0, val); // delay
                 break;
-            case DEL_L_TIME: delay_l.delay(0, val*MAX_DELAY); break;
-            case DEL_R_TIME: delay_r.delay(0, val*MAX_DELAY); break;
+            // delay value is in milliseconds
+            case DEL_L_TIME: 
+                if(delay_mode)
+                    delay_l.delay(0, delay_val); 
+                else
+                    delay_l.delay(0, val * MAX_DELAY); 
+                break;
+            case DEL_R_TIME:
+                if(delay_mode)
+                    delay_r.delay(0, delay_val); 
+                else
+                    delay_r.delay(0, val * MAX_DELAY); 
+                break;
             case DEL_FB:
                 mix_del_r.gain(1, val);
                 mix_del_l.gain(1, val);

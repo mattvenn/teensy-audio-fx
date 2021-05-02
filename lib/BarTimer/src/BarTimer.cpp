@@ -102,6 +102,10 @@ void BarTimer::tap_tempo() {
     }
 }
 
+int BarTimer::get_beat_ms() {
+    return 60000 / (_bpm * 4);
+}
+
 void BarTimer::set_to_one() {
     _sync_beat = 0;
     _set_to(0);

@@ -25,6 +25,7 @@ class BarTimer {
         int get_led();
         bool bar_led(int bar);
         float get_step_millis();
+        int get_beat_ms();
 #ifndef ARDUINO
         int millis();
         void set_millis(int millis);
