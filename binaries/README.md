@@ -6,3 +6,5 @@
 * Press and hold 'set to 1' key to toggle on and off.
 * Max delay is limited to MAX_DELAY (currently 1200ms).
 
+* Delayed white noise level was too loud so reduced noise amount to half what it was.
+
