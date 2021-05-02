@@ -68,6 +68,19 @@ check the git repo out to the [hash](https://github.com/mattvenn/teensy-audio-fx
 * moving a knob without pressing record will wipe the pattern and set it all to the current knob value
 * 4 leds on top right show progression through the automation loop
 
+## Uploading
+
+* remove modemmanager
+* install teensy rules: https://www.pjrc.com/teensy/00-teensy.rules
+
+    sudo cp 49-teensy.rules /etc/udev/rules.d
+    sudo udevadm control --reload-rules
+    sudo udevadm trigger
+
+Then:
+
+    pio run --target upload --upload-port /dev/ttyACM0
+
 ## issues
 
 * freeverb [noise issue](https://forum.pjrc.com/threads/57046-Freeverb-with-low-input-levels-gt-noise-and-wierd-oscillating-quot-tone-quot) fixed [here](https://github.com/PaulStoffregen/Audio/pull/357)
