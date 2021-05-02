@@ -303,8 +303,8 @@ void check_board()
                 mix_rev.gain(1, val);    // right to rev
                 break;
             case MIX_NOISE:
-                mix_del_l.gain(2, val); // noise
-                mix_del_r.gain(2, val); // noise
+                mix_del_l.gain(2, val/2); // noise
+                mix_del_r.gain(2, val/2); // noise
                 break;
         }
     }
