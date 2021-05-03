@@ -79,11 +79,12 @@ check the git repo out to the [hash](https://github.com/mattvenn/teensy-audio-fx
 
 Then:
 
-    pio run --target upload --upload-port /dev/ttyACM0
+    make prog
 
 ## issues
 
 * freeverb [noise issue](https://forum.pjrc.com/threads/57046-Freeverb-with-low-input-levels-gt-noise-and-wierd-oscillating-quot-tone-quot) fixed [here](https://github.com/PaulStoffregen/Audio/pull/357)
+    * to fix this you can copy the local effect_freeverb over the one in ~/.platformio
 * if delay is not as long as expected (should be seconds), check teensy audio lib is up to date, older versions [didn't support teensy4's large memory](https://github.com/PaulStoffregen/Audio/commit/bbcfe3bd201d86aa7aa0e87d97c989f4259465de)
 
 # Audio patch
