@@ -6,6 +6,8 @@
 #define TAP_TIMEOUT 1000
 #define SYNC_STEPS 32
 
+#define WINDOW_SIZE 8
+
 enum SyncMode {
     TAP,
     SYNC,
@@ -46,6 +48,11 @@ class BarTimer {
         float _step_millis_fraction;
         float _next_step_fraction;
         unsigned long _next_step_millis;
+        int _beat_millis = 0;
+        int _avg_beat_millis_window[WINDOW_SIZE];
+        int _avg_beat_index = 0;
+        int _avg_beat_millis = 0;
+        int _beat_millis_sum = 0;
 #ifndef ARDUINO
         int _millis;
 #endif

@@ -94,6 +94,13 @@ Button buttons[NUM_BUTTONS] = { Button(0), Button(1), Button(17), Button(22) };
 Pots pots(5, 4, 2, 3, 14); // 14 for teensy fx pcb, 15 for audio pcb
 BarTimer bar_timer;
 
+// globals
+int last_step = 0;
+float peak;
+bool in_peak;
+bool delay_mode = true; // beat based delay
+
+
 enum ButtonType {
     TAP_TEMPO,
     SET_TO_ONE,
@@ -177,6 +184,7 @@ void setup() {
     bar_timer.set_bpm(120);
 }
 
+unsigned long last_update = 0;
 
 void loop()
 {
@@ -186,7 +194,21 @@ void loop()
 
     #ifdef BOARD_CONTROL
 //    check_pot();
-    check_board();
+
+    if(millis() - last_update > 5) {
+        last_update = millis();
+        check_board();
+    }
+
+    // look for sync signal
+    if (peak1.available()) {
+        if(peak1.read() > 0.7 && in_peak == false) {
+            bar_timer.sync_tempo();
+            in_peak = true;
+        }
+        else if(peak < 0.5)
+            in_peak = false;
+    } 
     #endif
 }
 
@@ -202,29 +224,14 @@ void check_pot()
     Serial.println("");
 }
 
-int last_step = 0;
-float peak;
-bool in_peak;
-bool delay_mode = true; // beat based delay
-
 void check_board()
 {
-    delay(5); // limit rate of updates
     if(buttons[TAP_TEMPO].long_hold())
         bar_timer.inc_sync_mode();
 
     if(buttons[SET_TO_ONE].long_hold())
         delay_mode = !delay_mode;
 
-    // look for sync signal
-    if (peak1.available()) {
-        if(peak1.read() > 0.5 && in_peak == false) {
-            bar_timer.sync_tempo();
-            in_peak = true;
-        }
-        else if(peak < 0.5)
-            in_peak = false;
-    } 
 
     // bar_timer buttons
     if(buttons[TAP_TEMPO].was_pressed())
@@ -273,7 +280,7 @@ void check_board()
         float val = controls[pot].get_val(bar_timer.get_step());
 
         // beat based delay calcs
-        float delay_val = bar_timer.get_beat_ms() * int(val * 16);
+        float delay_val = bar_timer.get_beat_ms() * int(val * 16 + 1);
         if(delay_val > MAX_DELAY)
             delay_val = MAX_DELAY;
 
@@ -290,8 +297,10 @@ void check_board()
                 break;
             // delay value is in milliseconds
             case DEL_L_TIME: 
-                if(delay_mode)
+                if(delay_mode) {
+                    //Serial.println(delay_val);
                     delay_l.delay(0, delay_val); 
+                    }
                 else
                     delay_l.delay(0, val * MAX_DELAY); 
                 break;

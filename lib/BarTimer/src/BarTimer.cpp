@@ -103,7 +103,7 @@ void BarTimer::tap_tempo() {
 }
 
 int BarTimer::get_beat_ms() {
-    return 60000 / (_bpm * 4);
+    return _avg_beat_millis;
 }
 
 void BarTimer::set_to_one() {
@@ -140,6 +140,14 @@ void BarTimer::set_bpm(int bpm) {
     _bpm = bpm;
     _step_millis = (60000.0 * 16.0 / MAX_STEPS) / _bpm;
     _step_millis_fraction = (60000.0 * 16.0 / MAX_STEPS) / _bpm - _step_millis;
+    _beat_millis = 60000 / (_bpm * 4);
+
+    // average
+    _beat_millis_sum = _beat_millis_sum - _avg_beat_millis_window[_avg_beat_index];
+    _avg_beat_millis_window[_avg_beat_index] = _beat_millis;
+    _beat_millis_sum = _beat_millis_sum + _beat_millis;
+    _avg_beat_index = (_avg_beat_index+1) % WINDOW_SIZE;
+    _avg_beat_millis = _beat_millis_sum / WINDOW_SIZE;
 }
 
 int BarTimer::get_step() {
