@@ -41,7 +41,7 @@ AudioFilterStateVariable filter_del_l;   //xy=495,488
 AudioFilterStateVariable filter_rev;        //xy=555,183
 AudioEffectDelay         delay_r;        //xy=614,867
 AudioEffectDelay         delay_l;        //xy=630,571
-AudioEffectFreeverbStereo freeverbs1;     //xy=642,279
+AudioEffectReverb        freeverbs1;     //xy=642,279
 AudioMixer4              mix_op_l;       //xy=949,382
 AudioMixer4              mix_op_r;       //xy=952,475
 AudioOutputI2S           i2s1;           //xy=1179,417
@@ -66,7 +66,7 @@ AudioConnection          patchCord18(delay_r, 0, mix_del_l, 1);
 AudioConnection          patchCord19(delay_l, 0, mix_op_l, 2);
 AudioConnection          patchCord20(delay_l, 0, mix_del_r, 1);
 AudioConnection          patchCord21(freeverbs1, 0, mix_op_l, 1);
-AudioConnection          patchCord22(freeverbs1, 1, mix_op_r, 1);
+AudioConnection          patchCord22(freeverbs1, 0, mix_op_r, 1);
 AudioConnection          patchCord23(mix_op_l, 0, i2s1, 0);
 AudioConnection          patchCord24(mix_op_r, 0, i2s1, 1);
 AudioControlSGTL5000     sgtl5000_1;     //xy=292,903
@@ -285,8 +285,8 @@ void check_board()
             delay_val = MAX_DELAY;
 
         switch(pot) {
-            case REV_SIZE: freeverbs1.roomsize(val); break;
-            case REV_DAMP: freeverbs1.damping(val); break;
+            case REV_SIZE: freeverbs1.reverbTime(8*val); break;
+//            case REV_DAMP: freeverbs1.damping(val); break;
             case MIX_SIG:
                 mix_op_l.gain(0, val); // dry
                 mix_op_r.gain(0, val); // dry
@@ -353,11 +353,11 @@ void check_serial()
         float val_0_to_05 = float(val) / 127;
         switch(cmd) {
             case REV_SIZE: 
-                freeverbs1.roomsize(val_0_to_1);
+                //freeverbs1.roomsize(val_0_to_1);
                 Serial.print("roomsize: "); Serial.println(val);
                 break;
             case REV_DAMP:
-                freeverbs1.damping(val_0_to_1);
+                //freeverbs1.damping(val_0_to_1);
                 Serial.print("damping: "); Serial.println(val);
                 break;
             case MIX_DEL:

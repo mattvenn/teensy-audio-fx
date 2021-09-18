@@ -1,3 +1,7 @@
+# sáb 18 sep 2021 18:36:15 CEST
+
+* switched from stereo freeverb to Eric's adjusted mono reverb. Doesn't have damping but sounds a lot better.
+
 # lun 03 may 2021 22:29:35 CEST
 
 * added an average for beat_ms because slight changes in detected incoming sync would change delay size by a few ms, leading to unwanted
